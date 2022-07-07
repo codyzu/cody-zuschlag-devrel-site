@@ -1,0 +1,78 @@
+/* Adapted from https://www.linkedin.com/posts/jheytompkins_css-javascript-speedycsstip-ugcPost-6932346490975621120-7N3S?utm_source=linkedin_share&utm_medium=member_desktop_web */
+:root {
+  --color: var(--bs-white);
+  --speed: 0.65s;
+}
+
+.whiteShadow {
+  box-shadow: 0 1rem 3rem rgba(255 255 255 / 18%);
+}
+
+.funky h1 span {
+  position: relative;
+  clip-path: inset(-20% 0);
+  animation-name: text-reveal, shimmy;
+  animation-duration: var(--speed);
+  animation-delay: calc((0.5 + var(--index)) * (var(--speed) / 3));
+  animation-fill-mode: both;
+  animation-timing-function: steps(1), ease-out;
+}
+
+@keyframes shimmy {
+  0% {
+    transform: translateX(-1ch);
+  }
+}
+
+@keyframes text-reveal {
+  0% {
+    color: transparent;
+  }
+  50%,
+  100% {
+    color: var(--color);
+  }
+}
+
+.funky h1 span:after {
+  content: '';
+  position: absolute;
+  inset: -20% 0;
+  background-color: var(--color);
+  animation-name: block-reveal;
+  animation-duration: var(--speed);
+  animation-delay: calc((0.5 + var(--index)) * (var(--speed) / 3));
+  animation-fill-mode: both;
+}
+
+@keyframes block-reveal {
+  0% {
+    transform: translateX(-110%);
+  }
+  45%,
+  55% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(110%);
+  }
+}
+
+.funky h1 span:nth-of-type(1) {
+  --index: 0;
+}
+
+.funky h1 span:nth-of-type(2) {
+  --index: 1;
+}
+
+.funky h1 span:nth-of-type(3) {
+  --index: 2;
+}
+
+.hero {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url('/background.jpeg');
+  background-position: top;
+  background-size: cover;
+}

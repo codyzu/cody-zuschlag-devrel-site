@@ -1,0 +1,30 @@
+{
+  "name": "cody-zuschlag-devrel",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "bootstrap": "^5.1.3",
+    "bootswatch": "^5.1.3",
+    "clsx": "^1.1.1",
+    "mapbox-gl": "npm:empty-npm-package@^1.0.0",
+    "maplibre-gl": "^2.1.9",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-icons": "^4.4.0",
+    "react-map-gl": "^7.0.17",
+    "reactstrap": "^9.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^1.3.0",
+    "typescript": "^4.6.3",
+    "vite": "^2.9.9",
+    "xo": "^0.50.0"
+  }
+}
