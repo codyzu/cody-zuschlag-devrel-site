@@ -1,12 +1,10 @@
 import {Container} from 'reactstrap';
 import cx from 'clsx';
-import React, {Suspense} from 'react';
 import coverClasses from './cover.module.css';
 import About from './About';
 import Socials from './Socials';
 import Talks from './Talks';
-// Import Location from './Location';
-const Location = React.lazy(async () => import('./Location'));
+import Location from './Location';
 
 export default function Home() {
   return (
@@ -28,9 +26,7 @@ export default function Home() {
         <About />
         <Socials />
         <Talks />
-        <Suspense>
-          <Location />
-        </Suspense>
+        <Location />
       </Container>
     </>
   );
