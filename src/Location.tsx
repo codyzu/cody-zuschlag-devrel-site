@@ -21,8 +21,14 @@ export default function Location() {
         </div>
       </Col>
       <Col className="align-self-start">
-        <h1 className="display-5 fw-bold lh-1 mb-3">Based from</h1>
-        <p className="lead">Annecy, France</p>
+        <Row>
+          <Col>
+            <h1 className="display-5 fw-bold lh-1">Based from</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col className="lead">Annecy, France</Col>
+        </Row>
       </Col>
     </Row>
   );

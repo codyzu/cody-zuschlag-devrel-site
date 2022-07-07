@@ -23,23 +23,33 @@ export default function About() {
         </div>
       </Col>
       <Col className="align-self-start">
-        <h2 className="display-5 fw-bold lh-1 mb-3">About me</h2>
-        <h5>International Speaker</h5>
-        <h5>
-          Developer Relations Engineer @{' '}
-          <a href="https://nearform.com" className="text-decoration-none">
-            NearForm
-          </a>
-        </h5>
-        <h5>
-          University Instructor @{' '}
-          <a
-            href="https://www.iut-acy.univ-smb.fr/"
-            className="text-decoration-none"
-          >
-            IUT Annecy
-          </a>
-        </h5>
+        <Row xs={1}>
+          <Col className="mb-3">
+            <h2 className="display-5 fw-bold lh-1">About me</h2>
+          </Col>
+          <Col className="mb-1">
+            <h5>International Speaker</h5>
+          </Col>
+          <Col className="mb-1">
+            <h5>
+              Developer Relations Engineer @{' '}
+              <a href="https://nearform.com" className="text-decoration-none">
+                NearForm
+              </a>
+            </h5>
+          </Col>
+          <Col className="mb-1">
+            <h5>
+              University Instructor @{' '}
+              <a
+                href="https://www.iut-acy.univ-smb.fr/"
+                className="text-decoration-none"
+              >
+                IUT Annecy
+              </a>
+            </h5>
+          </Col>
+        </Row>
       </Col>
     </Row>
   );
