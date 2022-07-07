@@ -11,45 +11,48 @@ export default function Talks() {
       )}
     >
       <Col className="align-self-start">
-        <h1 className="display-5 fw-bold lh-1 mb-3">My Talks</h1>
-        <p className="lead">
-          All of my previous and planned future speaking experience
-        </p>
-        <Table responsive>
-          <thead>
-            <tr>
-              <th>Conference</th>
-              <th>Talk</th>
-              <th>Location</th>
-              <th>Date</th>
-              <th>Video</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">ReactSummit</th>
-              <td>Modern Full-Stack</td>
-              <td>Amsterdam, Netherlands</td>
-              <td>{new Date('2022-06-17').toLocaleDateString()}</td>
-              <td>
-                <Badge pill color="secondary">
-                  Coming soon
-                </Badge>
-              </td>
-            </tr>
-            <tr>
-              <th scope="row">Caribbean Developers Conference</th>
-              <td>Design Tokens</td>
-              <td>Dominican Republic</td>
-              <td>{new Date('2022-11-03').toLocaleDateString()}</td>
-              <td>
-                <Badge pill color="secondary">
-                  Coming soon
-                </Badge>
-              </td>
-            </tr>
-          </tbody>
-        </Table>
+        <Row className="mb-3">
+          <Col>
+            <h1 className="display-5 fw-bold lh-1">Speaking engagements</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <p className="lead">
+              All of my previous and planned future speaking experience
+            </p>
+          </Col>
+        </Row>
+        <Row className="mt-4">
+          <Col>
+            <h5>ReactSummit</h5>
+          </Col>
+        </Row>
+        <Row className="ms-3" xs={1} sm={2} md={4}>
+          <Col>Modern Full-Stack</Col>
+          <Col>{new Date('2022-06-17').toLocaleDateString()}</Col>
+          <Col>Amsterdam, Netherlands</Col>
+          <Col>
+            <Badge pill color="secondary">
+              Video coming soon
+            </Badge>
+          </Col>
+        </Row>
+        <Row className="mt-4">
+          <Col>
+            <h5>Caribbean Developers Conference</h5>
+          </Col>
+        </Row>
+        <Row className="ms-3" xs={1} sm={2} md={4}>
+          <Col>Design Tokens</Col>
+          <Col>{new Date('2022-11-03').toLocaleDateString()}</Col>
+          <Col>Dominican Republic</Col>
+          <Col>
+            <Badge pill color="secondary">
+              Video coming soon
+            </Badge>
+          </Col>
+        </Row>
       </Col>
     </Row>
   );
