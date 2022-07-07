@@ -14,12 +14,10 @@ export default function Location() {
       )}
     >
       <Col lg={6} className="mb-3 mb-lg-0">
-        <div className="ratio ratio-16x9">
-          <div>
-            <Suspense>
-              <Map />
-            </Suspense>
-          </div>
+        <div className="w-100" style={{height: '315px'}}>
+          <Suspense>
+            <Map />
+          </Suspense>
         </div>
       </Col>
       <Col className="align-self-start">
