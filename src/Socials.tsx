@@ -1,6 +1,11 @@
 import {Row, Col, Container} from 'reactstrap';
-import {FaTwitter, FaGithub, FaMedium, FaLinkedin} from 'react-icons/fa';
-import {MdOutlineArticle} from 'react-icons/md';
+import {
+  FaTwitter,
+  FaGithub,
+  FaMedium,
+  FaLinkedin,
+  FaRegNewspaper,
+} from 'react-icons/fa';
 import cx from 'clsx';
 import heroClasses from './hero.module.css';
 
@@ -63,7 +68,7 @@ export default function Socials() {
                   href="https://www.nearform.com/author/cody-zuschlag/"
                   className="text-decoration-none"
                 >
-                  <MdOutlineArticle /> Blog
+                  <FaRegNewspaper /> Blog
                 </a>
               </h4>
             </Col>
