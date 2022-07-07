@@ -4,10 +4,6 @@
   --speed: 0.65s;
 }
 
-.whiteShadow {
-  box-shadow: 0 1rem 3rem rgba(255 255 255 / 18%);
-}
-
 .funky h1 span {
   position: relative;
   clip-path: inset(-20% 0);
@@ -28,6 +24,7 @@
   0% {
     color: transparent;
   }
+
   50%,
   100% {
     color: var(--color);
@@ -49,10 +46,12 @@
   0% {
     transform: translateX(-110%);
   }
+
   45%,
   55% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(110%);
   }
