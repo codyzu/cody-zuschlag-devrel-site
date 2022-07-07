@@ -71,7 +71,7 @@
 
 .hero {
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
-    url('/background.jpeg');
+    url('./images/background.jpeg');
   background-position: top;
   background-size: cover;
 }
