@@ -11,7 +11,7 @@ export default function About() {
         heroClasses.whiteShadow,
       )}
     >
-      <Col lg={6} className="mb-3 mb-lg-0">
+      <Col lg={6} className="mb-5 mb-lg-0 px-0 px-lg-3">
         <div className="ratio ratio-16x9">
           <img
             src={logo}
