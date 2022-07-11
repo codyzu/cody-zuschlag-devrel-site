@@ -1,7 +1,7 @@
 import {Row, Col} from 'reactstrap';
 import cx from 'clsx';
 import heroClasses from './hero.module.css';
-import logo from './images/nearform.svg';
+import logo from './images/logo_white.svg';
 
 export default function About() {
   return (
