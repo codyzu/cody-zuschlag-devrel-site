@@ -5,12 +5,9 @@ import Talk from './Talk';
 import talks from './talks';
 
 export default function Talks() {
-  console.log(
-    new Date('2022-06-17T12:00Z'),
-    new Date('2022-06-17T12:00Z').toLocaleDateString(),
-  );
   return (
     <Row
+      id="talks"
       className={cx(
         'flex-lg-row-reverse align-items-center mb-5 p-5 mx-3 rounded',
         heroClasses.whiteShadow,
