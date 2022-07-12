@@ -24,7 +24,7 @@ export default function Socials() {
           </Col>
         </Row>
         <Row className="mb-3">
-          <Col className="lead">Find me at these places</Col>
+          <Col className="lead">Reach out to me at these places</Col>
         </Row>
         <Row className="gy-2">
           <Col xs="auto">
