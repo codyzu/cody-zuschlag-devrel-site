@@ -5,7 +5,6 @@ module.exports = {
     {
       files: "**/*.tsx",
       // envs: ['es2021', 'browser'],
-      // extends: "xo-react",
       rules: {
         // "react/react-in-jsx-scope": "off",
         "unicorn/filename-case": [
@@ -15,6 +14,12 @@ module.exports = {
           },
         ],
         "n/file-extension-in-import": "off",
+        "import/extensions": "off",
+      },
+    },
+    {
+      files: "**/*.ts",
+      rules: {
         "import/extensions": "off",
       },
     },
