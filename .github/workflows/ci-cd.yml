@@ -1,8 +1,5 @@
 name: "CI/CD"
 on:
-  pull_request:
-    types: [opened, synchronize, reopen]
-
   push:
     branches:
       - main
