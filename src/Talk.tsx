@@ -1,5 +1,6 @@
 import {Row, Col, Badge} from 'reactstrap';
-import {FaVideo} from 'react-icons/fa';
+import {FaVideo, FaGithub} from 'react-icons/fa';
+import {TbPresentation} from 'react-icons/tb';
 import {Talk as TalkDef} from './talk';
 
 interface Props {
@@ -20,15 +21,33 @@ export default function Talk({talk}: Props) {
         <Col>{new Date(talk.date).toLocaleDateString()}</Col>
         <Col>{talk.location}</Col>
         <Col>
-          {talk.videoLink ? (
-            <a className="text-decoration-none" href={talk.videoLink}>
-              <FaVideo /> Watch now
-            </a>
-          ) : (
-            <Badge pill color="secondary">
-              Video coming soon
-            </Badge>
-          )}
+          <Row xs={1}>
+            <Col>
+              {talk.video ? (
+                <a className="text-decoration-none" href={talk.video}>
+                  <FaVideo /> Watch now
+                </a>
+              ) : (
+                <Badge pill color="secondary">
+                  Video coming soon
+                </Badge>
+              )}
+            </Col>
+            {talk.slides && (
+              <Col>
+                <a className="text-decoration-none" href={talk.slides}>
+                  <TbPresentation /> Slides
+                </a>
+              </Col>
+            )}
+            {talk.repo && (
+              <Col>
+                <a className="text-decoration-none" href={talk.repo}>
+                  <FaGithub /> GitHub Repo
+                </a>
+              </Col>
+            )}
+          </Row>
         </Col>
       </Row>
     </>

@@ -3,5 +3,7 @@ export type Talk = {
   name: string;
   date: string;
   location: string;
-  videoLink: string | undefined;
+  video?: string;
+  slides?: string;
+  repo?: string;
 };
