@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default function Talk({talk}: Props) {
-  console.log(talk);
   return (
     <>
       <Row className="mt-4">
@@ -23,7 +22,7 @@ export default function Talk({talk}: Props) {
         <Col>
           <Row xs={1}>
             <Col>
-              {talk.video ? (
+              {talk.video === 'none' ? null : talk.video ? (
                 <a className="text-decoration-none" href={talk.video}>
                   <FaVideo /> Watch now
                 </a>
