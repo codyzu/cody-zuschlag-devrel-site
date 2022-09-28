@@ -8,6 +8,12 @@ const talks: Talk[] = [
     location: 'Kilkenny, Ireland',
   },
   {
+    conference: 'NodeConf EU',
+    name: 'From zero to GraphQL Workshop',
+    date: '2022-10-03T15:00Z',
+    location: 'Kilkenny, Ireland',
+  },
+  {
     conference: 'ReactSummit',
     name: 'Full-stack JS today: Fastify, GraphQL and React',
     date: '2022-06-17T12:00Z',
