@@ -27,7 +27,7 @@ export default function Home() {
         <About />
         <Socials />
         <TalkList />
-        <ArticleList />
+        {/* <ArticleList /> */}
         <Location />
       </Container>
     </>
