@@ -1,7 +1,7 @@
 import {Row, Col, Badge} from 'reactstrap';
 import {FaVideo, FaGithub} from 'react-icons/fa';
 import {TbPresentation} from 'react-icons/tb';
-import {Talk as TalkDef} from './talk';
+import {Talk as TalkDef} from './talk-type';
 
 interface Props {
   talk: TalkDef;

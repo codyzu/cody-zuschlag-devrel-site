@@ -3,7 +3,8 @@ import cx from 'clsx';
 import coverClasses from './cover.module.css';
 import About from './About';
 import Socials from './Socials';
-import Talks from './Talks';
+import TalkList from './TalkList';
+import ArticleList from './ArticleList';
 import Location from './Location';
 
 export default function Home() {
@@ -25,7 +26,8 @@ export default function Home() {
       <Container className="mt-5">
         <About />
         <Socials />
-        <Talks />
+        <TalkList />
+        <ArticleList />
         <Location />
       </Container>
     </>

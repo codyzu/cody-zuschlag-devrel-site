@@ -1,4 +1,4 @@
-import {Talk} from './talk';
+import {Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
