@@ -1,6 +1,4 @@
-import {Row, Col, Badge} from 'reactstrap';
-// Import {FaVideo, FaGithub} from 'react-icons/fa';
-// import {TbPresentation} from 'react-icons/tb';
+import {Row, Col} from 'reactstrap';
 import {Article as ArticleDef} from './article-type';
 
 interface Props {
@@ -8,7 +6,6 @@ interface Props {
 }
 
 export default function Article({article}: Props) {
-  console.log(article);
   return (
     <Row className="mt-4 ms-xs-3">
       <Col>
