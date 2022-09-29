@@ -46,6 +46,13 @@ export default function About() {
                 className="text-decoration-none"
               >
                 IUT Annecy
+              </a>{' '}
+              &amp;{' '}
+              <a
+                href="https://www.tetras.univ-smb.fr/"
+                className="text-decoration-none"
+              >
+                Tetras
               </a>
             </h5>
           </Col>
