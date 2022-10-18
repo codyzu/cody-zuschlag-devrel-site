@@ -3,13 +3,10 @@ import {Talk} from './talk-type';
 const talks: Talk[] = [
   {
     conference: 'NodeConf EU',
-    name: 'Full-stack JS today: Fastify, GraphQL and React',
-    date: '2022-10-03T12:00Z',
+    name: 'Fireside chat with Matteo Collina',
+    date: '2022-10-04T12:00Z',
     location: 'Kilkenny, Ireland',
-    video: 'https://youtu.be/guAMBFqKSF4',
-    slides:
-      'https://docs.google.com/presentation/d/1vHYSlgV8pSI3kobGQlYxfssvaeZrGA4BqDn0qLGDmYg/edit?usp=sharing',
-    repo: 'https://github.com/codyzu/mfs-js',
+    video: 'https://youtu.be/69W5TLKK1Sk',
   },
   {
     conference: 'NodeConf EU',
@@ -17,6 +14,16 @@ const talks: Talk[] = [
     date: '2022-10-04T12:00Z',
     location: 'Kilkenny, Ireland',
     video: 'https://youtu.be/XktEZKOIaXY',
+  },
+  {
+    conference: 'NodeConf EU',
+    name: 'Full-stack JS today: Fastify, GraphQL and React',
+    date: '2022-10-03T12:00Z',
+    location: 'Kilkenny, Ireland',
+    video: 'https://youtu.be/guAMBFqKSF4',
+    slides:
+      'https://docs.google.com/presentation/d/1vHYSlgV8pSI3kobGQlYxfssvaeZrGA4BqDn0qLGDmYg/edit?usp=sharing',
+    repo: 'https://github.com/codyzu/mfs-js',
   },
   {
     conference: 'NodeConf EU',
