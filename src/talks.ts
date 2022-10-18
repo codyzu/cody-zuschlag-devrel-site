@@ -13,6 +13,13 @@ const talks: Talk[] = [
   },
   {
     conference: 'NodeConf EU',
+    name: 'Fireside chat with James Snell',
+    date: '2022-10-04T12:00Z',
+    location: 'Kilkenny, Ireland',
+    video: 'https://youtu.be/XktEZKOIaXY',
+  },
+  {
+    conference: 'NodeConf EU',
     name: 'From zero to GraphQL Workshop',
     date: '2022-10-03T15:00Z',
     location: 'Kilkenny, Ireland',
