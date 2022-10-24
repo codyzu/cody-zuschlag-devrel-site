@@ -17,6 +17,20 @@ const talks: Talk[] = [
   },
   {
     conference: 'NodeConf EU',
+    name: 'Fireside chat with Mikeal Rogers',
+    date: '2022-10-04T12:00Z',
+    location: 'Kilkenny, Ireland',
+    video: 'https://youtu.be/pSM__WKciMg',
+  },
+  {
+    conference: 'NodeConf EU',
+    name: 'Fireside chat with Paolo Fragomeni',
+    date: '2022-10-04T12:00Z',
+    location: 'Kilkenny, Ireland',
+    video: 'https://youtu.be/NYGZ7Vljuqo',
+  },
+  {
+    conference: 'NodeConf EU',
     name: 'Full-stack JS today: Fastify, GraphQL and React',
     date: '2022-10-03T12:00Z',
     location: 'Kilkenny, Ireland',
