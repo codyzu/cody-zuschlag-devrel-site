@@ -6,6 +6,7 @@ import Socials from './Socials';
 import TalkList from './TalkList';
 import ArticleList from './ArticleList';
 import Location from './Location';
+import Tweets from './Tweets';
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
         <TalkList />
         <ArticleList />
         <Location />
+        <Tweets />
       </Container>
     </>
   );
