@@ -2,6 +2,11 @@ import {Article} from './article-type';
 
 const articles: Article[] = [
   {
+    title: '6 Tips for Developing Enterprise React Native Applications',
+    url: 'https://www.nearform.com/blog/6-tips-develop-enterprise-react-native-apps/',
+    date: '2022-10-25T12:00Z',
+  },
+  {
     title: 'Building a Design System of Systems',
     url: 'https://www.nearform.com/blog/building-a-design-system-of-systems/',
     date: '2022-05-17T12:00Z',
