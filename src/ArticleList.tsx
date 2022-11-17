@@ -7,7 +7,7 @@ import articles from './articles';
 export default function ArticleList() {
   return (
     <Row
-      id="Articles"
+      id="articles"
       className={cx(
         'flex-lg-row-reverse align-items-center mb-5 p-5 mx-3 rounded',
         heroClasses.whiteShadow,

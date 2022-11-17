@@ -18,7 +18,6 @@ export default function Tweets() {
 
   return (
     <Row
-      id="tweets"
       className={cx(
         'flex-lg-row-reverse align-items-center mb-5 p-5 mx-3 rounded',
         heroClasses.whiteShadow,
