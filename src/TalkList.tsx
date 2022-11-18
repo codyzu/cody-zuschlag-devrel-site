@@ -25,7 +25,7 @@ export default function Talks() {
           </Col>
         </Row>
         {talks.map((talk) => (
-          <Talk key={talk.date} talk={talk} />
+          <Talk key={`${talk.name}-${talk.date}`} talk={talk} />
         ))}
       </Col>
     </Row>

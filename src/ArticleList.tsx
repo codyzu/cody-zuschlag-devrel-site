@@ -23,7 +23,7 @@ export default function ArticleList() {
           <Col className="lead">A curated list of written content</Col>
         </Row>
         {articles.map((article) => (
-          <Article key={article.date} article={article} />
+          <Article key={`${article.title}-${article.date}`} article={article} />
         ))}
       </Col>
     </Row>
