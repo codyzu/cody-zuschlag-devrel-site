@@ -1,5 +1,6 @@
 import {Container} from 'reactstrap';
 import cx from 'clsx';
+import {useEffect} from 'react';
 import coverClasses from './cover.module.css';
 import About from './About';
 import Socials from './Socials';
@@ -9,6 +10,16 @@ import Location from './Location';
 import Tweets from './Tweets';
 
 export default function Home() {
+  // https://stackoverflow.com/a/72494010
+  useEffect(() => {
+    if (window.location.hash) {
+      const element = document.querySelector(window.location.hash);
+      if (element) {
+        element.scrollIntoView();
+      }
+    }
+  }, []);
+
   return (
     <>
       <div
