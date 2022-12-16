@@ -2,6 +2,13 @@ import {Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'Lyra',
+    name: 'Lyra, hold my beer! Fireside chat with Michele Riva & Paolo Insogna',
+    date: '2022-12-07T12:00Z',
+    location: 'Virtual',
+    video: 'https://youtu.be/gG2l9ZfgipU',
+  },
+  {
     conference: 'IPFS Camp Lisbon',
     name: 'Fireside chat with Paolo Insogna',
     date: '2022-10-28T12:00Z',

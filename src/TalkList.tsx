@@ -16,7 +16,9 @@ export default function Talks() {
       <Col className="align-self-start">
         <Row>
           <Col>
-            <h1 className="display-5 fw-bold lh-1">Speaking engagements</h1>
+            <h1 className="display-5 fw-bold lh-1">
+              Speaking engagements and videos
+            </h1>
           </Col>
         </Row>
         <Row className="mb-3">
