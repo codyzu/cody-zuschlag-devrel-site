@@ -1,6 +1,13 @@
-import {Talk} from './talk-type';
+import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
+  {
+    conference: 'Open Source',
+    name: 'Inclusion and Diversity in Open Source | Fireside chat with Robin Ginn and NearForm DX team',
+    date: '2023-01-10T12:00Z',
+    location: 'Virtual',
+    video: 'https://youtu.be/sa0GwlmIMJY',
+  },
   {
     conference: 'Lyra',
     name: 'Lyra, hold my beer! Fireside chat with Michele Riva & Paolo Insogna',
