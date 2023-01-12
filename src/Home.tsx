@@ -1,4 +1,3 @@
-import {Container} from 'reactstrap';
 import cx from 'clsx';
 import {useEffect} from 'react';
 import coverClasses from './cover.module.css';
@@ -24,9 +23,9 @@ export default function Home() {
     <>
       <div
         className={cx(
-          'vw-100 vh-100 overflow-hidden text-center d-flex justify-content-center mw-100',
           coverClasses.funky,
-          coverClasses.hero,
+          // CoverClasses.hero,
+          "vw-100 vh-100 overflow-hidden text-center d-flex justify-content-center mw-100 bg-black cover top bg-[url('./images/background.jpeg')]",
         )}
       >
         <h1 className="fw-bold d-inline-flex flex-column align-items-center align-self-center">
@@ -35,14 +34,14 @@ export default function Home() {
         </h1>
       </div>
 
-      <Container className="mt-5">
+      <div className="mt-5 container max-w-screen-xl mx-auto">
         <About />
         <Socials />
         <TalkList />
         <ArticleList />
         <Location />
         <Tweets />
-      </Container>
+      </div>
     </>
   );
 }

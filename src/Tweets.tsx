@@ -1,7 +1,6 @@
 import {useEffect} from 'react';
-import {Row, Col} from 'reactstrap';
-import cx from 'clsx';
-import heroClasses from './hero.module.css';
+import Section from './Section';
+import SectionTitle from './SectionTitle';
 
 export default function Tweets() {
   useEffect(() => {
@@ -17,30 +16,17 @@ export default function Tweets() {
   }, []);
 
   return (
-    <Row
-      className={cx(
-        'flex-lg-row-reverse align-items-center mb-5 p-5 mx-3 rounded',
-        heroClasses.whiteShadow,
-      )}
-    >
-      <Col className="align-self-start">
-        <Row className="mb-3">
-          <Col>
-            <h1 className="display-5 fw-bold lh-1">Recent tweets</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <a
-              className="twitter-timeline"
-              data-theme="dark"
-              href="https://twitter.com/codyzus?ref_src=twsrc%5Etfw"
-            >
-              Tweets by codyzus
-            </a>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
+    <Section>
+      <SectionTitle title="Recent tweets" />
+      <div>
+        <a
+          className="twitter-timeline"
+          data-theme="dark"
+          href="https://twitter.com/codyzus?ref_src=twsrc%5Etfw"
+        >
+          Tweets by codyzus
+        </a>
+      </div>
+    </Section>
   );
 }

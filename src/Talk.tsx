@@ -1,54 +1,42 @@
-import {Row, Col, Badge} from 'reactstrap';
-import {FaVideo, FaGithub} from 'react-icons/fa';
-import {TbPresentation} from 'react-icons/tb';
-import {Talk as TalkDef} from './talk-type';
+import {type Talk as TalkDef} from './talk-type';
+import {Link} from './Link';
 
-interface Props {
+type Props = {
   talk: TalkDef;
-}
+};
 
 export default function Talk({talk}: Props) {
   return (
     <>
-      <Row className="mt-4">
-        <Col>
-          <h5>{talk.conference}</h5>
-        </Col>
-      </Row>
-      <Row className="ms-3" xs={1} sm={2} md={4}>
-        <Col>{talk.name}</Col>
-        <Col>{new Date(talk.date).toLocaleDateString()}</Col>
-        <Col>{talk.location}</Col>
-        <Col>
-          <Row xs={1}>
-            <Col>
-              {talk.video === 'none' ? null : talk.video ? (
-                <a className="text-decoration-none" href={talk.video}>
-                  <FaVideo /> Watch now
-                </a>
-              ) : (
-                <Badge pill color="secondary">
-                  Video coming soon
-                </Badge>
-              )}
-            </Col>
-            {talk.slides && (
-              <Col>
-                <a className="text-decoration-none" href={talk.slides}>
-                  <TbPresentation /> Slides
-                </a>
-              </Col>
-            )}
-            {talk.repo && (
-              <Col>
-                <a className="text-decoration-none" href={talk.repo}>
-                  <FaGithub /> GitHub Repo
-                </a>
-              </Col>
-            )}
-          </Row>
-        </Col>
-      </Row>
+      <div className="mt-4">
+        <h5>{talk.conference}</h5>
+      </div>
+      <div className="ms-3 grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+        <div>{talk.name}</div>
+        <div>{new Date(talk.date).toLocaleDateString()}</div>
+        <div>{talk.location}</div>
+        <div className="flex flex-col items-start">
+          {talk.video === 'none' ? null : talk.video ? (
+            <Link icon="i-lucide-video" url={talk.video}>
+              Watch now
+            </Link>
+          ) : (
+            <div className="bg-blue-600 text-black rounded-full px-2">
+              Video coming soon
+            </div>
+          )}
+          {talk.slides && (
+            <Link icon="i-lucide-monitor" url={talk.slides}>
+              Slides
+            </Link>
+          )}
+          {talk.repo && (
+            <Link icon="i-lucide-github" url={talk.repo}>
+              GitHub repo
+            </Link>
+          )}
+        </div>
+      </div>
     </>
   );
 }
