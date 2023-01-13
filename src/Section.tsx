@@ -11,7 +11,7 @@ export default function Section({
   return (
     <div
       {...props}
-      className="flex flex-col mb-5 p-5 mx-3 rounded shadow-light-900 shadow-xl"
+      className="flex flex-col mb-8 p-12 mx-3 rounded section-shadow"
     >
       {children}
     </div>

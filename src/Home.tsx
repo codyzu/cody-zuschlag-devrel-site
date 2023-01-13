@@ -20,15 +20,15 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <div className='font-sans text-white'>
       <div
         className={cx(
           coverClasses.funky,
           // CoverClasses.hero,
-          "vw-100 vh-100 overflow-hidden text-center d-flex justify-content-center mw-100 bg-black cover top bg-[url('./images/background.jpeg')]",
+          "w-screen h-screen overflow-hidden text-center flex justify-center max-w-full bg-black bg-cover-faded bg-top bg-cover  from-transparent to-gray",
         )}
       >
-        <h1 className="fw-bold d-inline-flex flex-column align-items-center align-self-center">
+        <h1 className="fw-bold inline-flex flex-col items-center self-center text-7xl leading-tight">
           <span>Cody</span>
           <span>Zuschlag</span>
         </h1>
@@ -42,6 +42,6 @@ export default function Home() {
         <Location />
         <Tweets />
       </div>
-    </>
+    </div>
   );
 }

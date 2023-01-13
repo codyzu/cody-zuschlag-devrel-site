@@ -8,10 +8,8 @@ type Props = {
 export default function Talk({talk}: Props) {
   return (
     <>
-      <div className="mt-4">
-        <h5>{talk.conference}</h5>
-      </div>
-      <div className="ms-3 grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+      <div className="mt-6 text-2xl mb-2">{talk.conference}</div>
+      <div className="ml-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-gray gap-4">
         <div>{talk.name}</div>
         <div>{new Date(talk.date).toLocaleDateString()}</div>
         <div>{talk.location}</div>

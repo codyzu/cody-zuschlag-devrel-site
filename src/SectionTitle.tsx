@@ -6,11 +6,9 @@ export default function SectionTitle({
   subtitle?: string;
 }) {
   return (
-    <div className="flex flex-col mb-3">
-      <div>
-        <h1 className="display-5 fw-bold lh-1">{title}</h1>
-      </div>
-      {subtitle && <div className="lead">{subtitle}</div>}
+    <div className="flex flex-col mb-4">
+      <div className="fw-bold text-5xl mb-4">{title}</div>
+      {subtitle && <div className="text-gray text-xl">{subtitle}</div>}
     </div>
   );
 }
