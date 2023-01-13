@@ -4,6 +4,7 @@ import viteRadar from 'vite-plugin-radar';
 import unocss from 'unocss/vite';
 import presetUno from '@unocss/preset-uno';
 import presetIcons from '@unocss/preset-icons';
+import presetWebFonts from '@unocss/preset-web-fonts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -15,6 +16,13 @@ export default defineConfig({
           extraProperties: {
             display: 'inline-block',
             'vertical-align': 'middle',
+          },
+        }),
+        presetWebFonts({
+          provider: 'bunny', // Default provider
+          fonts: {
+            // These will extend the default theme
+            sans: 'Roboto:400,700',
           },
         }),
       ],

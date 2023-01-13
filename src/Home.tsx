@@ -20,12 +20,12 @@ export default function Home() {
   }, []);
 
   return (
-    <div className='font-sans text-white'>
+    <div className="font-sans text-white">
       <div
         className={cx(
           coverClasses.funky,
           // CoverClasses.hero,
-          "w-screen h-screen overflow-hidden text-center flex justify-center max-w-full bg-black bg-cover-faded bg-top bg-cover  from-transparent to-gray",
+          'w-screen h-screen overflow-hidden text-center flex justify-center max-w-full bg-black bg-cover-faded bg-top bg-cover  from-transparent to-gray',
         )}
       >
         <h1 className="fw-bold inline-flex flex-col items-center self-center text-7xl leading-tight">
