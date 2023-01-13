@@ -18,7 +18,7 @@ export default function Tweets() {
   return (
     <Section>
       <SectionTitle title="Recent tweets" />
-      <div>
+      <div className="w-full">
         <a
           className="twitter-timeline"
           data-theme="dark"
