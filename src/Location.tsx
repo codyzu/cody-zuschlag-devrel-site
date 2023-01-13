@@ -8,8 +8,8 @@ export default function Location() {
   return (
     <Section>
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="mb-3 lg:mb-0">
-          <div className="w-full" style={{height: '315px'}}>
+        <div className="mb-8 lg:mb-0">
+          <div className="w-full h-[315px]">
             <Suspense>
               <Map />
             </Suspense>
