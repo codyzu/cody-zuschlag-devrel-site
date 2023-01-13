@@ -18,6 +18,20 @@ export default defineConfig({
           },
         }),
       ],
+      shortcuts: {link: 'text-sky-500 no-underline'},
+      rules: [
+        [
+          'bg-cover-faded',
+          {
+            'background-image':
+              "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/background.jpeg');",
+          },
+        ],
+        [
+          'section-shadow',
+          {'box-shadow': '0 1rem 3rem rgba(255 255 255 / 18%);'},
+        ],
+      ],
     }),
     react(),
     viteRadar({analytics: [{id: 'G-DMTB5F3X2D'}]}),

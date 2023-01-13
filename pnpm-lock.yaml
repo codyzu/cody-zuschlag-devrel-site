@@ -7,6 +7,7 @@ specifiers:
   '@types/react-dom': ^18.0.9
   '@unocss/preset-icons': ^0.48.0
   '@unocss/preset-uno': ^0.48.0
+  '@unocss/reset': ^0.48.4
   '@vitejs/plugin-react': ^3.0.0
   bootstrap: ^5.2.3
   bootswatch: ^5.2.3
@@ -43,6 +44,7 @@ devDependencies:
   '@types/react-dom': 18.0.9
   '@unocss/preset-icons': 0.48.0
   '@unocss/preset-uno': 0.48.0
+  '@unocss/reset': 0.48.4
   '@vitejs/plugin-react': 3.0.0_vite@4.0.3
   typescript: 4.9.4
   unocss: 0.48.0_vite@4.0.3
@@ -1004,6 +1006,10 @@ packages:
 
   /@unocss/reset/0.48.0:
     resolution: {integrity: sha512-i7z6Rbs7fXFD3NdlVJViFltpDJUCo5xDm5y01Xaoa4mJQHr/1335Ht0JW/emAJXf170UYSwb2rUeK1J3fty9eg==}
+    dev: true
+
+  /@unocss/reset/0.48.4:
+    resolution: {integrity: sha512-9WPoGwLrG5vZQzMxgd7/zJkUUmL06WYtrAiRdf5gYsCBbnpx6eq0II0TvU8PEzvseqgkhEpN19iSgnsuTZ34kA==}
     dev: true
 
   /@unocss/scope/0.48.0:

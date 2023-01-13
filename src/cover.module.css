@@ -1,6 +1,6 @@
 /* Adapted from https://www.linkedin.com/posts/jheytompkins_css-javascript-speedycsstip-ugcPost-6932346490975621120-7N3S?utm_source=linkedin_share&utm_medium=member_desktop_web */
 :root {
-  --color: var(--bs-white);
+  --color: white;
   --speed: 0.65s;
 }
 
@@ -69,9 +69,9 @@
   --index: 2;
 }
 
-.hero {
+/* .hero {
   background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     url('./images/background.jpeg');
   background-position: top;
   background-size: cover;
-}
+} */

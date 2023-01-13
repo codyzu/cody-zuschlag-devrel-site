@@ -1,4 +1,5 @@
 import logo from './images/logo_white.svg';
+import {Link} from './Link';
 import Section from './Section';
 import SectionTitle from './SectionTitle';
 
@@ -7,46 +8,27 @@ export default function About() {
     <Section>
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="mb-5 lg:mb-0 px-0 lg:px-3">
-          <div className="ratio ratio-16x9">
+          <div className="aspect-video w-full min-h-0">
             <img
               src={logo}
-              className="d-block mx-lg-auto rounded img-fluid"
+              className="block lg:mx-auto rounded max-w-full h-auto object-cover h-full"
               alt="Bootstrap Themes"
               loading="lazy"
-              style={{objectFit: 'contain'}}
+              // Style={{objectFit: 'contain'}}
             />
           </div>
         </div>
-        <div className="align-self-start lg:-order-1 flex flex-col">
+        <div className="self-start lg:-order-1 flex flex-col">
           <SectionTitle title="About me" />
-          <div className="mb-1">
-            <h5>International Speaker</h5>
+          <div className="mb-4 text-2xl">International Speaker</div>
+          <div className="mb-4 text-2xl">
+            Developer Relations Engineer @{' '}
+            <Link url="https://nearform.com">NearForm</Link>
           </div>
-          <div className="mb-1">
-            <h5>
-              Developer Relations Engineer @{' '}
-              <a href="https://nearform.com" className="text-decoration-none">
-                NearForm
-              </a>
-            </h5>
-          </div>
-          <div className="mb-1">
-            <h5>
-              University Instructor @{' '}
-              <a
-                href="https://www.iut-acy.univ-smb.fr/"
-                className="text-decoration-none"
-              >
-                IUT Annecy
-              </a>{' '}
-              &amp;{' '}
-              <a
-                href="https://www.tetras.univ-smb.fr/"
-                className="text-decoration-none"
-              >
-                Tetras
-              </a>
-            </h5>
+          <div className="mb-4 text-2xl">
+            University Instructor @{' '}
+            <Link url="https://www.iut-acy.univ-smb.fr/">IUT Annecy</Link> &amp;{' '}
+            <Link url="https://www.tetras.univ-smb.fr/">Tetras</Link>
           </div>
         </div>
       </div>
