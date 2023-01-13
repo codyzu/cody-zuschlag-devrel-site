@@ -26,7 +26,10 @@ export default defineConfig({
           },
         }),
       ],
-      shortcuts: {link: 'text-sky-500 no-underline'},
+      shortcuts: {
+        link: 'text-sky-500 no-underline',
+        'text-secondary': 'text-gray-4',
+      },
       rules: [
         [
           'bg-cover-faded',

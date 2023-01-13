@@ -7,14 +7,13 @@ export default function About() {
   return (
     <Section>
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="mb-5 lg:mb-0 px-0 lg:px-3">
-          <div className="aspect-video w-full min-h-0">
+        <div className="mb-12 lg:mb-0 px-0 lg:px-3">
+          <div className="aspect-video w-full min-h-0 flex flex-col items-center max-h-[400px]">
             <img
               src={logo}
               className="block lg:mx-auto rounded max-w-full h-auto object-cover h-full"
               alt="Bootstrap Themes"
               loading="lazy"
-              // Style={{objectFit: 'contain'}}
             />
           </div>
         </div>

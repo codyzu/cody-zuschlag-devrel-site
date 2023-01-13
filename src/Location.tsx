@@ -9,7 +9,7 @@ export default function Location() {
     <Section>
       <div className="grid grid-cols-1 lg:grid-cols-2">
         <div className="mb-3 lg:mb-0">
-          <div className="w-100" style={{height: '315px'}}>
+          <div className="w-full" style={{height: '315px'}}>
             <Suspense>
               <Map />
             </Suspense>

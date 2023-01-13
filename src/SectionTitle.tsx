@@ -8,7 +8,7 @@ export default function SectionTitle({
   return (
     <div className="flex flex-col mb-4">
       <div className="fw-bold text-5xl mb-4">{title}</div>
-      {subtitle && <div className="text-gray text-xl">{subtitle}</div>}
+      {subtitle && <div className="text-secondary text-xl">{subtitle}</div>}
     </div>
   );
 }
