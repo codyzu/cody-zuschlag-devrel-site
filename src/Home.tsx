@@ -24,7 +24,6 @@ export default function Home() {
       <div
         className={cx(
           coverClasses.funky,
-          // CoverClasses.hero,
           'w-screen h-screen overflow-hidden text-center flex justify-center max-w-full bg-black bg-cover-faded bg-top bg-cover  from-transparent to-gray',
         )}
       >
