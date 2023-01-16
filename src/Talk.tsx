@@ -14,7 +14,12 @@ export default function Talk({talk}: Props) {
         <div>{new Date(talk.date).toLocaleDateString()}</div>
         <div>{talk.location}</div>
         <div className="flex flex-col items-start">
-          {talk.video === 'none' ? null : talk.video ? (
+          {talk.video === 'none' ? (
+            <div className="inline-flex flex-row items-center gap-2">
+              <div className="i-lucide-video-off" />
+              Not recorded
+            </div>
+          ) : talk.video ? (
             <Link icon="i-lucide-video" url={talk.video}>
               Watch now
             </Link>
