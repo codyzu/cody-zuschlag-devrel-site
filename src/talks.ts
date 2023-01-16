@@ -2,7 +2,7 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
-    conference: 'DevFest Alps 2022',
+    conference: 'DevFest Alps',
     name: 'Zen and the Art of Organizational Open Source',
     date: '2023-01-14T12:00Z',
     location: 'Turin, Italy',
