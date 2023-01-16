@@ -9,7 +9,7 @@ export default function Talk({talk}: Props) {
   return (
     <>
       <div className="mt-6 text-2xl mb-2">{talk.conference}</div>
-      <div className="ml-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-secondary gap-4">
+      <div className="ml-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-secondary gap-y-2 gap-x-4">
         <div>{talk.name}</div>
         <div>{new Date(talk.date).toLocaleDateString()}</div>
         <div>{talk.location}</div>
