@@ -2,6 +2,15 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'DevFest Alps 2022',
+    name: 'Zen and the Art of Organizational Open Source',
+    date: '2023-01-14T12:00Z',
+    location: 'Turin, Italy',
+    video: 'none',
+    slides:
+      'https://docs.google.com/presentation/d/11pf28uBhezrfs7uagDbInNZXDnem-2qJAUlR3GHIweM/edit?usp=sharing',
+  },
+  {
     conference: 'Open Source',
     name: 'Inclusion and Diversity in Open Source | Fireside chat with Robin Ginn and NearForm DX team',
     date: '2023-01-10T12:00Z',
