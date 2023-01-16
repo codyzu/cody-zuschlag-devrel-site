@@ -1,4 +1,3 @@
-import {Row, Col} from 'reactstrap';
 import {type Article as ArticleDef} from './article-type';
 import {Link} from './Link';
 
