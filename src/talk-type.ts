@@ -6,4 +6,5 @@ export type Talk = {
   video?: string;
   slides?: string;
   repo?: string;
+  flag?: string;
 };

@@ -1,3 +1,4 @@
+import cx from 'clsx';
 import {type Talk as TalkDef} from './talk-type';
 import {Link} from './Link';
 
@@ -12,7 +13,17 @@ export default function Talk({talk}: Props) {
       <div className="ml-7 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 text-secondary gap-y-2 gap-x-4">
         <div>{talk.name}</div>
         <div>{new Date(talk.date).toLocaleDateString()}</div>
-        <div>{talk.location}</div>
+        <div>
+          <div className="flex flex-row items-center gap-2">
+            <div
+              className={cx(
+                talk.flag ?? 'i-lucide-globe text-white',
+                'min-w-[1rem] min-h-[1rem]',
+              )}
+            />
+            <div>{talk.location}</div>
+          </div>
+        </div>
         <div className="flex flex-col items-start">
           {talk.video === 'none' ? (
             <div className="inline-flex flex-row items-center gap-2">
