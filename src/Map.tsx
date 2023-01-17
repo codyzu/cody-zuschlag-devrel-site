@@ -7,6 +7,7 @@ const annecy = {longitude: 6.133, latitude: 45.916};
 export default function Map() {
   return (
     <ReactMap
+      style={{borderRadius: '0.75rem'}}
       mapLib={maplibregl}
       initialViewState={{
         ...annecy,
