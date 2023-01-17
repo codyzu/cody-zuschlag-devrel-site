@@ -9,7 +9,7 @@ export default function Socials() {
         title="Socials"
         subtitle="Reach out to me at these places"
       />
-      <div className="gy-2 flex flex-row gap-x-8 flex-wrap font-medium text-3xl">
+      <div className="gy-2 flex flex-col sm:flex-row gap-x-8 flex-wrap font-medium text-3xl">
         <Link icon="i-lucide-twitter" url="https://twitter.com/codyzus">
           @codyzus
         </Link>
