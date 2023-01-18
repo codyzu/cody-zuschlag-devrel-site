@@ -17,17 +17,27 @@ export default function About() {
             />
           </div>
         </div>
-        <div className="self-start lg:-order-1 flex flex-col">
+        <div className="self-start lg:-order-1 flex flex-col gap-4">
           <SectionTitle title="About me" />
-          <div className="mb-4 text-2xl">International Speaker</div>
-          <div className="mb-4 text-2xl">
+          <div className="text-2xl">International Speaker</div>
+          <div className="text-2xl">
             Developer Relations Engineer @{' '}
             <Link url="https://nearform.com">NearForm</Link>
           </div>
-          <div className="mb-4 text-2xl">
+          <div className="text-2xl">
             University Instructor @{' '}
             <Link url="https://www.iut-acy.univ-smb.fr/">IUT Annecy</Link> &amp;{' '}
             <Link url="https://www.tetras.univ-smb.fr/">Tetras</Link>
+          </div>
+          <div className="text-secondary text-justify">
+            Cody is a software engineer consultant, developer relations
+            engineer, and university instructor with a passion for learning and
+            sharing technology. He teaches a university web development course
+            and loves interacting with developers of all experience levels. He
+            started speaking internationally in 2022 at React Summit and
+            NodeConf EU as well as hosting some of the events connected to
+            NodeConf EU. His current passion is building full-stack and
+            decentralized applications using all OSS technologies.
           </div>
         </div>
       </div>
