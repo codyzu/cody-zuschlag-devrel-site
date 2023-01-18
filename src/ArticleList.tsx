@@ -10,7 +10,7 @@ export default function ArticleList() {
         title="Articles and blog posts"
         subtitle="A curated list of written content"
       />
-      <div className="grid grid-cols-1 md:grid-cols-4 md:gap-4 gap-2">
+      <div className="grid grid-cols-1 md:grid-cols-[5fr_1fr] md:gap-4 gap-2">
         {articles.map((article) => (
           <Article key={`${article.title}-${article.date}`} article={article} />
         ))}
