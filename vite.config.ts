@@ -1,7 +1,7 @@
 import {defineConfig} from 'vite';
 import react from '@vitejs/plugin-react';
-import viteRadar from 'vite-plugin-radar';
-import unocss from 'unocss/vite';
+import {VitePluginRadar as vitePluginRadar} from 'vite-plugin-radar';
+import unocss from 'unocss/vite'; // eslint-disable-line n/file-extension-in-import
 import presetUno from '@unocss/preset-uno';
 import presetIcons from '@unocss/preset-icons';
 import presetWebFonts from '@unocss/preset-web-fonts';
@@ -51,6 +51,6 @@ export default defineConfig({
       ],
     }),
     react(),
-    viteRadar({analytics: [{id: 'G-DMTB5F3X2D'}]}),
+    vitePluginRadar({analytics: [{id: 'G-DMTB5F3X2D'}]}),
   ],
 });
