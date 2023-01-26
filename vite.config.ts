@@ -22,13 +22,19 @@ export default defineConfig({
           provider: 'bunny', // Default provider
           fonts: {
             // These will extend the default theme
-            sans: 'Roboto:400,700',
+            sans: 'Roboto:400,600,700',
           },
         }),
       ],
+      theme: {
+        colors: {
+          highlight: '#0ea5e9', // Sky-500
+          secondary: '#9ca3af', // Gray-400
+          primary: '#ffffff', // White
+        },
+      },
       shortcuts: {
-        link: 'text-sky-500 no-underline',
-        'text-secondary': 'text-gray-4',
+        link: 'text-highlight no-underline',
       },
       rules: [
         [

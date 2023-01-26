@@ -20,7 +20,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="font-sans text-white break-words">
+    <div className="font-sans text-primary break-words">
       <div
         className={cx(
           coverClasses.funky,

@@ -12,7 +12,7 @@ export function Link({
   return (
     <a
       href={url}
-      className="decoration-none inline-flex flex-row items-center gap-2 text-sky-500"
+      className="link decoration-none inline-flex flex-row items-center gap-2"
     >
       {icon && <div className={icon} />}
       <div>{children}</div>
