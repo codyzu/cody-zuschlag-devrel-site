@@ -4,7 +4,7 @@ import SectionTitle from './SectionTitle';
 
 export default function Socials() {
   return (
-    <Section>
+    <Section id="socials">
       <SectionTitle
         title="Socials"
         subtitle="Reach out to me at these places"
