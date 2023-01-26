@@ -4,6 +4,15 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'Product World (Developer Week)',
+    name: "Design Tokens, Systems, and a Component's Journey From Design to Deployment",
+    date: '2023-02-16T12:00Z',
+    location: 'Oakland, CA, USA',
+    flag: 'i-circle-flags-us',
+    video: undefined,
+    slides: undefined,
+  },
+  {
     conference: 'DevFest Alps',
     name: 'Zen and the Art of Organizational Open Source',
     date: '2023-01-14T12:00Z',
