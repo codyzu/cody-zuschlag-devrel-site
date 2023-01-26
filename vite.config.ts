@@ -56,6 +56,7 @@ export default defineConfig({
   ],
 });
 
+// This could be done with their npm package 🤔
 function htmlPlugin() {
   let viteConfig: ResolvedConfig;
 
@@ -79,7 +80,7 @@ function htmlPlugin() {
               {
                 tag: 'script',
                 children:
-                  'insights.init("KbjjkY98I3MxcBui");insights.trackPages()',
+                  'insights.init("KbjjkY98I3MxcBui");insights.trackPages({hash: true})',
               },
             ],
     },
