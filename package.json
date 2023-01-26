@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "clsx": "^1.2.1",
+    "insights-js": "^1.2.11",
     "mapbox-gl": "npm:empty-npm-package@^1.0.0",
     "maplibre-gl": "^2.4.0",
     "react": "^18.2.0",

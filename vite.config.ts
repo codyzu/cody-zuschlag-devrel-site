@@ -1,4 +1,4 @@
-import {defineConfig, type HtmlTagDescriptor, type ResolvedConfig} from 'vite';
+import {defineConfig} from 'vite';
 import react from '@vitejs/plugin-react';
 import {VitePluginRadar as vitePluginRadar} from 'vite-plugin-radar';
 import unocss from 'unocss/vite'; // eslint-disable-line n/file-extension-in-import
@@ -9,7 +9,6 @@ import presetWebFonts from '@unocss/preset-web-fonts';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    htmlPlugin(),
     unocss({
       presets: [
         presetUno(),
@@ -55,34 +54,3 @@ export default defineConfig({
     vitePluginRadar({analytics: [{id: 'G-DMTB5F3X2D'}]}),
   ],
 });
-
-// This could be done with their npm package 🤔
-function htmlPlugin() {
-  let viteConfig: ResolvedConfig;
-
-  return {
-    name: 'html-transform',
-    configResolved(resolvedConfig: ResolvedConfig) {
-      // Store the resolved config
-      viteConfig = resolvedConfig;
-    },
-
-    transformIndexHtml: {
-      enforce: 'pre' as const,
-      transform: (): HtmlTagDescriptor[] =>
-        viteConfig.command === 'serve'
-          ? []
-          : [
-              {
-                tag: 'script',
-                attrs: {src: 'https://getinsights.io/js/insights.js'},
-              },
-              {
-                tag: 'script',
-                children:
-                  'insights.init("KbjjkY98I3MxcBui");insights.trackPages({hash: true})',
-              },
-            ],
-    },
-  };
-}
