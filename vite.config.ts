@@ -5,6 +5,7 @@ import unocss from 'unocss/vite'; // eslint-disable-line n/file-extension-in-imp
 import presetUno from '@unocss/preset-uno';
 import presetIcons from '@unocss/preset-icons';
 import presetWebFonts from '@unocss/preset-web-fonts';
+import transformerDirectives from '@unocss/transformer-directives';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -49,6 +50,7 @@ export default defineConfig({
           {'box-shadow': '0 1rem 3rem rgba(255 255 255 / 18%);'},
         ],
       ],
+      transformers: [transformerDirectives()],
     }),
     react(),
     vitePluginRadar({analytics: [{id: 'G-DMTB5F3X2D'}]}),
