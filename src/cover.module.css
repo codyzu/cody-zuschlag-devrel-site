@@ -12,6 +12,7 @@
   animation-delay: calc((0.5 + var(--index)) * (var(--speed) / 3));
   animation-fill-mode: both;
   animation-timing-function: steps(1), ease-out;
+  --uno: text-transparent bg-clip-text bg-gradient-title;
 }
 
 @keyframes shimmy {
@@ -27,7 +28,7 @@
 
   50%,
   100% {
-    color: var(--color);
+    /* color: var(--color); */
   }
 }
 

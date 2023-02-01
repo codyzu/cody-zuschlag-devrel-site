@@ -39,6 +39,7 @@ export default defineConfig({
       shortcuts: {
         link: 'text-highlight no-underline',
         photo: 'rounded-xl w-full h-full object-cover aspect-[4/3]',
+        'bg-gradient-title': 'bg-gradient-to-br from-green to-highlight',
       },
       rules: [
         [
