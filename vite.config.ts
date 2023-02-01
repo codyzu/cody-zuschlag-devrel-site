@@ -6,10 +6,12 @@ import presetUno from '@unocss/preset-uno';
 import presetIcons from '@unocss/preset-icons';
 import presetWebFonts from '@unocss/preset-web-fonts';
 import transformerDirectives from '@unocss/transformer-directives';
+import {imagetools} from 'vite-imagetools';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    imagetools(),
     unocss({
       presets: [
         presetUno(),
@@ -36,6 +38,7 @@ export default defineConfig({
       },
       shortcuts: {
         link: 'text-highlight no-underline',
+        photo: 'rounded-xl w-full h-full object-cover aspect-[4/3]',
       },
       rules: [
         [

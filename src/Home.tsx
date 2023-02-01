@@ -7,6 +7,7 @@ import TalkList from './TalkList';
 import ArticleList from './ArticleList';
 import Location from './Location';
 import Tweets from './Tweets';
+import Photos from './Photos';
 
 export default function Home() {
   // https://stackoverflow.com/a/72494010
@@ -35,6 +36,7 @@ export default function Home() {
 
       <div className="mt-12 container max-w-screen-xl mx-auto">
         <About />
+        <Photos />
         <Socials />
         <TalkList />
         <ArticleList />
