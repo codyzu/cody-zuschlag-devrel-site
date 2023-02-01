@@ -24,7 +24,6 @@ specifiers:
   react-map-gl: ^7.0.21
   typescript: ^4.9.4
   unocss: ^0.49.1
-  urijs: ^1.19.11
   vite: ^4.0.4
   vite-imagetools: ^4.0.17
   vite-plugin-radar: ^0.7.0
@@ -39,7 +38,6 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.7.1_react@18.2.0
   react-map-gl: 7.0.21_6eczaga5xxiwzxtfiyk6fioasq
-  urijs: 1.19.11
 
 devDependencies:
   '@iconify-json/circle-flags': 1.1.32
@@ -4132,10 +4130,6 @@ packages:
     dependencies:
       punycode: 2.1.1
     dev: true
-
-  /urijs/1.19.11:
-    resolution: {integrity: sha512-HXgFDgDommxn5/bIv0cnQZsPhHDA90NPHD6+c/v21U5+Sx5hoP8+dP9IZXBU1gIfvdRfhG8cel9QNPeionfcCQ==}
-    dev: false
 
   /url-or-path/2.1.0:
     resolution: {integrity: sha512-dsBD6GbytSMj9YDb3jVzSRENwFh50oUORnWBeSHfo0Lnwv2KMm/J4npyGy1P9rivUPsUGLjTA53XqAFqpe0nww==}

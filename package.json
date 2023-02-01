@@ -17,8 +17,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
-    "react-map-gl": "^7.0.21",
-    "urijs": "^1.19.11"
+    "react-map-gl": "^7.0.21"
   },
   "devDependencies": {
     "@iconify-json/circle-flags": "^1.1.32",

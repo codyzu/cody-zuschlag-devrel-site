@@ -36,11 +36,11 @@ export default function Home() {
 
       <div className="mt-12 container max-w-screen-xl mx-auto">
         <About />
-        <Photos />
         <Socials />
         <TalkList />
         <ArticleList />
         <Location />
+        <Photos />
         <Tweets />
       </div>
     </div>
