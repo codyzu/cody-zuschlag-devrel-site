@@ -34,12 +34,15 @@ export default defineConfig({
           highlight: '#0ea5e9', // Sky-500
           secondary: '#9ca3af', // Gray-400
           primary: '#ffffff', // White
+          hero: '#469537', // From the hero photo
         },
       },
       shortcuts: {
         link: 'text-highlight no-underline',
         photo: 'rounded-xl w-full h-full object-cover aspect-[4/3]',
         'bg-gradient-title': 'bg-gradient-to-br from-highlight to-primary',
+        'bg-gradient-hero':
+          'bg-gradient-to-br from-primary via-primary to-hero',
       },
       rules: [
         [

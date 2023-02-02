@@ -30,7 +30,7 @@
   50%,
   100% {
     /* color: var(--color); */
-    --uno: bg-clip-text bg-gradient-title;
+    --uno: bg-clip-text bg-gradient-hero;
   }
 }
 
