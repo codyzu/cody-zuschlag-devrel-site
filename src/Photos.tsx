@@ -128,9 +128,7 @@ function ResponsiveImage({
   name: string;
   picture: ParsedImage;
 }) {
-  const imgStyles: Record<string, string> = {
-    aspectRatio: picture.portrait ? '3/4' : '4/3',
-  };
+  const imgStyles: Record<string, string> = {};
   if (picture.portrait) {
     imgStyles.height = '100%';
   } else {
@@ -140,6 +138,8 @@ function ResponsiveImage({
   return (
     <picture
       className={cx(
+        'w-full h-full',
+        picture.portrait ? 'aspect-[3/4]' : 'aspect-[4/3]',
         picture.big && 'sm:col-span-2 sm:row-span-2',
         picture.portrait && 'row-span-2',
       )}
