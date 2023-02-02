@@ -1,6 +1,4 @@
-import cx from 'clsx';
 import {useEffect} from 'react';
-import coverClasses from './cover.module.css';
 import About from './About';
 import Socials from './Socials';
 import TalkList from './TalkList';
@@ -8,6 +6,7 @@ import ArticleList from './ArticleList';
 import Location from './Location';
 import Tweets from './Tweets';
 import Photos from './Photos';
+import Hero from './Hero';
 
 export default function Home() {
   // https://stackoverflow.com/a/72494010
@@ -22,18 +21,7 @@ export default function Home() {
 
   return (
     <div className="font-sans text-primary break-words">
-      <div
-        className={cx(
-          coverClasses.funky,
-          'w-screen h-screen overflow-hidden text-center flex justify-center max-w-full bg-black bg-cover-faded bg-top bg-cover',
-        )}
-      >
-        <h1 className="fw-bold inline-flex flex-col items-center self-center text-7xl leading-tight">
-          <span>Cody</span>
-          <span>Zuschlag</span>
-        </h1>
-      </div>
-
+      <Hero />
       <div className="mt-12 container max-w-screen-xl mx-auto">
         <About />
         <Socials />

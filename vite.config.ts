@@ -46,13 +46,6 @@ export default defineConfig({
       },
       rules: [
         [
-          'bg-cover-faded',
-          {
-            'background-image':
-              "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/background.webp');",
-          },
-        ],
-        [
           'section-shadow',
           {'box-shadow': '0 1rem 3rem rgba(255 255 255 / 18%);'},
         ],
