@@ -33,7 +33,9 @@ export function Link({
       className="link decoration-none inline-flex flex-row items-center gap-2"
     >
       {icon && <div className={icon} />}
-      <div>{children}</div>
+      <div className="bg-gradient-link bg-clip-text text-transparent">
+        {children}
+      </div>
     </a>
   );
 }
