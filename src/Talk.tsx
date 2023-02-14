@@ -1,6 +1,6 @@
 import cx from 'clsx';
 import {type Talk as TalkDef} from './talk-type';
-import {Link} from './Link';
+import Button from './Button';
 
 type Props = {
   talk: TalkDef;
@@ -27,31 +27,32 @@ export default function Talk({talk}: Props) {
           <div>{talk.location}</div>
         </div>
       </div>
-      <div className="flex flex-col items-start lt-sm:ml-7 text-secondary">
-        {talk.video === 'none' ? (
-          <div className="inline-flex flex-row items-center gap-2">
-            <div className="i-lucide-video-off" />
-            Not recorded
-          </div>
-        ) : talk.video ? (
-          <Link icon="i-lucide-video" url={talk.video}>
-            Watch now
-          </Link>
-        ) : (
-          <div className="bg-highlight text-black rounded-full px-2 font-600 text-sm">
-            Coming soon
-          </div>
-        )}
-        {talk.slides && (
-          <Link icon="i-lucide-monitor" url={talk.slides}>
-            Slides
-          </Link>
-        )}
-        {talk.repo && (
-          <Link icon="i-lucide-github" url={talk.repo}>
-            GitHub repo
-          </Link>
-        )}
+      <div className="flex">
+        <div className="w-auto flex flex-col items-stretch lt-sm:ml-7 text-secondary gap-2 sm:w-full">
+          {talk.video === 'none' ? (
+            <Button icon="i-lucide-video-off" active={false}>
+              Not recorded
+            </Button>
+          ) : talk.video ? (
+            <Button icon="i-lucide-video" url={talk.video}>
+              Watch now
+            </Button>
+          ) : (
+            <Button icon="i-lucide-hourglass" active={false}>
+              Coming soon
+            </Button>
+          )}
+          {talk.slides && (
+            <Button icon="i-lucide-monitor" url={talk.slides}>
+              Slides
+            </Button>
+          )}
+          {talk.repo && (
+            <Button icon="i-lucide-github" url={talk.repo}>
+              GitHub repo
+            </Button>
+          )}
+        </div>
       </div>
     </>
   );

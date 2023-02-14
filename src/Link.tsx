@@ -1,4 +1,4 @@
-import {type MouseEvent, type ReactNode} from 'react';
+import {type ReactNode} from 'react';
 import {track, parameters} from 'insights-js';
 
 export function Link({
