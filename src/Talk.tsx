@@ -38,7 +38,7 @@ export default function Talk({talk}: Props) {
               Watch now
             </Button>
           ) : (
-            <Button icon="i-lucide-hourglass" active={false}>
+            <Button icon="i-lucide-timer" active={false}>
               Coming soon
             </Button>
           )}

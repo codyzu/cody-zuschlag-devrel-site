@@ -10,7 +10,8 @@ const talks: Talk[] = [
     location: 'Oakland, CA, USA',
     flag: 'i-circle-flags-us',
     video: undefined,
-    slides: undefined,
+    slides:
+      'https://docs.google.com/presentation/d/1L0CxND0HnDgFiBTdzsc2hNhGtczhb8jKh1_LboYEhho/edit?usp=sharing',
   },
   {
     conference: 'DevFest Alps',
