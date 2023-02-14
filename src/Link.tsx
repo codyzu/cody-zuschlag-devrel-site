@@ -1,14 +1,17 @@
-import {type ReactNode} from 'react';
+import cx from 'clsx';
 import {track, parameters} from 'insights-js';
+import {type ReactNode} from 'react';
 
 export function Link({
   icon,
-  url,
   children,
+  url = '',
+  active = true,
 }: {
-  icon?: string;
-  url: string;
+  icon: string;
   children: ReactNode;
+  url?: string;
+  active?: boolean;
 }) {
   function nav() {
     if (import.meta.env.PROD) {
@@ -26,16 +29,28 @@ export function Link({
     }
   }
 
+  const Wrapper = active
+    ? ({children: anchorChildren}: {children: ReactNode}) => (
+        <a href={url} onClick={nav}>
+          {anchorChildren}
+        </a>
+      )
+    : ({children: divChildren}: {children: ReactNode}) => (
+        <div>{divChildren}</div>
+      );
+
   return (
-    <a
-      onClick={nav}
-      href={url}
-      className="link decoration-none inline-flex flex-row items-center gap-2"
-    >
-      {icon && <div className={icon} />}
-      <div className="bg-gradient-link bg-clip-text text-transparent">
-        {children}
+    <Wrapper>
+      <div className="inline-flex flex-row gap-2 items-center rounded-full">
+        {icon && <div className={cx(active && 'text-highlight', icon)} />}
+        <div
+          className={cx(
+            active && 'bg-gradient-link bg-clip-text text-transparent',
+          )}
+        >
+          {children}
+        </div>
       </div>
-    </a>
+    </Wrapper>
   );
 }

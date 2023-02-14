@@ -1,6 +1,6 @@
 import cx from 'clsx';
 import {type Talk as TalkDef} from './talk-type';
-import Button from './Button';
+import {Link} from './Link';
 
 type Props = {
   talk: TalkDef;
@@ -28,29 +28,29 @@ export default function Talk({talk}: Props) {
         </div>
       </div>
       <div className="flex">
-        <div className="w-auto flex flex-col items-stretch lt-sm:ml-7 text-secondary gap-2 sm:w-full">
+        <div className="w-auto flex flex-col items-start lt-sm:ml-7 text-secondary">
           {talk.video === 'none' ? (
-            <Button icon="i-lucide-video-off" active={false}>
+            <Link icon="i-lucide-video-off text-lg" active={false}>
               Not recorded
-            </Button>
+            </Link>
           ) : talk.video ? (
-            <Button icon="i-lucide-video" url={talk.video}>
-              Watch now
-            </Button>
+            <Link icon="i-lucide-video text-lg" url={talk.video}>
+              <div className="">Watch now</div>
+            </Link>
           ) : (
-            <Button icon="i-lucide-timer" active={false}>
+            <Link icon="i-lucide-timer text-lg" active={false}>
               Coming soon
-            </Button>
+            </Link>
           )}
           {talk.slides && (
-            <Button icon="i-lucide-monitor" url={talk.slides}>
+            <Link icon="i-lucide-monitor text-lg" url={talk.slides}>
               Slides
-            </Button>
+            </Link>
           )}
           {talk.repo && (
-            <Button icon="i-lucide-github" url={talk.repo}>
+            <Link icon="i-lucide-github text-lg" url={talk.repo}>
               GitHub repo
-            </Button>
+            </Link>
           )}
         </div>
       </div>
