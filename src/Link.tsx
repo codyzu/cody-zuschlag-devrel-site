@@ -8,7 +8,7 @@ export function Link({
   url = '',
   active = true,
 }: {
-  icon: string;
+  icon?: string;
   children: ReactNode;
   url?: string;
   active?: boolean;
