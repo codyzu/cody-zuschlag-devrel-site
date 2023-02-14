@@ -6,7 +6,7 @@ const talks: Talk[] = [
   {
     conference: 'Product World (Developer Week)',
     name: "Design Tokens, Systems, and a Component's Journey From Design to Deployment",
-    date: '2023-02-16T12:00Z',
+    date: '2023-02-15T12:00Z',
     location: 'Oakland, CA, USA',
     flag: 'i-circle-flags-us',
     video: undefined,
