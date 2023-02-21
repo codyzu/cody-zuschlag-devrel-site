@@ -4,12 +4,21 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
-    conference: 'Product World (Developer Week)',
+    conference: 'DeveloperWeek + ProductWorld (virtual)',
+    name: "Design Tokens, Systems, and a Component's Journey From Design to Deployment",
+    date: '2023-02-21T12:00Z',
+    location: 'Virtual',
+    video: undefined,
+    slides:
+      'https://docs.google.com/presentation/d/1L0CxND0HnDgFiBTdzsc2hNhGtczhb8jKh1_LboYEhho/edit?usp=sharing',
+  },
+  {
+    conference: 'DeveloperWeek + ProductWorld (live)',
     name: "Design Tokens, Systems, and a Component's Journey From Design to Deployment",
     date: '2023-02-15T12:00Z',
     location: 'Oakland, CA, USA',
     flag: 'i-circle-flags-us',
-    video: undefined,
+    video: 'none',
     slides:
       'https://docs.google.com/presentation/d/1L0CxND0HnDgFiBTdzsc2hNhGtczhb8jKh1_LboYEhho/edit?usp=sharing',
   },
