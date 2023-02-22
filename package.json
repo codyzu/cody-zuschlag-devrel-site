@@ -10,6 +10,7 @@
     "lint": "xo"
   },
   "dependencies": {
+    "@tanstack/react-table": "^8.7.9",
     "clsx": "^1.2.1",
     "insights-js": "^1.2.11",
     "mapbox-gl": "npm:empty-npm-package@^1.0.0",
