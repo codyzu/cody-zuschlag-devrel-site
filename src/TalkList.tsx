@@ -16,26 +16,28 @@ const columnHelper = createColumnHelper<TalkType>();
 const defaultColumns = [
   columnHelper.accessor('conference', {
     cell: (cell) => (
-      <div className="text-2xl sm:col-span-2 md:col-span-4 mt-4 first:mt-0 text-primary">
+      <div className="text-2xl col-span-2 sm:col-span-5 mt-5 first:mt-0 text-primary">
         {cell.getValue()}
       </div>
     ),
   }),
   columnHelper.accessor('name', {
     cell: (cell) => (
-      <div className="ml-7 text-secondary">{cell.getValue()}</div>
+      <div className="text-secondary col-start-2 sm:col-start-2 sm:col-span-2 md:col-start-2 md:col-span-1 md:row-span-3">
+        {cell.getValue()}
+      </div>
     ),
   }),
   columnHelper.accessor('date', {
     cell: (cell) => (
-      <div className="lt-sm:ml-7 text-secondary">
+      <div className="text-secondary col-start-2 sm:col-start-4 md:col-start-3">
         {new Date(cell.getValue()).toLocaleDateString()}
       </div>
     ),
   }),
   columnHelper.accessor('location', {
     cell: (cell) => (
-      <div className="lt-md:ml-7 text-secondary">
+      <div className="text-secondary col-start-2 sm:col-span-2 md:col-span-1 sm:col-start-2 md:col-start-4 md:row-span-3">
         <div className="flex flex-row items-center gap-2">
           <div
             className={cx(
@@ -50,7 +52,7 @@ const defaultColumns = [
   }),
   columnHelper.accessor('video', {
     cell: (cell) => (
-      <div className="sm:col-start-2 md:col-start-4 lt-sm:ml-7">
+      <div className="col-start-2 md:col-start-5">
         {cell.getValue() === 'none' ? (
           <Link icon="i-lucide-video-off text-lg" active={false}>
             Not recorded
@@ -70,7 +72,7 @@ const defaultColumns = [
   columnHelper.accessor('slides', {
     cell: (cell) =>
       cell.getValue() && (
-        <div className="sm:col-start-2 md:col-start-4 lt-sm:ml-7">
+        <div className="col-start-2 sm:col-start-3 md:col-start-5">
           <Link icon="i-lucide-monitor text-lg" url={cell.getValue()}>
             Slides
           </Link>
@@ -80,7 +82,7 @@ const defaultColumns = [
   columnHelper.accessor('repo', {
     cell: (cell) =>
       cell.getValue() && (
-        <div className="sm:col-start-2 md:col-start-4 lt-sm:ml-7">
+        <div className="col-start-2 sm:col-start-4 md:col-start-5">
           <Link icon="i-lucide-github text-lg" url={cell.getValue()}>
             GitHub repo
           </Link>
@@ -107,7 +109,7 @@ export default function Talks() {
           <Talk key={`${talk.name}-${talk.date}`} talk={talk} />
         ))}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] md:grid-cols-[3fr_auto_1fr_auto] lg:grid-cols-[1fr_auto_auto_auto] gap-y-1 gap-x-4 text-secondary">
+      <div className="grid grid-cols-[1rem_1fr] sm:grid-cols-[1rem_1fr_1fr_1fr] md:grid-cols-[1rem_3fr_auto_1fr_auto] lg:grid-cols-[1rem_1fr_auto_auto_auto] gap-x-4 text-secondary">
         {table
           .getRowModel()
           .rows.map((row) =>
