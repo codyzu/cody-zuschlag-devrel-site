@@ -5,14 +5,13 @@ import {
   flexRender,
 } from '@tanstack/react-table';
 import cx from 'clsx';
-import Talk from './Talk';
 import talks from './talks';
 import Section from './Section';
 import SectionTitle from './SectionTitle';
 import {Link} from './Link';
-import type TalkType from './talk-type';
+import {type Talk} from './talk-type';
 
-const columnHelper = createColumnHelper<TalkType>();
+const columnHelper = createColumnHelper<Talk>();
 const defaultColumns = [
   columnHelper.accessor('conference', {
     cell: (cell) => (
@@ -104,11 +103,6 @@ export default function Talks() {
         title="Speaking engagements and videos"
         subtitle="All of my previous and planned future speaking experience"
       />
-      <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] md:grid-cols-[3fr_auto_1fr_auto] lg:grid-cols-[1fr_auto_auto_auto] gap-y-1 gap-x-4">
-        {talks.map((talk) => (
-          <Talk key={`${talk.name}-${talk.date}`} talk={talk} />
-        ))}
-      </div>
       <div className="grid grid-cols-[0.75rem_1fr] sm:grid-cols-[0.75rem_1fr_1fr_1fr] md:grid-cols-[0.75rem_3fr_auto_1fr_auto] lg:grid-cols-[0.75rem_1fr_auto_auto_auto] gap-x-4 gap-y-1 text-secondary">
         {table
           .getRowModel()
