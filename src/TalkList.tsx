@@ -16,7 +16,7 @@ const columnHelper = createColumnHelper<TalkType>();
 const defaultColumns = [
   columnHelper.accessor('conference', {
     cell: (cell) => (
-      <div className="text-2xl col-span-2 sm:col-span-5 mt-5 first:mt-0 text-primary">
+      <div className="text-2xl col-span-2 sm:col-span-5 mt-3 first:mt-0 text-primary">
         {cell.getValue()}
       </div>
     ),
@@ -109,7 +109,7 @@ export default function Talks() {
           <Talk key={`${talk.name}-${talk.date}`} talk={talk} />
         ))}
       </div>
-      <div className="grid grid-cols-[1rem_1fr] sm:grid-cols-[1rem_1fr_1fr_1fr] md:grid-cols-[1rem_3fr_auto_1fr_auto] lg:grid-cols-[1rem_1fr_auto_auto_auto] gap-x-4 text-secondary">
+      <div className="grid grid-cols-[0.75rem_1fr] sm:grid-cols-[0.75rem_1fr_1fr_1fr] md:grid-cols-[0.75rem_3fr_auto_1fr_auto] lg:grid-cols-[0.75rem_1fr_auto_auto_auto] gap-x-4 gap-y-1 text-secondary">
         {table
           .getRowModel()
           .rows.map((row) =>
