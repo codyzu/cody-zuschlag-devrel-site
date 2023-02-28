@@ -138,10 +138,10 @@ function CheckBox({
         onChange={(event) => {
           onCheckChanged(event.target.checked);
         }}
-        className="hidden sibling:checked:bg-highlight sibling:checked:text-background"
+        className="hidden children:sibling:checked:bg-gradient-link sibling:checked:text-background"
       />
-      <div className="rounded-lg px-4 py-2 border-highlight border-2">
-        {children}
+      <div className="rounded-lg p-[2px] bg-gradient-link">
+        <div className="px-4 py-2 bg-background rounded-lg">{children}</div>
       </div>
     </label>
   );
@@ -220,6 +220,7 @@ export default function Talks() {
     columns: defaultColumns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    getColumnCanGlobalFilter: () => true,
     globalFilterFn: filter,
     state: {
       globalFilter,
