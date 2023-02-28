@@ -228,14 +228,15 @@ export default function Talks() {
     onGlobalFilterChange: setGlobalFilter,
   });
 
-  console.log('global', globalFilter);
   return (
     <Section id="talks">
       <SectionTitle
         title="Speaking engagements and videos"
         subtitle="All of my previous and planned future speaking experience"
       />
-      <div className="flex flex-row justify-end gap-2">
+      <div className="flex flex-row justify-end gap-2 items-center">
+        <div className="i-lucide-filter text-white w-[1rem] h-[1rem]" />
+        <div>Filters</div>
         <ToggleFilter
           filterUpdater={table.setGlobalFilter}
           filter={filterSlides}
