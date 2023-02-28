@@ -3,10 +3,10 @@ import {
   useReactTable,
   getCoreRowModel,
   flexRender,
-  // SortingFn,
   type FilterFn,
-  type ColumnFiltersState,
   getFilteredRowModel,
+  type Row,
+  type Updater,
 } from '@tanstack/react-table';
 import cx from 'clsx';
 import {type ReactNode, useState} from 'react';
@@ -17,38 +17,23 @@ import {Link} from './Link';
 import {type Talk} from './talk-type';
 
 const columnHelper = createColumnHelper<Talk>();
-const isTruthy: FilterFn<any> = (row, columnId, filterValue) => {
-  console.log('filterFn', row, columnId, filterValue);
-  const value = row.getValue(columnId);
-  return Boolean(value) === filterValue;
-};
 
-isTruthy.autoRemove = (value) => !value;
-
-const isTruthyNotNone: FilterFn<any> = (row, columnId, filterValue) => {
-  console.log('filterFn', row, columnId, filterValue);
-  const value = row.getValue(columnId);
-  return Boolean(value === 'none' ? false : value) === filterValue;
-};
-
-isTruthyNotNone.autoRemove = (value) => !value;
-
-const filterLocation: FilterFn<Talk> = (
+const filter: FilterFn<Talk> = (
   row,
   columnId,
-  filterValue: Set<string>,
+  filterValue: Set<(row: Row<Talk>, columnId: string) => boolean>,
 ) => {
-  console.log('filterFn', row, columnId, filterValue);
   if (filterValue.size === 0) {
     return true;
   }
 
-  const value: string = row.getValue(columnId);
-  return value === 'Virtual'
-    ? filterValue.has('virtual')
-    : value.endsWith('USA')
-    ? filterValue.has('north america')
-    : filterValue.has('europe');
+  for (const cellFilter of filterValue) {
+    if (cellFilter(row, columnId)) {
+      return true;
+    }
+  }
+
+  return false;
 };
 
 const defaultColumns = [
@@ -74,7 +59,6 @@ const defaultColumns = [
     ),
   }),
   columnHelper.accessor('location', {
-    filterFn: filterLocation,
     cell: (cell) => (
       <div className="text-secondary col-start-2 sm:col-span-2 md:col-span-1 sm:col-start-2 md:col-start-4 md:row-span-3">
         <div className="flex flex-row items-center gap-2">
@@ -90,7 +74,16 @@ const defaultColumns = [
     ),
   }),
   columnHelper.accessor('video', {
-    filterFn: isTruthyNotNone,
+    filterFn(row: Row<Talk>, columnId: string, filterValue: boolean) {
+      if (filterValue) {
+        return (
+          row.getValue(columnId) !== undefined &&
+          row.getValue(columnId) !== 'none'
+        );
+      }
+
+      return true;
+    },
     cell: (cell) => (
       <div className="col-start-2 md:col-start-5">
         {cell.getValue() === 'none' ? (
@@ -110,7 +103,6 @@ const defaultColumns = [
     ),
   }),
   columnHelper.accessor('slides', {
-    filterFn: isTruthy,
     cell: (cell) =>
       cell.getValue() && (
         <div className="col-start-2 sm:col-start-3 md:col-start-5">
@@ -155,25 +147,87 @@ function CheckBox({
   );
 }
 
+function ToggleFilter({
+  filterUpdater,
+  filter,
+  children,
+}: {
+  filterUpdater: (updater: Updater<any>) => void;
+  filter: (row: Row<Talk>, columnId: string) => boolean;
+  children: ReactNode;
+}) {
+  return (
+    <CheckBox
+      onCheckChanged={(checked) => {
+        filterUpdater(
+          (old: Set<(row: Row<Talk>, columnId: string) => boolean>) => {
+            console.log('update filters');
+            const filters = new Set(old);
+            if (checked) {
+              filters.add(filter);
+            } else {
+              filters.delete(filter);
+            }
+
+            return filters;
+          },
+        );
+      }}
+    >
+      {children}
+    </CheckBox>
+  );
+}
+
+const filterSlides: (row: Row<Talk>, columnId: string) => boolean = (
+  row,
+  columnId,
+) => columnId === 'slides' && row.getValue(columnId) !== undefined;
+
+const filterVideo: (row: Row<Talk>, columnId: string) => boolean = (
+  row,
+  columnId,
+) =>
+  columnId === 'video' &&
+  row.getValue(columnId) !== undefined &&
+  row.getValue(columnId) !== 'none';
+
+const filterUsa: (row: Row<Talk>, columnId: string) => boolean = (
+  row,
+  columnId,
+) => columnId === 'location' && row.getValue<string>(columnId).endsWith('USA');
+
+const filterVirtual: (row: Row<Talk>, columnId: string) => boolean = (
+  row,
+  columnId,
+) => columnId === 'location' && row.getValue(columnId) === 'Virtual';
+
+const filterEurope: (row: Row<Talk>, columnId: string) => boolean = (
+  row,
+  columnId,
+) =>
+  columnId === 'location' &&
+  !row.getValue<string>(columnId).endsWith('USA') &&
+  row.getValue(columnId) !== 'Virtual';
+
 export default function Talks() {
-  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-  // Const [thing, setThing] = useState('abc');
+  const [globalFilter, setGlobalFilter] = useState<
+    Set<(row: Row<Talk>, columnId: string) => boolean>
+  >(new Set<(row: Row<Talk>, columnId: string) => boolean>());
 
   const table = useReactTable({
     data: talks,
     columns: defaultColumns,
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    // DebugAll: true,
+    globalFilterFn: filter,
     state: {
-      columnFilters,
+      globalFilter,
     },
-    onColumnFiltersChange: setColumnFilters,
+    onGlobalFilterChange: setGlobalFilter,
   });
-  console.log('filters', columnFilters);
-  console.log('filtered', table.getColumn('slides')?.getIsFiltered());
-  console.log('canFilter', table.getColumn('slides')?.getCanFilter());
-  console.log('filteredRows', table.getFilteredRowModel().rows);
+
+  console.log('global', globalFilter);
   return (
     <Section id="talks">
       <SectionTitle
@@ -181,80 +235,36 @@ export default function Talks() {
         subtitle="All of my previous and planned future speaking experience"
       />
       <div className="flex flex-row justify-end gap-2">
-        <CheckBox
-          onCheckChanged={(checked) =>
-            table.getColumn('slides')?.setFilterValue(checked)
-          }
+        <ToggleFilter
+          filterUpdater={table.setGlobalFilter}
+          filter={filterSlides}
         >
           Slides
-        </CheckBox>
-        <CheckBox
-          onCheckChanged={(checked) =>
-            table.getColumn('video')?.setFilterValue(checked)
-          }
+        </ToggleFilter>
+        <ToggleFilter
+          filterUpdater={table.setGlobalFilter}
+          filter={filterVideo}
         >
           Video
-        </CheckBox>
-        <CheckBox
-          onCheckChanged={(checked) =>
-            table
-              .getColumn('location')
-              ?.setFilterValue((old: Set<string> | undefined) => {
-                console.log('old', old);
-                const filters = old ?? new Set();
-                if (checked) {
-                  filters.add('virtual');
-                } else {
-                  filters.delete('virtual');
-                }
-
-                return filters;
-              })
-          }
+        </ToggleFilter>
+        <ToggleFilter
+          filterUpdater={table.setGlobalFilter}
+          filter={filterVirtual}
         >
           Virtual
-        </CheckBox>
-        <CheckBox
-          onCheckChanged={(checked) =>
-            table
-              .getColumn('location')
-              ?.setFilterValue((old: Set<string> | undefined) => {
-                console.log('old', old);
-                const filters = old ?? new Set();
-                if (checked) {
-                  filters.add('north america');
-                } else {
-                  filters.delete('north america');
-                }
-
-                return filters;
-              })
-          }
-        >
-          North America
-        </CheckBox>
-        <CheckBox
-          onCheckChanged={(checked) =>
-            table
-              .getColumn('location')
-              ?.setFilterValue((old: Set<string> | undefined) => {
-                console.log('old', old);
-                const filters = old ?? new Set();
-                if (checked) {
-                  filters.add('europe');
-                } else {
-                  filters.delete('europe');
-                }
-
-                return filters;
-              })
-          }
+        </ToggleFilter>
+        <ToggleFilter filterUpdater={table.setGlobalFilter} filter={filterUsa}>
+          USA
+        </ToggleFilter>
+        <ToggleFilter
+          filterUpdater={table.setGlobalFilter}
+          filter={filterEurope}
         >
           Europe
-        </CheckBox>
+        </ToggleFilter>
       </div>
       <div className="grid grid-cols-[0.75rem_1fr] sm:grid-cols-[0.75rem_1fr_1fr_1fr] md:grid-cols-[0.75rem_3fr_auto_1fr_auto] lg:grid-cols-[0.75rem_1fr_auto_auto_auto] gap-x-4 gap-y-1 text-secondary">
-        {table.getFilteredRowModel().rows.map((row) =>
+        {table.getRowModel().rows.map((row) =>
           row.getVisibleCells().map((cell) => (
             <div key={`r${row.id}c${cell.id}`} className="contents">
               {flexRender(cell.column.columnDef.cell, cell.getContext())}
