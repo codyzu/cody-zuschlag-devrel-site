@@ -9,7 +9,15 @@ import {
   type Updater,
 } from '@tanstack/react-table';
 import cx from 'clsx';
-import {type ReactNode, useState} from 'react';
+import {type ReactNode, useState, useCallback, useEffect} from 'react';
+import {
+  create,
+  insertBatch,
+  search,
+  type RetrievedDoc,
+  type SearchResult,
+} from '@lyrasearch/lyra';
+import {useDebouncedCallback} from 'use-debounce';
 import talks from './talks';
 import Section from './Section';
 import SectionTitle from './SectionTitle';
@@ -18,11 +26,14 @@ import {type Talk} from './talk-type';
 
 const columnHelper = createColumnHelper<Talk>();
 
+type GlobalFilterFn = (row: Row<Talk>, columnId: string) => boolean;
+
 const filter: FilterFn<Talk> = (
   row,
   columnId,
-  filterValue: Set<(row: Row<Talk>, columnId: string) => boolean>,
+  filterValue: Set<GlobalFilterFn>,
 ) => {
+  console.log('filter', {row, columnId, filterValue});
   if (filterValue.size === 0) {
     return true;
   }
@@ -74,16 +85,6 @@ const defaultColumns = [
     ),
   }),
   columnHelper.accessor('video', {
-    filterFn(row: Row<Talk>, columnId: string, filterValue: boolean) {
-      if (filterValue) {
-        return (
-          row.getValue(columnId) !== undefined &&
-          row.getValue(columnId) !== 'none'
-        );
-      }
-
-      return true;
-    },
     cell: (cell) => (
       <div className="col-start-2 md:col-start-5">
         {cell.getValue() === 'none' ? (
@@ -153,25 +154,23 @@ function ToggleFilter({
   children,
 }: {
   filterUpdater: (updater: Updater<any>) => void;
-  filter: (row: Row<Talk>, columnId: string) => boolean;
+  filter: GlobalFilterFn;
   children: ReactNode;
 }) {
   return (
     <CheckBox
       onCheckChanged={(checked) => {
-        filterUpdater(
-          (old: Set<(row: Row<Talk>, columnId: string) => boolean>) => {
-            console.log('update filters');
-            const filters = new Set(old);
-            if (checked) {
-              filters.add(filter);
-            } else {
-              filters.delete(filter);
-            }
+        filterUpdater((old: Set<GlobalFilterFn>) => {
+          console.log('update filters');
+          const filters = new Set(old);
+          if (checked) {
+            filters.add(filter);
+          } else {
+            filters.delete(filter);
+          }
 
-            return filters;
-          },
-        );
+          return filters;
+        });
       }}
     >
       {children}
@@ -179,41 +178,77 @@ function ToggleFilter({
   );
 }
 
-const filterSlides: (row: Row<Talk>, columnId: string) => boolean = (
-  row,
-  columnId,
-) => columnId === 'slides' && row.getValue(columnId) !== undefined;
+const filterSlides: GlobalFilterFn = (row, columnId) =>
+  columnId === 'slides' && row.getValue(columnId) !== undefined;
 
-const filterVideo: (row: Row<Talk>, columnId: string) => boolean = (
-  row,
-  columnId,
-) =>
+const filterVideo: GlobalFilterFn = (row, columnId) =>
   columnId === 'video' &&
   row.getValue(columnId) !== undefined &&
   row.getValue(columnId) !== 'none';
 
-const filterUsa: (row: Row<Talk>, columnId: string) => boolean = (
-  row,
-  columnId,
-) => columnId === 'location' && row.getValue<string>(columnId).endsWith('USA');
+const filterUsa: GlobalFilterFn = (row, columnId) =>
+  columnId === 'location' && row.getValue<string>(columnId).endsWith('USA');
 
-const filterVirtual: (row: Row<Talk>, columnId: string) => boolean = (
-  row,
-  columnId,
-) => columnId === 'location' && row.getValue(columnId) === 'Virtual';
+const filterVirtual: GlobalFilterFn = (row, columnId) =>
+  columnId === 'location' && row.getValue(columnId) === 'Virtual';
 
-const filterEurope: (row: Row<Talk>, columnId: string) => boolean = (
-  row,
-  columnId,
-) =>
+const filterEurope: GlobalFilterFn = (row, columnId) =>
   columnId === 'location' &&
   !row.getValue<string>(columnId).endsWith('USA') &&
   row.getValue(columnId) !== 'Virtual';
 
+const db = create({
+  schema: {
+    conference: 'string',
+    name: 'string',
+    location: 'string',
+  },
+  components: {
+    tokenizer: {
+      enableStemming: false,
+    },
+  },
+});
+
+let indexReady = false;
+
 export default function Talks() {
-  const [globalFilter, setGlobalFilter] = useState<
-    Set<(row: Row<Talk>, columnId: string) => boolean>
-  >(new Set<(row: Row<Talk>, columnId: string) => boolean>());
+  // Const [searchResult, setSearchResult] = useState<
+  //   SearchResult<{
+  //     conference: 'string';
+  //     name: 'string';
+  //     location: 'string';
+  //   }>
+  // >();
+
+  // Const isSearched = useCallback(
+  //   (row: Row<Talk>) => {
+  //     console.log('Searching', {row, searchResult});
+  //     return (
+  //       searchResult === undefined ||
+  //       searchResult.hits.some((hit) => hit.document === row.original)
+  //     );
+  //   },
+  //   [searchResult],
+  // );
+
+  const [globalFilter, setGlobalFilter] = useState<Set<GlobalFilterFn>>(
+    new Set(),
+  );
+
+  const [searchFilter, setSearchFilter] = useState<GlobalFilterFn>();
+
+  const [toggleFilters, setToggleFilters] = useState<Set<GlobalFilterFn>>(
+    new Set(),
+  );
+
+  useEffect(() => {
+    table.setGlobalFilter(
+      new Set([searchFilter, ...toggleFilters].filter(Boolean)),
+    );
+  }, [searchFilter, toggleFilters]);
+
+  const [searchString, setSearchString] = useState<string>('');
 
   const table = useReactTable({
     data: talks,
@@ -228,42 +263,94 @@ export default function Talks() {
     onGlobalFilterChange: setGlobalFilter,
   });
 
+  const debouncedSetSearchString = useDebouncedCallback(
+    async (value: string) => {
+      if (value === '') {
+        console.log('reset search result');
+        setSearchFilter(undefined);
+        // SetSearchResult(undefined);
+        return;
+      }
+
+      await db;
+      if (!indexReady) {
+        console.log('create index');
+        await insertBatch(await db, talks);
+        indexReady = true;
+      }
+
+      const result = await search(await db, {
+        term: value,
+        properties: '*',
+        // Tolerance does not seem compatible when deactivating the stemmer see: https://github.com/LyraSearch/lyra/issues/248
+        // Tolerance: 1,
+      });
+      console.log('update search', result);
+      setSearchFilter(
+        () => (row: Row<Talk>) =>
+          result.hits.some((hit) => hit.document === row.original),
+      );
+      // SetSearchResult(result);
+    },
+    500,
+  );
+
   return (
     <Section id="talks">
       <SectionTitle
         title="Speaking engagements and videos"
         subtitle="All of my previous and planned future speaking experience"
       />
-      <div className="flex flex-row justify-end gap-2 items-center">
-        <div className="i-lucide-filter text-white w-[1rem] h-[1rem]" />
-        <div>Filters</div>
-        <ToggleFilter
-          filterUpdater={table.setGlobalFilter}
-          filter={filterSlides}
-        >
-          Slides
-        </ToggleFilter>
-        <ToggleFilter
-          filterUpdater={table.setGlobalFilter}
-          filter={filterVideo}
-        >
-          Video
-        </ToggleFilter>
-        <ToggleFilter
-          filterUpdater={table.setGlobalFilter}
-          filter={filterVirtual}
-        >
-          Virtual
-        </ToggleFilter>
-        <ToggleFilter filterUpdater={table.setGlobalFilter} filter={filterUsa}>
-          USA
-        </ToggleFilter>
-        <ToggleFilter
-          filterUpdater={table.setGlobalFilter}
-          filter={filterEurope}
-        >
-          Europe
-        </ToggleFilter>
+      <div className="flex flex-row justify-end">
+        <div className="flex flex-col gap-2">
+          <div className="flex items-center gap-2 flex-shrink-1">
+            <div>
+              <div className="i-lucide-search h-[1rem] w-[1rem]" /> Search
+            </div>
+            <div className="bg-gradient-link p-[2px] rounded-lg flex flex-grow-1 flex-shrink-1">
+              <input
+                className="text-background rounded-lg p2 bg-black text-primary outline-none flex-grow-1 flex-shrink-1"
+                type="text"
+                value={searchString}
+                onChange={(event) => {
+                  setSearchString(event.target.value);
+                  void debouncedSetSearchString(event.target.value);
+                }}
+                placeholder="powered by Lyra"
+              />
+            </div>
+          </div>
+          <div className="flex flex-row justify-end gap-2 items-center flex-wrap">
+            <div>
+              <div className="i-lucide-filter text-white w-[1rem] h-[1rem]" />{' '}
+              Filters
+            </div>
+            <ToggleFilter
+              filterUpdater={setToggleFilters}
+              filter={filterSlides}
+            >
+              Slides
+            </ToggleFilter>
+            <ToggleFilter filterUpdater={setToggleFilters} filter={filterVideo}>
+              Video
+            </ToggleFilter>
+            <ToggleFilter
+              filterUpdater={setToggleFilters}
+              filter={filterVirtual}
+            >
+              Virtual
+            </ToggleFilter>
+            <ToggleFilter filterUpdater={setToggleFilters} filter={filterUsa}>
+              USA
+            </ToggleFilter>
+            <ToggleFilter
+              filterUpdater={setToggleFilters}
+              filter={filterEurope}
+            >
+              Europe
+            </ToggleFilter>
+          </div>
+        </div>
       </div>
       <div className="grid grid-cols-[0.75rem_1fr] sm:grid-cols-[0.75rem_1fr_1fr_1fr] md:grid-cols-[0.75rem_3fr_auto_1fr_auto] lg:grid-cols-[0.75rem_1fr_auto_auto_auto] gap-x-4 gap-y-1 text-secondary">
         {table.getRowModel().rows.map((row) =>

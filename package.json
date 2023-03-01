@@ -10,6 +10,7 @@
     "lint": "xo"
   },
   "dependencies": {
+    "@lyrasearch/lyra": "^0.4.10",
     "@tanstack/react-table": "^8.7.9",
     "clsx": "^1.2.1",
     "insights-js": "^1.2.11",
@@ -18,7 +19,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
-    "react-map-gl": "^7.0.21"
+    "react-map-gl": "^7.0.21",
+    "use-debounce": "^9.0.3"
   },
   "devDependencies": {
     "@iconify-json/circle-flags": "^1.1.32",

@@ -4,6 +4,7 @@ specifiers:
   '@iconify-json/circle-flags': ^1.1.32
   '@iconify-json/lucide': ^1.1.57
   '@iconify-json/mingcute': ^1.1.3
+  '@lyrasearch/lyra': ^0.4.10
   '@tanstack/react-table': ^8.7.9
   '@types/react': ^18.0.27
   '@types/react-dom': ^18.0.10
@@ -25,12 +26,14 @@ specifiers:
   react-map-gl: ^7.0.21
   typescript: ^4.9.5
   unocss: ^0.49.4
+  use-debounce: ^9.0.3
   vite: ^4.1.0
   vite-imagetools: ^4.0.18
   vite-plugin-radar: ^0.7.0
   xo: ^0.53.1
 
 dependencies:
+  '@lyrasearch/lyra': 0.4.10
   '@tanstack/react-table': 8.7.9_biqbaboplfbrettd7655fr4n2y
   clsx: 1.2.1
   insights-js: 1.2.11
@@ -40,6 +43,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-icons: 4.7.1_react@18.2.0
   react-map-gl: 7.0.21_6eczaga5xxiwzxtfiyk6fioasq
+  use-debounce: 9.0.3_react@18.2.0
 
 devDependencies:
   '@iconify-json/circle-flags': 1.1.32
@@ -613,6 +617,11 @@ packages:
       '@jridgewell/resolve-uri': 3.1.0
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
+
+  /@lyrasearch/lyra/0.4.10:
+    resolution: {integrity: sha512-1SEe6Jmc6XfPjR6/HCd5+4RXPcNirnudjHOWlhPvG7neBorX4s/plhvRumd/+yxn9JdNc5fCf7lWxx2tRfQivg==}
+    engines: {node: '>= 16.0.0'}
+    dev: false
 
   /@mapbox/geojson-rewind/0.5.2:
     resolution: {integrity: sha512-tJaT+RbYGJYStt7wI3cq4Nl4SXxG8W7JDG5DMJu97V25RnbNg3QtQtf+KD+VLjNpWKYsRvXDNmNrBgEETr1ifA==}
@@ -4153,6 +4162,15 @@ packages:
   /url-or-path/2.1.0:
     resolution: {integrity: sha512-dsBD6GbytSMj9YDb3jVzSRENwFh50oUORnWBeSHfo0Lnwv2KMm/J4npyGy1P9rivUPsUGLjTA53XqAFqpe0nww==}
     dev: true
+
+  /use-debounce/9.0.3_react@18.2.0:
+    resolution: {integrity: sha512-FhtlbDtDXILJV7Lix5OZj5yX/fW1tzq+VrvK1fnT2bUrPOGruU9Rw8NCEn+UI9wopfERBEZAOQ8lfeCJPllgnw==}
+    engines: {node: '>= 10.0.0'}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
