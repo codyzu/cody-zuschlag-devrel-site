@@ -10,13 +10,7 @@ import {
 } from '@tanstack/react-table';
 import cx from 'clsx';
 import {type ReactNode, useState, useCallback, useEffect} from 'react';
-import {
-  create,
-  insertBatch,
-  search,
-  type RetrievedDoc,
-  type SearchResult,
-} from '@lyrasearch/lyra';
+import {create, insertBatch, search} from '@lyrasearch/lyra';
 import {useDebouncedCallback} from 'use-debounce';
 import talks from './talks';
 import Section from './Section';
@@ -133,7 +127,7 @@ function CheckBox({
   children: ReactNode;
 }) {
   return (
-    <label>
+    <label className="flex-grow-1">
       <input
         type="checkbox"
         onChange={(event) => {
@@ -141,7 +135,7 @@ function CheckBox({
         }}
         className="hidden children:sibling:checked:bg-gradient-link sibling:checked:text-background"
       />
-      <div className="rounded-lg p-[2px] bg-gradient-link">
+      <div className="rounded-lg p-[2px] bg-gradient-link text-center">
         <div className="px-4 py-2 bg-background rounded-lg">{children}</div>
       </div>
     </label>
@@ -213,25 +207,6 @@ const db = create({
 let indexReady = false;
 
 export default function Talks() {
-  // Const [searchResult, setSearchResult] = useState<
-  //   SearchResult<{
-  //     conference: 'string';
-  //     name: 'string';
-  //     location: 'string';
-  //   }>
-  // >();
-
-  // Const isSearched = useCallback(
-  //   (row: Row<Talk>) => {
-  //     console.log('Searching', {row, searchResult});
-  //     return (
-  //       searchResult === undefined ||
-  //       searchResult.hits.some((hit) => hit.document === row.original)
-  //     );
-  //   },
-  //   [searchResult],
-  // );
-
   const [globalFilter, setGlobalFilter] = useState<Set<GlobalFilterFn>>(
     new Set(),
   );
@@ -244,6 +219,7 @@ export default function Talks() {
 
   useEffect(() => {
     table.setGlobalFilter(
+      // Create a new set (to trigger refresh) and remove any empty filters
       new Set([searchFilter, ...toggleFilters].filter(Boolean)),
     );
   }, [searchFilter, toggleFilters]);
@@ -268,7 +244,6 @@ export default function Talks() {
       if (value === '') {
         console.log('reset search result');
         setSearchFilter(undefined);
-        // SetSearchResult(undefined);
         return;
       }
 
@@ -290,7 +265,6 @@ export default function Talks() {
         () => (row: Row<Talk>) =>
           result.hits.some((hit) => hit.document === row.original),
       );
-      // SetSearchResult(result);
     },
     500,
   );
@@ -301,55 +275,37 @@ export default function Talks() {
         title="Speaking engagements and videos"
         subtitle="All of my previous and planned future speaking experience"
       />
-      <div className="flex flex-row justify-end">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center gap-2 flex-shrink-1">
-            <div>
-              <div className="i-lucide-search h-[1rem] w-[1rem]" /> Search
-            </div>
-            <div className="bg-gradient-link p-[2px] rounded-lg flex flex-grow-1 flex-shrink-1">
-              <input
-                className="text-background rounded-lg p2 bg-black text-primary outline-none flex-grow-1 flex-shrink-1"
-                type="text"
-                value={searchString}
-                onChange={(event) => {
-                  setSearchString(event.target.value);
-                  void debouncedSetSearchString(event.target.value);
-                }}
-                placeholder="powered by Lyra"
-              />
-            </div>
-          </div>
-          <div className="flex flex-row justify-end gap-2 items-center flex-wrap">
-            <div>
-              <div className="i-lucide-filter text-white w-[1rem] h-[1rem]" />{' '}
-              Filters
-            </div>
-            <ToggleFilter
-              filterUpdater={setToggleFilters}
-              filter={filterSlides}
-            >
-              Slides
-            </ToggleFilter>
-            <ToggleFilter filterUpdater={setToggleFilters} filter={filterVideo}>
-              Video
-            </ToggleFilter>
-            <ToggleFilter
-              filterUpdater={setToggleFilters}
-              filter={filterVirtual}
-            >
-              Virtual
-            </ToggleFilter>
-            <ToggleFilter filterUpdater={setToggleFilters} filter={filterUsa}>
-              USA
-            </ToggleFilter>
-            <ToggleFilter
-              filterUpdater={setToggleFilters}
-              filter={filterEurope}
-            >
-              Europe
-            </ToggleFilter>
-          </div>
+      <div className="grid grid-cols-[auto_auto] gap-2 items-center justify-end">
+        <div className="i-lucide-search h-[2rem] w-[2rem]" />
+        <div className="bg-gradient-link p-[2px] rounded-lg flex flex-grow-1 flex-shrink-1">
+          <input
+            className="text-background rounded-lg p2 bg-black text-primary outline-none flex-grow-1 flex-shrink-1"
+            type="text"
+            value={searchString}
+            onChange={(event) => {
+              setSearchString(event.target.value);
+              void debouncedSetSearchString(event.target.value);
+            }}
+            placeholder="Search (powered by Lyra)"
+          />
+        </div>
+        <div className="i-lucide-filter w-[2rem] h-[2rem]" />
+        <div className="flex flex-row gap-2 flex-wrap">
+          <ToggleFilter filterUpdater={setToggleFilters} filter={filterSlides}>
+            Slides
+          </ToggleFilter>
+          <ToggleFilter filterUpdater={setToggleFilters} filter={filterVideo}>
+            Video
+          </ToggleFilter>
+          <ToggleFilter filterUpdater={setToggleFilters} filter={filterVirtual}>
+            Virtual
+          </ToggleFilter>
+          <ToggleFilter filterUpdater={setToggleFilters} filter={filterUsa}>
+            USA
+          </ToggleFilter>
+          <ToggleFilter filterUpdater={setToggleFilters} filter={filterEurope}>
+            Europe
+          </ToggleFilter>
         </div>
       </div>
       <div className="grid grid-cols-[0.75rem_1fr] sm:grid-cols-[0.75rem_1fr_1fr_1fr] md:grid-cols-[0.75rem_3fr_auto_1fr_auto] lg:grid-cols-[0.75rem_1fr_auto_auto_auto] gap-x-4 gap-y-1 text-secondary">
