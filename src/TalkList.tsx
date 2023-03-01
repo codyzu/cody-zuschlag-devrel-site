@@ -6,28 +6,27 @@ import {
   type FilterFn,
   getFilteredRowModel,
   type Row,
-  type Updater,
 } from '@tanstack/react-table';
 import cx from 'clsx';
-import {type ReactNode, useState, useCallback, useEffect} from 'react';
+import {useState, useCallback, useEffect} from 'react';
 import {create, insertBatch, search} from '@lyrasearch/lyra';
-import {useDebouncedCallback} from 'use-debounce';
 import talks from './talks';
 import Section from './Section';
 import SectionTitle from './SectionTitle';
 import {Link} from './Link';
 import {type Talk} from './talk-type';
+import {Search} from './Search';
+import {ToggleFilter} from './ToggleFilter';
 
 const columnHelper = createColumnHelper<Talk>();
 
-type GlobalFilterFn = (row: Row<Talk>, columnId: string) => boolean;
+export type GlobalFilterFn = (row: Row<Talk>, columnId: string) => boolean;
 
 const filter: FilterFn<Talk> = (
   row,
   columnId,
   filterValue: Set<GlobalFilterFn>,
 ) => {
-  console.log('filter', {row, columnId, filterValue});
   if (filterValue.size === 0) {
     return true;
   }
@@ -119,59 +118,6 @@ const defaultColumns = [
   }),
 ];
 
-function CheckBox({
-  onCheckChanged,
-  children,
-}: {
-  onCheckChanged: (checked: boolean) => void;
-  children: ReactNode;
-}) {
-  return (
-    <label className="flex-grow-1">
-      <input
-        type="checkbox"
-        onChange={(event) => {
-          onCheckChanged(event.target.checked);
-        }}
-        className="hidden children:sibling:checked:bg-gradient-link sibling:checked:text-background"
-      />
-      <div className="rounded-lg p-[2px] bg-gradient-link text-center">
-        <div className="px-4 py-2 bg-background rounded-lg">{children}</div>
-      </div>
-    </label>
-  );
-}
-
-function ToggleFilter({
-  filterUpdater,
-  filter,
-  children,
-}: {
-  filterUpdater: (updater: Updater<any>) => void;
-  filter: GlobalFilterFn;
-  children: ReactNode;
-}) {
-  return (
-    <CheckBox
-      onCheckChanged={(checked) => {
-        filterUpdater((old: Set<GlobalFilterFn>) => {
-          console.log('update filters');
-          const filters = new Set(old);
-          if (checked) {
-            filters.add(filter);
-          } else {
-            filters.delete(filter);
-          }
-
-          return filters;
-        });
-      }}
-    >
-      {children}
-    </CheckBox>
-  );
-}
-
 const filterSlides: GlobalFilterFn = (row, columnId) =>
   columnId === 'slides' && row.getValue(columnId) !== undefined;
 
@@ -204,6 +150,7 @@ const db = create({
   },
 });
 
+// Flag to indicate if the index has been lazy loaded
 let indexReady = false;
 
 export default function Talks() {
@@ -224,8 +171,6 @@ export default function Talks() {
     );
   }, [searchFilter, toggleFilters]);
 
-  const [searchString, setSearchString] = useState<string>('');
-
   const table = useReactTable({
     data: talks,
     columns: defaultColumns,
@@ -239,17 +184,15 @@ export default function Talks() {
     onGlobalFilterChange: setGlobalFilter,
   });
 
-  const debouncedSetSearchString = useDebouncedCallback(
+  const onSearch = useCallback(
     async (value: string) => {
       if (value === '') {
-        console.log('reset search result');
         setSearchFilter(undefined);
         return;
       }
 
-      await db;
+      // Lazy load the index on the first search
       if (!indexReady) {
-        console.log('create index');
         await insertBatch(await db, talks);
         indexReady = true;
       }
@@ -260,13 +203,13 @@ export default function Talks() {
         // Tolerance does not seem compatible when deactivating the stemmer see: https://github.com/LyraSearch/lyra/issues/248
         // Tolerance: 1,
       });
-      console.log('update search', result);
+
       setSearchFilter(
         () => (row: Row<Talk>) =>
           result.hits.some((hit) => hit.document === row.original),
       );
     },
-    500,
+    [setSearchFilter],
   );
 
   return (
@@ -278,16 +221,7 @@ export default function Talks() {
       <div className="grid grid-cols-[auto_auto] gap-2 items-center justify-end">
         <div className="i-lucide-search h-[2rem] w-[2rem]" />
         <div className="bg-gradient-link p-[2px] rounded-lg flex flex-grow-1 flex-shrink-1">
-          <input
-            className="text-background rounded-lg p2 bg-black text-primary outline-none flex-grow-1 flex-shrink-1"
-            type="text"
-            value={searchString}
-            onChange={(event) => {
-              setSearchString(event.target.value);
-              void debouncedSetSearchString(event.target.value);
-            }}
-            placeholder="Search (powered by Lyra)"
-          />
+          <Search onSearch={onSearch} />
         </div>
         <div className="i-lucide-filter w-[2rem] h-[2rem]" />
         <div className="flex flex-row gap-2 flex-wrap">
