@@ -29,7 +29,7 @@ export function ToggleFilter({
             return filters;
           });
         }}
-        className="hidden children:sibling:checked:bg-gradient-link sibling:checked:text-background"
+        className="hidden children:sibling:checked:bg-transparent sibling:checked:text-background"
       />
       <div className="rounded-lg p-[2px] bg-gradient-link text-center">
         <div className="px-4 py-2 bg-background rounded-lg">{children}</div>
