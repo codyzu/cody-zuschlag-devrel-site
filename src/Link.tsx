@@ -31,7 +31,11 @@ export function Link({
 
   const Wrapper = active
     ? ({children: anchorChildren}: {children: ReactNode}) => (
-        <a href={url} onClick={nav}>
+        <a
+          href={url}
+          onClick={nav}
+          className="outline-none focus:border-b-2 focus:border-b-white"
+        >
           {anchorChildren}
         </a>
       )

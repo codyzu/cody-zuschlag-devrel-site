@@ -17,7 +17,7 @@ export function ToggleFilter({
 
   return (
     <button
-      className="rounded-lg p-[2px] bg-gradient-link text-center flex-grow-1"
+      className="rounded-lg p-[2px] bg-gradient-link text-center flex-grow-1 focus:outline-white"
       aria-pressed={checked}
       onClick={() => {
         setChecked((old) => !old);
