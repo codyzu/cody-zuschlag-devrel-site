@@ -164,6 +164,26 @@ export default function Talks() {
     new Set(),
   );
 
+  // Given a filter, create a onCheckedChanged handler for a ToggleFilter
+  const toggleFilterOnChangedFactory = useCallback(
+    (filter: GlobalFilterFn) => (checked: boolean) => {
+      setToggleFilters((old: Set<GlobalFilterFn>) => {
+        // Create a new Set in order to ensure a new render is triggered
+        const filters = new Set(old);
+
+        // Add or deleted the filter to the set
+        if (checked) {
+          filters.add(filter);
+        } else {
+          filters.delete(filter);
+        }
+
+        return filters;
+      });
+    },
+    [setToggleFilters],
+  );
+
   useEffect(() => {
     table.setGlobalFilter(
       // Create a new set (to trigger refresh) and remove any empty filters
@@ -225,19 +245,29 @@ export default function Talks() {
         </div>
         <div className="i-lucide-filter w-[2rem] h-[2rem]" />
         <div className="flex flex-row gap-2 flex-wrap">
-          <ToggleFilter filterUpdater={setToggleFilters} filter={filterSlides}>
+          <ToggleFilter
+            onCheckChanged={toggleFilterOnChangedFactory(filterSlides)}
+          >
             Slides
           </ToggleFilter>
-          <ToggleFilter filterUpdater={setToggleFilters} filter={filterVideo}>
+          <ToggleFilter
+            onCheckChanged={toggleFilterOnChangedFactory(filterVideo)}
+          >
             Video
           </ToggleFilter>
-          <ToggleFilter filterUpdater={setToggleFilters} filter={filterVirtual}>
+          <ToggleFilter
+            onCheckChanged={toggleFilterOnChangedFactory(filterVirtual)}
+          >
             Virtual
           </ToggleFilter>
-          <ToggleFilter filterUpdater={setToggleFilters} filter={filterUsa}>
+          <ToggleFilter
+            onCheckChanged={toggleFilterOnChangedFactory(filterUsa)}
+          >
             USA
           </ToggleFilter>
-          <ToggleFilter filterUpdater={setToggleFilters} filter={filterEurope}>
+          <ToggleFilter
+            onCheckChanged={toggleFilterOnChangedFactory(filterEurope)}
+          >
             Europe
           </ToggleFilter>
         </div>
