@@ -10,8 +10,6 @@ import bgImageJpeg from './images/reactsummit_closeup.jpeg?format=jpeg&width=600
 // @ts-expect-error ts doesn't know about the vite plugin syntax
 import bgImageFallback from './images/reactsummit_closeup.jpeg?width=12';
 
-console.log('bg', bgImageAvif, bgImageWebP, bgImageJpeg);
-
 export default function Hero() {
   return (
     <div
@@ -27,7 +25,7 @@ export default function Hero() {
         <img
           src={bgImageFallback as string}
           className="absolute inset-0 w-full h-full object-cover"
-          // @ts-expect-error react is not typed for this
+          // @ts-expect-error react is not typed for this, there will be warning in the browser
           fetchPriority="high"
         />
       </picture>

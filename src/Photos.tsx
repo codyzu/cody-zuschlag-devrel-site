@@ -58,10 +58,6 @@ const picturesPortrait = import.meta.glob<Picture>(
   },
 );
 
-console.log('small', picturesSmall);
-console.log('big', picturesBig);
-console.log('portrait', picturesPortrait);
-
 type ParsedImage = {
   big: boolean;
   portrait: boolean;
@@ -80,14 +76,20 @@ const allImportEntries = Object.entries(picturesSmall).concat(
 
 const entries: Array<[string, ParsedImage]> = allImportEntries.map(
   ([key, picture]) => {
+    // Parse everything between the last slash and the first dot
     const filename: string = key.split('/').at(-1)!.split('.')[0];
+
+    // Check for _big and _portrait postfixes (these will get different css)
     const big = filename.endsWith('_big');
     const portrait = filename.endsWith('_portrait');
+
     return [
       filename,
       {
         big,
         portrait,
+
+        // Build the props we'll use with the img and picture tags
         fallback: picture.fallback.src,
         srcSets: Object.fromEntries(
           formats.map((format) => [
@@ -102,6 +104,7 @@ const entries: Array<[string, ParsedImage]> = allImportEntries.map(
   },
 );
 
+// Sort the pictures alphanumerically
 const sortedEntries: Array<[string, ParsedImage]> = entries.sort(([a], [b]) => {
   const nameA = a.toUpperCase();
   const nameB = b.toUpperCase();
@@ -118,8 +121,6 @@ const sortedEntries: Array<[string, ParsedImage]> = entries.sort(([a], [b]) => {
 });
 
 const pictures = Object.fromEntries(sortedEntries);
-
-console.log('pictures', pictures);
 
 function ResponsiveImage({
   name,
