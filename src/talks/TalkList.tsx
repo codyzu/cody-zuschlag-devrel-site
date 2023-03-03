@@ -9,29 +9,31 @@ import {
 } from '@tanstack/react-table';
 import cx from 'clsx';
 import {useState, useCallback, useEffect} from 'react';
-import {create, insertBatch, search} from '@lyrasearch/lyra';
+import Section from '../Section';
+import SectionTitle from '../SectionTitle';
+import {Link} from '../Link';
 import talks from './talks';
-import Section from './Section';
-import SectionTitle from './SectionTitle';
-import {Link} from './Link';
 import {type Talk} from './talk-type';
 import {Search} from './Search';
 import {ToggleFilter} from './ToggleFilter';
+import {createTalkSearch} from './search-talks';
+import {type GlobalFilterFn} from './filter-type';
+import {filters as talkFilters} from './filters';
 
 const columnHelper = createColumnHelper<Talk>();
 
-export type GlobalFilterFn = (row: Row<Talk>, columnId: string) => boolean;
-
-const filter: FilterFn<Talk> = (
+const filterTalks: FilterFn<Talk> = (
   row,
   columnId,
-  filterValue: Set<GlobalFilterFn>,
+  filterSet: Set<GlobalFilterFn>,
 ) => {
-  if (filterValue.size === 0) {
+  // No filters, return true for every value
+  if (filterSet.size === 0) {
     return true;
   }
 
-  for (const cellFilter of filterValue) {
+  // Test each filter until one returns true
+  for (const cellFilter of filterSet) {
     if (cellFilter(row, columnId)) {
       return true;
     }
@@ -78,23 +80,27 @@ const defaultColumns = [
     ),
   }),
   columnHelper.accessor('video', {
-    cell: (cell) => (
-      <div className="col-start-2 md:col-start-5">
-        {cell.getValue() === 'none' ? (
-          <Link icon="i-lucide-video-off text-lg" active={false}>
-            Not recorded
-          </Link>
-        ) : cell.getValue() ? (
-          <Link icon="i-lucide-video text-lg" url={cell.getValue()}>
-            <div className="">Watch now</div>
-          </Link>
-        ) : (
-          <Link icon="i-lucide-timer text-lg" active={false}>
-            Coming soon
-          </Link>
-        )}
-      </div>
-    ),
+    cell(cell) {
+      const video = cell.getValue();
+
+      return (
+        <div className="col-start-2 md:col-start-5">
+          {video === 'none' ? (
+            <Link icon="i-lucide-video-off text-lg" active={false}>
+              Not recorded
+            </Link>
+          ) : video === undefined ? (
+            <Link icon="i-lucide-timer text-lg" active={false}>
+              Coming soon
+            </Link>
+          ) : (
+            <Link icon="i-lucide-video text-lg" url={cell.getValue()}>
+              <div className="">Watch now</div>
+            </Link>
+          )}
+        </div>
+      );
+    },
   }),
   columnHelper.accessor('slides', {
     cell: (cell) =>
@@ -118,40 +124,7 @@ const defaultColumns = [
   }),
 ];
 
-const filterSlides: GlobalFilterFn = (row, columnId) =>
-  columnId === 'slides' && row.getValue(columnId) !== undefined;
-
-const filterVideo: GlobalFilterFn = (row, columnId) =>
-  columnId === 'video' &&
-  row.getValue(columnId) !== undefined &&
-  row.getValue(columnId) !== 'none';
-
-const filterUsa: GlobalFilterFn = (row, columnId) =>
-  columnId === 'location' && row.getValue<string>(columnId).endsWith('USA');
-
-const filterVirtual: GlobalFilterFn = (row, columnId) =>
-  columnId === 'location' && row.getValue(columnId) === 'Virtual';
-
-const filterEurope: GlobalFilterFn = (row, columnId) =>
-  columnId === 'location' &&
-  !row.getValue<string>(columnId).endsWith('USA') &&
-  row.getValue(columnId) !== 'Virtual';
-
-const db = create({
-  schema: {
-    conference: 'string',
-    name: 'string',
-    location: 'string',
-  },
-  components: {
-    tokenizer: {
-      enableStemming: false,
-    },
-  },
-});
-
-// Flag to indicate if the index has been lazy loaded
-let indexReady = false;
+const searchTalks = createTalkSearch(talks);
 
 export default function Talks() {
   const [globalFilter, setGlobalFilter] = useState<Set<GlobalFilterFn>>(
@@ -197,7 +170,7 @@ export default function Talks() {
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getColumnCanGlobalFilter: () => true,
-    globalFilterFn: filter,
+    globalFilterFn: filterTalks,
     state: {
       globalFilter,
     },
@@ -206,27 +179,17 @@ export default function Talks() {
 
   const onSearch = useCallback(
     async (value: string) => {
+      // Clear the search filter when the search string is empty
       if (value === '') {
         setSearchFilter(undefined);
         return;
       }
 
-      // Lazy load the index on the first search
-      if (!indexReady) {
-        await insertBatch(await db, talks);
-        indexReady = true;
-      }
-
-      const result = await search(await db, {
-        term: value,
-        properties: '*',
-        // Tolerance does not seem compatible when deactivating the stemmer see: https://github.com/LyraSearch/lyra/issues/248
-        // Tolerance: 1,
-      });
+      const searchHits = await searchTalks(value);
 
       setSearchFilter(
         () => (row: Row<Talk>) =>
-          result.hits.some((hit) => hit.document === row.original),
+          searchHits.some((hit) => hit.document === row.original),
       );
     },
     [setSearchFilter],
@@ -244,31 +207,14 @@ export default function Talks() {
         </div>
         <div className="i-lucide-filter w-[2rem] h-[2rem] row-start-2" />
         <div className="flex flex-row gap-2 flex-wrap">
-          <ToggleFilter
-            onCheckChanged={toggleFilterOnChangedFactory(filterSlides)}
-          >
-            Slides
-          </ToggleFilter>
-          <ToggleFilter
-            onCheckChanged={toggleFilterOnChangedFactory(filterVideo)}
-          >
-            Video
-          </ToggleFilter>
-          <ToggleFilter
-            onCheckChanged={toggleFilterOnChangedFactory(filterVirtual)}
-          >
-            Virtual
-          </ToggleFilter>
-          <ToggleFilter
-            onCheckChanged={toggleFilterOnChangedFactory(filterUsa)}
-          >
-            USA
-          </ToggleFilter>
-          <ToggleFilter
-            onCheckChanged={toggleFilterOnChangedFactory(filterEurope)}
-          >
-            Europe
-          </ToggleFilter>
+          {talkFilters.map((filterFn) => (
+            <ToggleFilter
+              key={filterFn.name}
+              onCheckChanged={toggleFilterOnChangedFactory(filterFn)}
+            >
+              {filterFn.name}
+            </ToggleFilter>
+          ))}
         </div>
       </div>
       <div className="grid grid-cols-[0.75rem_1fr] sm:grid-cols-[0.75rem_1fr_1fr_1fr] md:grid-cols-[0.75rem_3fr_auto_1fr_auto] lg:grid-cols-[0.75rem_1fr_auto_auto_auto] gap-x-4 gap-y-1 text-secondary">
