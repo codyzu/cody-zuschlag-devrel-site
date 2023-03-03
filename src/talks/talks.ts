@@ -4,6 +4,13 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'Open Source Security',
+    name: 'Open Source Security Fireside chat with Tobie Langel and NearForm DX',
+    date: '2023-03-02T12:00Z',
+    location: 'Virtual',
+    video: 'https://youtu.be/rGaOsPMc26Y',
+  },
+  {
     conference: 'DeveloperWeek + ProductWorld (virtual)',
     name: "Design Tokens, Systems, and a Component's Journey From Design to Deployment",
     date: '2023-02-21T12:00Z',
