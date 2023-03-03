@@ -1,24 +1,42 @@
-import {type GlobalFilterFn} from './filter-type';
+import {type Row} from '@tanstack/react-table';
+import {type Talk} from './talk-type';
 
-/* eslint-disable @typescript-eslint/naming-convention */
-const Slides: GlobalFilterFn = (row, columnId) =>
-  columnId === 'slides' && row.getValue(columnId) !== undefined;
+export type TalkFilterFn = (row: Row<Talk>, columnId: string) => boolean;
 
-const Video: GlobalFilterFn = (row, columnId) =>
-  columnId === 'video' &&
-  row.getValue(columnId) !== undefined &&
-  row.getValue(columnId) !== 'none';
+type Filter = {
+  filterFn: TalkFilterFn;
+  label: string;
+};
 
-const USA: GlobalFilterFn = (row, columnId) =>
-  columnId === 'location' && row.getValue<string>(columnId).endsWith('USA');
-
-const Virtual: GlobalFilterFn = (row, columnId) =>
-  columnId === 'location' && row.getValue(columnId) === 'Virtual';
-
-const Europe: GlobalFilterFn = (row, columnId) =>
-  columnId === 'location' &&
-  !row.getValue<string>(columnId).endsWith('USA') &&
-  row.getValue(columnId) !== 'Virtual';
-/* eslint-enable @typescript-eslint/naming-convention */
-
-export const filters = [Video, Slides, USA, Europe, Virtual];
+// These will be rendered as toggle filters below the search box
+export const filters: Filter[] = [
+  {
+    label: 'Video',
+    filterFn: (row, columnId) =>
+      columnId === 'video' &&
+      row.getValue(columnId) !== undefined &&
+      row.getValue(columnId) !== 'none',
+  },
+  {
+    label: 'Slides',
+    filterFn: (row, columnId) =>
+      columnId === 'slides' && row.getValue(columnId) !== undefined,
+  },
+  {
+    label: 'USA',
+    filterFn: (row, columnId) =>
+      columnId === 'location' && row.getValue<string>(columnId).endsWith('USA'),
+  },
+  {
+    label: 'Europe',
+    filterFn: (row, columnId) =>
+      columnId === 'location' &&
+      !row.getValue<string>(columnId).endsWith('USA') &&
+      row.getValue(columnId) !== 'Virtual',
+  },
+  {
+    label: 'Virtual',
+    filterFn: (row, columnId) =>
+      columnId === 'location' && row.getValue(columnId) === 'Virtual',
+  },
+];

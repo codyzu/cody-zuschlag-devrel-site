@@ -1,7 +1,5 @@
-import {type Updater} from '@tanstack/react-table';
 import {useEffect, useState, type ReactNode} from 'react';
 import cx from 'clsx';
-import {type GlobalFilterFn} from './TalkList';
 
 export function ToggleFilter({
   onCheckChanged,

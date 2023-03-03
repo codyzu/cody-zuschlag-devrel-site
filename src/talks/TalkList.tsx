@@ -17,15 +17,14 @@ import {type Talk} from './talk-type';
 import {Search} from './Search';
 import {ToggleFilter} from './ToggleFilter';
 import {createTalkSearch} from './search-talks';
-import {type GlobalFilterFn} from './filter-type';
-import {filters as talkFilters} from './filters';
+import {filters as talkFilters, type TalkFilterFn} from './filters';
 
 const columnHelper = createColumnHelper<Talk>();
 
 const filterTalks: FilterFn<Talk> = (
   row,
   columnId,
-  filterSet: Set<GlobalFilterFn>,
+  filterSet: Set<TalkFilterFn>,
 ) => {
   // No filters, return true for every value
   if (filterSet.size === 0) {
@@ -127,20 +126,20 @@ const defaultColumns = [
 const searchTalks = createTalkSearch(talks);
 
 export default function Talks() {
-  const [globalFilter, setGlobalFilter] = useState<Set<GlobalFilterFn>>(
+  const [globalFilter, setGlobalFilter] = useState<Set<TalkFilterFn>>(
     new Set(),
   );
 
-  const [searchFilter, setSearchFilter] = useState<GlobalFilterFn>();
+  const [searchFilter, setSearchFilter] = useState<TalkFilterFn>();
 
-  const [toggleFilters, setToggleFilters] = useState<Set<GlobalFilterFn>>(
+  const [toggleFilters, setToggleFilters] = useState<Set<TalkFilterFn>>(
     new Set(),
   );
 
   // Given a filter, create a onCheckedChanged handler for a ToggleFilter
   const toggleFilterOnChangedFactory = useCallback(
-    (filter: GlobalFilterFn) => (checked: boolean) => {
-      setToggleFilters((old: Set<GlobalFilterFn>) => {
+    (filter: TalkFilterFn) => (checked: boolean) => {
+      setToggleFilters((old: Set<TalkFilterFn>) => {
         // Create a new Set in order to ensure a new render is triggered
         const filters = new Set(old);
 
@@ -207,12 +206,12 @@ export default function Talks() {
         </div>
         <div className="i-lucide-filter w-[2rem] h-[2rem] row-start-2" />
         <div className="flex flex-row gap-2 flex-wrap">
-          {talkFilters.map((filterFn) => (
+          {talkFilters.map(({label, filterFn}) => (
             <ToggleFilter
-              key={filterFn.name}
+              key={label}
               onCheckChanged={toggleFilterOnChangedFactory(filterFn)}
             >
-              {filterFn.name}
+              {label}
             </ToggleFilter>
           ))}
         </div>
