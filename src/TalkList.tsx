@@ -239,9 +239,10 @@ export default function Talks() {
         subtitle="All of my previous and planned future speaking experience"
       />
       <div className="grid grid-cols-[auto_auto] gap-2 items-center justify-end">
-        <div className="i-lucide-search h-[2rem] w-[2rem]" />
-        <Search onSearch={onSearch} />
-        <div className="i-lucide-filter w-[2rem] h-[2rem]" />
+        <div className="col-span-2 flex flex-grow-1 flex-shrink-1">
+          <Search onSearch={onSearch} />
+        </div>
+        <div className="i-lucide-filter w-[2rem] h-[2rem] row-start-2" />
         <div className="flex flex-row gap-2 flex-wrap">
           <ToggleFilter
             onCheckChanged={toggleFilterOnChangedFactory(filterSlides)}

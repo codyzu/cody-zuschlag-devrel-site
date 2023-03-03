@@ -7,9 +7,16 @@ export function Search({onSearch}: {onSearch: (value: string) => void}) {
   const debouncedSetSearchString = useDebouncedCallback(onSearch, 500);
 
   return (
-    <div className="bg-gradient-link p-[2px] rounded-lg flex flex-grow-1 flex-shrink-1 ">
+    <form
+      className="bg-gradient-link p-[2px] rounded-lg flex flex-grow-1 flex-shrink-1"
+      onSubmit={(event) => {
+        debouncedSetSearchString.cancel();
+        event.preventDefault();
+        onSearch(searchString);
+      }}
+    >
       <input
-        className="text-background rounded-lg p2 bg-black text-primary flex-grow-1 flex-shrink-1 outline-none focus:bg-white focus:text-background"
+        className="text-background rounded-l-lg p2 bg-black text-primary flex-grow-1 flex-shrink-1 outline-none focus:bg-white focus:text-background"
         type="text"
         value={searchString}
         onChange={(event) => {
@@ -18,6 +25,12 @@ export function Search({onSearch}: {onSearch: (value: string) => void}) {
         }}
         placeholder="Search (powered by Lyra)"
       />
-    </div>
+      <button
+        type="submit"
+        className="px-3 outline-none rounded-r-lg focus:outline-white"
+      >
+        <div className="i-lucide-search w-[2rem] h-[2rem]" />
+      </button>
+    </form>
   );
 }
