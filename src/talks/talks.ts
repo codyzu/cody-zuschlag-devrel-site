@@ -4,6 +4,16 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'Devoxx France',
+    name: 'IPFS - The Practical Bits',
+    date: '2023-04-14T12:00Z',
+    location: 'Paris, France',
+    flag: 'i-circle-flags-fr',
+    video: 'none',
+    slides:
+      'https://docs.google.com/presentation/d/181kDUwgV9nhtp0FbUYqlZ3xB_LHgs75kbNxu0MVnKKY/edit?usp=sharing',
+  },
+  {
     conference: 'Open Source Security',
     name: 'Open Source Security Fireside chat with Tobie Langel and NearForm DX',
     date: '2023-03-02T12:00Z',
