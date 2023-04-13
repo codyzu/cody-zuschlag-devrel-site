@@ -9,7 +9,7 @@ const talks: Talk[] = [
     date: '2023-04-14T12:00Z',
     location: 'Paris, France',
     flag: 'i-circle-flags-fr',
-    video: 'none',
+    video: undefined,
     slides:
       'https://docs.google.com/presentation/d/181kDUwgV9nhtp0FbUYqlZ3xB_LHgs75kbNxu0MVnKKY/edit?usp=sharing',
   },
