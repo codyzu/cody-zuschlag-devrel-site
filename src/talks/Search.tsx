@@ -23,7 +23,7 @@ export function Search({onSearch}: {onSearch: (value: string) => void}) {
           setSearchString(event.target.value);
           debouncedSetSearchString(event.target.value);
         }}
-        placeholder="Search (powered by Lyra)"
+        placeholder="Search (powered by Orama)"
       />
       <button
         type="submit"
