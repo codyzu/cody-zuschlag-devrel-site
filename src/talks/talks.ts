@@ -4,6 +4,15 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'OpenJS Collaborators Summit',
+    name: 'Zen and the Art of Open Source',
+    date: '2023-05-09T12:00Z',
+    location: 'Virtual',
+    video: undefined,
+    slides:
+      'https://docs.google.com/presentation/d/11pf28uBhezrfs7uagDbInNZXDnem-2qJAUlR3GHIweM/edit?usp=sharing',
+  },
+  {
     conference: 'Devoxx France',
     name: 'IPFS - The Practical Bits',
     date: '2023-04-14T12:00Z',
