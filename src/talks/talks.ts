@@ -4,11 +4,102 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'NodeConf EU',
+    name: 'Your First Node.js Contribution Workshop',
+    date: '2023-11-07T12:00Z',
+    location: 'Kilkenny, Ireland',
+    flag: 'i-circle-flags-ie',
+    video: undefined,
+    // Slides:
+    //   'https://docs.google.com/presentation/d/11pf28uBhezrfs7uagDbInNZXDnem-2qJAUlR3GHIweM/edit?usp=sharing',
+  },
+  {
+    conference: 'NodeConf EU',
+    name: 'From Zero to React Native Workshop',
+    date: '2023-11-06T12:00Z',
+    location: 'Kilkenny, Ireland',
+    flag: 'i-circle-flags-ie',
+    video: undefined,
+    // Slides:
+    //   'https://docs.google.com/presentation/d/11pf28uBhezrfs7uagDbInNZXDnem-2qJAUlR3GHIweM/edit?usp=sharing',
+  },
+  {
+    conference: 'From React to React Native',
+    name: 'Bridging the Gap with Cody Zuschlag & Tiago Borba',
+    date: '2023-11-03T12:00Z',
+    location: 'virtual',
+    video: 'https://youtu.be/ZtJCFPpl6yA',
+  },
+  {
+    conference: 'Porto Tech Hub',
+    name: 'IPFS - The Practical Bits',
+    date: '2023-10-27T12:00Z',
+    location: 'Porto, Portugal',
+    flag: 'i-circle-flags-pt',
+    video: undefined,
+    slides:
+      'https://docs.google.com/presentation/d/1QnY3L-N7ho_6O8EzojtRh7zQvw_K3NqUDqn8Ok2crrc/edit?usp=sharing',
+  },
+  {
+    conference: 'UtahJS',
+    name: 'Decentralizing with QR Codes',
+    date: '2023-09-15T12:00Z',
+    location: 'Salt Lake City, Utah, USA',
+    flag: 'i-circle-flags-us',
+    video: 'https://youtu.be/r50w5Llmj0Y',
+    slides:
+      'https://docs.google.com/presentation/d/1yvjGq7yWrp-8OkJGz0tbFJuabbM53lnn8wOiE4iPQTc/edit?usp=sharing',
+  },
+  {
+    conference: 'Tech for Meaningful Social Connection',
+    name: 'Fireside chat with Paula Paul and Cody Zuschlag',
+    date: '2023-09-22T12:00Z',
+    location: 'virtual',
+    video: 'https://youtu.be/VdBSVexSvbA',
+  },
+  {
+    conference: 'Rethinking Accessibility',
+    name: 'Fireside chat with Cody Zuschlag & Lise Noble',
+    date: '2023-08-18T12:00Z',
+    location: 'virtual',
+    video: 'https://youtu.be/JBTpPyW6Fo0',
+  },
+  {
+    conference: 'Kubernetes Community Days Munich',
+    name: 'Zen and the Art of Open Source',
+    date: '2023-07-18T12:00Z',
+    location: 'Munich, Germany',
+    flag: 'i-circle-flags-de',
+    video: undefined,
+    slides:
+      'https://docs.google.com/presentation/d/1XwuoLNbEtT6IpPtwpQahj2gAYm1aqpWwL1IhNe2X5v8/edit?usp=sharing',
+  },
+  {
+    conference: 'DevBcn',
+    name: 'Decentralizing with QR Codes',
+    date: '2023-07-04T12:00Z',
+    location: 'Barcelona, Spain',
+    flag: 'i-circle-flags-es',
+    video: undefined,
+    slides:
+      'https://docs.google.com/presentation/d/1yvjGq7yWrp-8OkJGz0tbFJuabbM53lnn8wOiE4iPQTc/edit?usp=sharing',
+  },
+  {
+    conference: 'DevSum',
+    name: 'Full-Stack JS Today: Fastify, GraphQL, and React',
+    date: '2023-05-26T12:00Z',
+    location: 'Stockholm, Sweden',
+    flag: 'i-circle-flags-se',
+    video: 'none',
+    slides:
+      'https://docs.google.com/presentation/d/1XCYKK-pMAyeJPiN-LvOPFqZNnkKITzUxEJ0GeYnZJiQ/edit?usp=sharing',
+  },
+  {
     conference: 'OpenJS Collaborators Summit',
     name: 'Zen and the Art of Open Source',
     date: '2023-05-09T12:00Z',
     location: 'Virtual',
-    video: undefined,
+    video: 'https://youtu.be/eG_6DmhCmzw',
     slides:
       'https://docs.google.com/presentation/d/11pf28uBhezrfs7uagDbInNZXDnem-2qJAUlR3GHIweM/edit?usp=sharing',
   },
@@ -18,7 +109,7 @@ const talks: Talk[] = [
     date: '2023-04-14T12:00Z',
     location: 'Paris, France',
     flag: 'i-circle-flags-fr',
-    video: undefined,
+    video: 'https://youtu.be/kQOkTet31gY',
     slides:
       'https://docs.google.com/presentation/d/181kDUwgV9nhtp0FbUYqlZ3xB_LHgs75kbNxu0MVnKKY/edit?usp=sharing',
   },
