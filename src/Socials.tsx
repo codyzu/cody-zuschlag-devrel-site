@@ -10,17 +10,17 @@ export default function Socials() {
         subtitle="Reach out to me at these places"
       />
       <div className="flex flex-col sm:flex-row gap-x-8 flex-wrap font-medium text-3xl">
-        <Link icon="i-lucide-twitter" url="https://twitter.com/codyzus">
-          @codyzus
-        </Link>
-        <Link icon="i-lucide-github" url="https://github.com/codyzu">
-          @codyzu
-        </Link>
         <Link
           icon="i-lucide-linkedin"
           url="https://www.linkedin.com/in/cody-zuschlag"
         >
           LinkedIn
+        </Link>
+        <Link icon="i-tabler-brand-x" url="https://twitter.com/codyzus">
+          @codyzus
+        </Link>
+        <Link icon="i-lucide-github" url="https://github.com/codyzu">
+          @codyzu
         </Link>
         <Link icon="i-mingcute-medium-line" url="https://medium.com/@codyzus">
           Medium
