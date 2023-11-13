@@ -9,9 +9,7 @@ const talks: Talk[] = [
     date: '2023-11-07T12:00Z',
     location: 'Kilkenny, Ireland',
     flag: 'i-circle-flags-ie',
-    video: undefined,
-    // Slides:
-    //   'https://docs.google.com/presentation/d/11pf28uBhezrfs7uagDbInNZXDnem-2qJAUlR3GHIweM/edit?usp=sharing',
+    video: 'none',
   },
   {
     conference: 'NodeConf EU',
@@ -19,9 +17,9 @@ const talks: Talk[] = [
     date: '2023-11-06T12:00Z',
     location: 'Kilkenny, Ireland',
     flag: 'i-circle-flags-ie',
-    video: undefined,
-    // Slides:
-    //   'https://docs.google.com/presentation/d/11pf28uBhezrfs7uagDbInNZXDnem-2qJAUlR3GHIweM/edit?usp=sharing',
+    video: 'none',
+    slides: 'https://nearform.github.io/the-graphql-workshop',
+    repo: 'https://github.com/nearform/the-graphql-workshop',
   },
   {
     conference: 'From React to React Native',
