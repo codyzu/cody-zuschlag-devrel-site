@@ -24,8 +24,8 @@ export default function About() {
           <SectionTitle title="About me" />
           <div className="text-2xl">International Speaker</div>
           <div className="text-2xl">
-            Developer Relations Engineer @{' '}
-            <Link url="https://nearform.com">NearForm</Link>
+            Developer Relations Community Lead @{' '}
+            <Link url="https://nearform.com">Nearform</Link>
           </div>
           <div className="text-2xl">
             University Instructor @{' '}
