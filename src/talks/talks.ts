@@ -4,6 +4,26 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'FINOS Open Source in Finance Forum',
+    name: 'Design, Development, AI and Accessibility, Oh My',
+    date: '2024-06-26T12:00Z',
+    location: 'London, England',
+    flag: 'i-circle-flags-uk',
+    // Video: 'none',
+    slides:
+      'https://docs.google.com/presentation/d/1SRFZKxsTSgJqzDNfxrfG27KGxWfntIN9fyl3OJpx-5Y/edit?usp=sharing',
+  },
+  {
+    conference: 'State of Open Con',
+    name: 'Inclusive by Design: Revolutionizing Accessibility',
+    date: '2023-02-07T12:00Z',
+    location: 'London, England',
+    flag: 'i-circle-flags-uk',
+    video: 'https://youtu.be/qeOxugYs4GQ?si=INsxxhAbouN2PqYS',
+    slides:
+      'https://docs.google.com/presentation/d/1iuf8eH_Xv766z1wke4jI5qnrKuQaD7FHwYWcp4pYRmA/edit?usp=sharing',
+  },
+  {
     conference: 'Open Source Experience Paris',
     name: 'Modern Web APIs and Too Much of a Good Thing',
     date: '2023-12-07T12:00Z',
