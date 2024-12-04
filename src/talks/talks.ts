@@ -27,7 +27,7 @@ const talks: Talk[] = [
   {
     conference: 'State of Open Con',
     name: 'Inclusive by Design: Revolutionizing Accessibility',
-    date: '2023-02-07T12:00Z',
+    date: '2024-02-07T12:00Z',
     location: 'London, England',
     flag: 'i-circle-flags-uk',
     video: 'https://youtu.be/qeOxugYs4GQ?si=INsxxhAbouN2PqYS',
