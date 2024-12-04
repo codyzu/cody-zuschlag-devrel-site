@@ -4,6 +4,17 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'CityJS Athens',
+    name: 'Time to Rise: Hacking Mornings with JavaScript, Raspberry Pi, and Creativity',
+    date: '2024-11-29T12:00Z',
+    location: 'Athens, Greece',
+    flag: 'i-circle-flags-gr',
+    video:
+      'https://www.youtube.com/live/_Z113lPt0iw?si=u7vqOVEfWcQf7JZL&t=1620',
+    slides:
+      'https://docs.google.com/presentation/d/18WWd3wvjbfif7r3_V0g3amJl9sT-ilWFDtG4V8Gbb64/edit?usp=sharing',
+  },
+  {
     conference: 'FINOS Open Source in Finance Forum',
     name: 'Design, Development, AI and Accessibility, Oh My',
     date: '2024-06-26T12:00Z',
@@ -112,7 +123,7 @@ const talks: Talk[] = [
     date: '2023-10-27T12:00Z',
     location: 'Porto, Portugal',
     flag: 'i-circle-flags-pt',
-    video: undefined,
+    video: 'https://youtu.be/ezGJn3RP2vA?si=LcS0iAYzZNjtZ536',
     slides:
       'https://docs.google.com/presentation/d/1QnY3L-N7ho_6O8EzojtRh7zQvw_K3NqUDqn8Ok2crrc/edit?usp=sharing',
   },
