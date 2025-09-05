@@ -31,7 +31,7 @@ export default defineConfig({
       ],
       theme: {
         colors: {
-          highlight: '#0ea5e9', // Sky-500
+          highlight: '#85C241', // Xen Green
           secondary: '#9ca3af', // Gray-400
           primary: '#ffffff', // White
           hero: '#469537', // From the hero photo
