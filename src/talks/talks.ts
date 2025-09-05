@@ -4,6 +4,16 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'Open Source Summit Europe',
+    name: 'Hypervisor Hierarchy: Why Architecture Matters for Performance, Security, and Flexibility',
+    date: '2024-08-26T12:00Z',
+    location: 'Amsterdam, Netherlands',
+    flag: 'i-circle-flags-nl',
+    video: undefined,
+    slides:
+      'https://docs.google.com/presentation/d/1TRZcdrXjNVTtSf5tDoNeyLhcnnHH__GcVoHLljY-So0/edit?usp=sharing',
+  },
+  {
     conference: 'CityJS Athens',
     name: 'Time to Rise: Hacking Mornings with JavaScript, Raspberry Pi, and Creativity',
     date: '2024-11-29T12:00Z',
