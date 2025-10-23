@@ -4,9 +4,19 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'Xen Summit 2025',
+    name: 'Xen Project 2025 Weather Report',
+    date: '2025-09-15T12:00Z',
+    location: 'San Jose, California, USA',
+    flag: 'i-circle-flags-us',
+    video: 'https://youtu.be/-YxGsgTvebs?si=76SOZLX1GtUquS62',
+    slides:
+      'https://docs.google.com/presentation/d/1YCj_jlOl7ADIjsrr19YMBpi7b6S-o5mvDND_0uRqPaI/edit?usp=sharing',
+  },
+  {
     conference: 'Open Source Summit Europe',
     name: 'Hypervisor Hierarchy: Why Architecture Matters for Performance, Security, and Flexibility',
-    date: '2024-08-26T12:00Z',
+    date: '2025-08-26T12:00Z',
     location: 'Amsterdam, Netherlands',
     flag: 'i-circle-flags-nl',
     video: 'https://youtu.be/QRgVgk7_HG4?si=Sby8q_cI3BcLEXvD',
