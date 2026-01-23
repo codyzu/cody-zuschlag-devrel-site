@@ -4,6 +4,16 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'Open Source Summit Japan 2025',
+    name: 'Dom0less and Deterministic',
+    date: '2025-12-09T12:00Z',
+    location: 'Tokyo, Japan',
+    flag: 'i-circle-flags-jp',
+    video: 'https://youtu.be/ywOdPxVzMn8?si=KMyzhqwHmA4eDI-Q',
+    slides:
+      'https://docs.google.com/presentation/d/1x6KL49AmGxZ8sDgA2M_Mxhaj6e_W_u-WQaUFfMLaf5o/edit?usp=sharing',
+  },
+  {
     conference: 'Xen Summit 2025',
     name: 'Xen Project 2025 Weather Report',
     date: '2025-09-15T12:00Z',
