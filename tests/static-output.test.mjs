@@ -2,10 +2,10 @@ import assert from 'node:assert/strict';
 import {Buffer} from 'node:buffer';
 import {readFileSync, readdirSync} from 'node:fs';
 import {test} from 'node:test';
-import talks from '../src/talks/talks.ts';
 import articles from '../src/articles.ts';
 import {formatDate} from '../src/format-date.ts';
 import {parseGalleryFilenames} from '../src/gallery/gallery-filenames.ts';
+import talks from './read-talks.mjs';
 
 const gallery = parseGalleryFilenames(
   readdirSync(new URL('../src/gallery/', import.meta.url)).filter((path) =>
@@ -32,7 +32,7 @@ const section = (id) =>
     ),
   )?.[1] ?? '';
 
-test('every talk and article is prerendered in source order with its resources', () => {
+test('every talk is prerendered in date order and articles retain their resources', () => {
   const talkHtml = section('talks');
   const articleHtml = section('articles');
   assert.equal((talkHtml.match(/<li\b/gv) ?? []).length, talks.length);
@@ -100,7 +100,7 @@ test('native anchors, metadata, gallery, and high-priority hero survive migratio
   assert.doesNotMatch(html, /astro-island|id="root"/v);
 });
 
-test('content icons have production CSS, including flags from TypeScript', () => {
+test('content icons have production CSS, including flags from Markdown', () => {
   const assets = new URL('../dist/_astro/', import.meta.url);
   const css = readdirSync(assets)
     .filter((path) => path.endsWith('.css'))

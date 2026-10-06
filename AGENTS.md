@@ -4,7 +4,7 @@
 
 - This is a static Astro site. Render site-owned content at build time and keep it readable without JavaScript.
 - The homepage is `src/pages/index.astro`; the shared document layout is `src/layouts/Document.astro`. Reuse the shared section, heading, link, and article components.
-- Keep talks and articles in their typed TypeScript modules (`src/talks/talks.ts` and `src/articles.ts`). Preserve source ordering, content, and URLs unless the task calls for changes. Format dates through `src/format-date.ts` using English and UTC.
+- Keep talks as individual Markdown entries in `src/content/talks/`, validated by `src/talks/talk-schema.ts` and registered in `src/content.config.ts`. Sort talks by full timestamp descending, including future engagements, with entry ID ascending for ties. Keep articles in `src/articles.ts` in source order. Preserve content and URLs unless the task calls for changes. Format dates through `src/format-date.ts` using English and UTC.
 - Preserve the public `#talks`, `#articles`, and `#socials` anchors, semantic headings, keyboard focus, skip link, reduced-motion support, meaningful image alternatives, and high-priority hero loading.
 - Small interactions should progressively enhance existing HTML with plain TypeScript. Talk filtering should toggle `hidden` on the existing list items. Keep their semantic wrappers and shared column subgrid; do not reintroduce React or a table/search library to handle layout or filtering.
 

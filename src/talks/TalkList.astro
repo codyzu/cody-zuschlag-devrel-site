@@ -1,10 +1,13 @@
 ---
+import {getCollection} from 'astro:content';
 import Section from '../Section.astro';
 import SectionTitle from '../SectionTitle.astro';
 import Link from '../Link.astro';
 import {formatDate} from '../format-date';
-import talks from './talks';
+import {sortTalks} from './sort-talks';
 import {normalizeSearch} from './filter-talks';
+
+const talks = sortTalks(await getCollection('talks')).map(({data}) => data);
 ---
 
 <Section id="talks" labelledby="talks-heading">

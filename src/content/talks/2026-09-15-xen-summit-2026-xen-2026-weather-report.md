@@ -1,0 +1,10 @@
+---
+conference: 'Xen Summit 2026'
+name: 'Xen 2026 Weather Report'
+date: '2026-09-15T07:00Z'
+location: 'Munich, Germany'
+region: 'Europe'
+flag: 'i-circle-flags-de'
+video: 'https://www.youtube.com/watch?v=iFWWpQFdE5s'
+slides: 'https://hosted-files.sched.co/xensummit2026/8d/2026%20Xen%20Weather%20Report.pdf'
+---

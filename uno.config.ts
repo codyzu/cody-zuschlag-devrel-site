@@ -1,12 +1,8 @@
 import {defineConfig, presetWind4, presetIcons} from 'unocss';
-import talks from './src/talks/talks.ts';
 
 export default defineConfig({
-  content: {filesystem: ['src/**/*.{astro,ts}']},
-  safelist: [
-    'bg-gradient-hero',
-    ...talks.flatMap((talk) => (talk.flag === undefined ? [] : [talk.flag])),
-  ],
+  content: {filesystem: ['src/**/*.{astro,ts,md}']},
+  safelist: ['bg-gradient-hero'],
   presets: [
     presetWind4({preflights: {reset: true}}),
     presetIcons({

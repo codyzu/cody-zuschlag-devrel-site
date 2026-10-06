@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
-import talks from '../src/talks/talks.ts';
 import {isTalkMatch, normalizeSearch} from '../src/talks/filter-talks.ts';
+import talks from './read-talks.mjs';
 
 const records = talks.map((talk) => ({
   search: normalizeSearch(
