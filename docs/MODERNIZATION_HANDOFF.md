@@ -282,11 +282,11 @@ The README documents current development, content editing, and hosting. Migratio
 
 ## Content and presentation follow-up plan — 2026-10-06
 
-The user requested that the following recommendations become a plan to tackle one at a time. All nine items are pending; this planning update does not implement site changes. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
+The user requested that the following recommendations become a plan to tackle one at a time. Item 1 is complete; items 2–9 remain pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
 
 Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as priorities allow. Use the stable item numbers below when requesting work in another chat. Item 9 should follow the final bio positioning; item 5 should reuse that bio. A separate speaking page remains an option, not a settled architecture decision.
 
-- [ ] **1. Refresh the bio around the current Xen role.**
+- [x] **1. Refresh the bio around the current Xen role.**
   - Update `src/About.astro` to lead with Xen Project community leadership, contributor engagement, and open-source virtualization. Present software engineering, developer relations, and teaching as supporting experience.
   - Confirm whether consulting and FINOS ambassador remain active roles before retaining them as current titles. Verify the teaching affiliations before publishing the draft below.
   - Done when the role headings and bio agree, current affiliations are accurate, and the copy explains what Cody does rather than only listing titles.
@@ -322,9 +322,9 @@ Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as pri
   - Create a dedicated social-sharing image with Cody's name and current role, using approved imagery and readable typography. Preserve canonical URLs and meaningful image alternatives.
   - Done when generated metadata and the sharing image consistently describe the current role and use valid absolute production URLs.
 
-### Working bio draft for item 1
+### Original working bio draft for item 1
 
-This is proposed first-person website copy, not yet applied. It retains the teaching affiliations from the existing site, subject to the verification above.
+This historical draft was superseded by the user-approved copy recorded below. It retained the teaching affiliations from the existing site, subject to verification.
 
 > I’m Cody Zuschlag, Community Manager for the Xen Project, an international speaker, and a university instructor based in Annecy, France. I help developers, contributors, and organizations connect and collaborate around open-source virtualization.
 >
@@ -338,13 +338,22 @@ For each implemented item, mark its checkbox complete and append an implementati
 
 Planning record: added all nine recommendations, suggested order, completion criteria, source references, and the working bio draft. No application code, content, or deployment state changed.
 
+### Item 1 implementation — 2026-10-06
+
+- Updated `src/About.astro` with the two-paragraph first-person bio approved by the user. It leads with the Xen role, names software engineering, developer relations, developer advocacy, and teaching experience, and demonstrates dedication to open source through events, contributor/partner collaboration, and technical communication. No long dashes appear in the bio.
+- Reordered the role lines to Community Manager at Xen Project, International Speaker, and Educator. Omitted unconfirmed current consulting, FINOS, and named teaching affiliations rather than carrying those titles forward. This does not establish that those affiliations have ended; they can be restored after confirmation. The Xen links, logo, section structure, justified text alignment, and visual identity remain; broader readability changes belong to item 7.
+- Responsibilities were informed by the accessible chats `Xen Accomplishment Log`, `Bosch Meeting Notes`, and `Prepare Safety Talk`, then distilled into the approved copy. AI-generated accomplishment summaries were used for broad themes, without importing their metrics or individual achievement claims.
+- Validation passed with Node **24.16.0** and pnpm **10.23.0**: `pnpm check` (zero diagnostics), `pnpm lint`, `pnpm format:check`, `pnpm build`, and `pnpm test` (**13/13**). No new tests were added for this copy change.
+- Chrome **154.0.8037.98**, at **390×900** and **1440×900**, verified both development **4321** and production preview **4322** with JavaScript disabled. The bio renders as two readable paragraphs, the Xen logo decodes, there is no horizontal overflow, skip-link/main keyboard focus and the Xen link work, and `#talks`, `#articles`, and `#socials` resolve. No console/page errors were observed. Production screenshots were visually inspected; evidence is `/private/tmp/devrel-bio/results.json` and `about-*.png`. Firefox and Safari were not rechecked for this content change. Started the development server on 4321 because none was running and reused the existing preview server on 4322.
+- Updated this handoff to mark item 1 complete. No commit, push, merge, or deployment occurred. Next suggested content step: item 2, the hero introduction and native actions; item 9 remains a separate metadata/sharing task.
+
 ## Next step and cross-chat workflow
 
 Phases 1–3 are implemented locally. Review the current diff and the Phase 3 validation limits below before production cutover. Filtering and external services are complete; do not recreate them. Preserve `.anima/` and high-priority hero loading. Deployment requires an explicit request; no push, merge, or deployment has occurred.
 
 At each phase boundary, update the progress record with what changed, commands run and their results, unresolved issues, intentional temporary behavior, and the exact next step. Include a commit identifier if one was created; do not imply a commit or deployment occurred when it did not. Later chats should inspect the actual repository and completed work rather than restarting the migration.
 
-Next content step: tackle follow-up item 1 (bio), or select another numbered item above. Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
+Next content step: tackle follow-up item 2 (hero introduction and actions), or select another pending numbered item above. Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
 
 ## References checked during planning
 
