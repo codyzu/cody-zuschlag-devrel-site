@@ -1,6 +1,5 @@
 ---
 import {getImage} from 'astro:assets';
-import favicon from '../favicon.svg';
 import cover from '../images/reactsummit_closeup.jpeg';
 
 const title = 'Cody Zuschlag | Developer Relations';
@@ -25,7 +24,7 @@ const preview = new URL(socialImage.src, Astro.site);
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <link rel="icon" type="image/svg+xml" href={favicon.src} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.bunny.net" />
     <link
       href="https://fonts.bunny.net/css?family=roboto:400,600,700&display=swap"
