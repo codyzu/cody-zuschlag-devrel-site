@@ -8,10 +8,7 @@ const {icon, url = '', active = true} = Astro.props;
 const Tag = active ? 'a' : 'span';
 ---
 
-<Tag
-  href={active ? url : undefined}
-  data-tracked-link={active ? url : undefined}
->
+<Tag href={active ? url : undefined}>
   <span class="inline-flex flex-row gap-2 items-center rounded-full">
     {icon && (
       <span

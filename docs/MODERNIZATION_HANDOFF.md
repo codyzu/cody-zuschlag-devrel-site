@@ -1,6 +1,6 @@
 # Astro modernization handoff
 
-Prepared: 2026-10-06. Status: Phase 1 implemented and validated locally; Phase 2 is next. No production cutover has occurred.
+Prepared: 2026-10-06. Status: Phases 1 and 2 implemented and validated locally; Phase 3 is next. No production cutover has occurred.
 
 This document carries the agreed plan into separate implementation chats. Read it together with the current repository state before starting a phase. Complete the phases in order, update the progress record below after each phase, and preserve unrelated work.
 
@@ -153,7 +153,7 @@ Paths below are relative to the repository root.
 
 ## Existing changes and implementation status
 
-Planning introduced only this handoff. Phase 1 subsequently converted the application to Astro; see the implementation record below. No commit, push, merge, or deployment was performed during implementation.
+Planning introduced only this handoff. Phase 1 converted the application to Astro and Phase 2 replaced filtering and external services; see the implementation records below. No commit, push, merge, or deployment was performed during implementation.
 
 Pre-existing working-tree state, rechecked when saving this document:
 
@@ -165,7 +165,7 @@ Pre-existing working-tree state, rechecked when saving this document:
 | Phase                             | Status           | Implementation notes and verification                                                                                                                 |
 | --------------------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 1 — Static Astro foundation       | Complete locally | Astro/Wind4 foundation, 44 prerendered talks, 12 articles, eight gallery images; type/lint/format/build/static tests pass. See detailed record below. |
-| 2 — Search and external services  | Not started      | Record filter tests, no-JavaScript behavior, map/GA checks, and remaining cleanup.                                                                    |
+| 2 — Search and external services  | Complete locally | Static talk filtering, explicit regions, lazy OpenStreetMap embed, Insights/feed removal; eight tests and Chrome desktop/mobile checks pass.          |
 | 3 — Images, gallery, and delivery | Not started      | Record browser matrix, image/performance comparison, final checks, and deployment readiness.                                                          |
 | Production cutover                | Not performed    | Record actual deployment and smoke-check results only after they occur.                                                                               |
 
@@ -213,13 +213,32 @@ The README documents current development, content editing, and hosting. Migratio
 - An additional smoke-test attempt using cached Firefox/WebKit binaries did not complete and was terminated. Those engines and actual Safari remain unverified; do not treat the attempt as a passing matrix.
 - No deployment or production performance improvement is claimed. The full final Safari/Firefox/Chromium matrix, image optimization, service checks, and cutover readiness remain required by the later phases.
 
+## Phase 2 implementation record — 2026-10-06
+
+- Started from clean checkout `5a5cf4e`. Preserved the shared talk subgrid, all 44 talks and their ordering, 12 articles, hero loading, gallery, public anchors, and Twitter/X profile link. Only the agreed virtual-location capitalization changed existing talk content. No commit, push, merge, or deployment was performed.
+- Added explicit `region` classification to every typed talk: Europe, USA, Asia, or Virtual. Japan is Asia; all ten virtual entries now display Virtual. Existing recording URL / `none` / absent meanings and historical Lyra/Orama talk titles remain intact.
+- Each semantic talk list item receives build-generated normalized search text, region, and video/slides availability attributes. A small plain TypeScript script filters these existing elements with `hidden`. Search ignores case and accents, requires every whitespace-separated term, and searches conference, title, location, and UTC year. Resource selections intersect; location selections are alternatives; both groups intersect with search. There is no fetched index, client-rendered content, search library, or debounce dependency.
+- Added a labelled search input, resource/location fieldsets, native toggle buttons with `aria-pressed`, a polite result count, empty state, and reset. The form remains hidden until initialization; without JavaScript every talk remains readable. The existing global `[hidden]` rule prevents grid layout from overriding hidden rows. Enter in search does not submit/navigate; Space toggles native buttons; reset clears the input and all selections.
+- Replaced MapLibre with a lazy OpenStreetMap iframe centred on marker `45.916,6.133`, with a regional bounding box, descriptive title, intrinsic dimensions, reserved 315px height, visible contributor attribution, and independent external map link. Removed the MapTiler key and map-specific CSS. Verified the share/embed approach against the linked official OpenStreetMap documentation.
+- Removed Insights initialization and link-tracking attributes/handlers, the Tweets component and Twitter widget, and the now-unused `insights-js` / `maplibre-gl` dependencies and their lockfile graph. GA retains its existing single production-only `G-DMTB5F3X2D` initialization. README now documents filters, region editing, and the current external services.
+
+### Phase 2 validation and limits
+
+- Node **24.16.0**, pnpm **10.23.0**. `pnpm check` passed with zero errors/warnings/hints; `pnpm lint`, `pnpm format:check`, `pnpm build`, and all **eight** `pnpm test` cases passed. `CI=true pnpm install --offline --frozen-lockfile --store-dir /Users/cody/Library/pnpm/store` passed. The initial dependency-removal command encountered the sandbox’s different store configuration and unavailable registry DNS; rerunning against the existing store in offline mode removed only the obsolete graph successfully.
+- Tests cover prerendered content/resources/order/video labels, production flags/metadata/anchors/hero, UTC dates, generated filter attributes, map/GA markup and old-service removal, case/accent and multi-term search across fields, blank/no-result queries, AND resources / OR locations / combined filters, coming-soon and unrecorded exclusion, Virtual normalization, Japan/Asia, and preserved Orama title search.
+- **Chrome 154.0.8037.98** production checks at **1440×900** and **390×900** passed: all filters and reset, empty state, keyboard Space/Enter, selected-button state, aligned columns, hidden rows with zero layout rectangles, no horizontal overflow, and no page errors or failed requests. With JavaScript disabled, all 44 talks and 12 articles render, filter controls stay hidden, native `#talks` navigation and keyboard skip-link navigation work. Inspected desktop/mobile screenshots of controls and map; the live map showed the marker and regional framing with attribution, and reserved height measured 315px.
+- Development reused the healthy existing port **4321** server. Chrome fresh loads and reloads at **1440×900** on localhost and **390×844** on the existing network URL passed, with no console/page errors, failed requests, or HTTP error responses. A reversible SectionTitle edit/restoration verified hot updates. GA scripts were absent in development. Production preview runs on **4322**.
+- Production Chrome observed one GA config initialization and a 200 response for the live gtag script. No GA collect request was observed during the bounded localhost check, so analytics ingestion is not verified. The OpenStreetMap embed was not requested before scrolling; its page and tiles then returned 200 responses; no Insights, MapTiler, or Twitter-widget request occurred. Service-response details are in `/private/tmp/devrel-phase2/services.json`.
+- Browser scripts, screenshots, and results are in `/private/tmp/devrel-phase2/`; development evidence remains `/private/tmp/devrel-dev-verification.json`. Sandbox browser launches initially aborted; approved local execution enabled Chrome checks. Cached Firefox/WebKit verification stalled and was stopped; **Firefox and actual Safari remain unverified**, with their final matrix still required in Phase 3.
+- Reused Phase 1’s preserved visual/performance baseline in `/private/tmp/devrel-phase1-baseline/`. Phase 2 file sizes (raw/gzip bytes): HTML **76951/10736**, CSS **33359/6771**. The filter script is **1417 raw bytes**, inlined by Astro; there are no separate local JS assets or MapLibre/Insights bundles. These file measurements are not cold-transfer or loading-performance claims. Original hero/gallery image sizes remain the intentional Phase 3 limitation.
+
 ## Next step and cross-chat workflow
 
-Start Phase 2 in the current checkout after inspecting the Phase 1 diff. Add the agreed filters to the existing static talk list, replace the transitional MapLibre component with the lazy OpenStreetMap iframe, and remove Insights and the Twitter timeline. GA is already production-only in the shared layout. Preserve `.anima/` and the high-priority hero. Do not deploy.
+Start Phase 3 in the current checkout after inspecting the Phase 2 diff. Add Astro image processing, the typed gallery manifest and Grid Lanes enhancement, then complete delivery/CI documentation and the final browser/performance matrix. Filtering and the service replacements are complete; do not recreate them. Preserve `.anima/` and the high-priority hero. Do not deploy without an explicit request.
 
 At each phase boundary, update the progress record with what changed, commands run and their results, unresolved issues, intentional temporary behavior, and the exact next step. Include a commit identifier if one was created; do not imply a commit or deployment occurred when it did not. Later chats should inspect the actual repository and completed work rather than restarting the migration.
 
-Suggested request for the next chat: “Implement Phase 2 from `docs/MODERNIZATION_HANDOFF.md`. Preserve the static Astro foundation, validate the filters and service replacements, and update the handoff for Phase 3. Do not deploy.”
+Suggested request for the next chat: “Implement Phase 3 from `docs/MODERNIZATION_HANDOFF.md`. Preserve the static Astro foundation and Phase 2 filtering, complete image/gallery/delivery work, validate the final browser matrix, and update the handoff. Do not deploy.”
 
 ## References checked during planning
 

@@ -8,6 +8,7 @@ const talks: Talk[] = [
     name: 'Preparing Xen for Functional Safety: Lessons From a Mature Open Source Project',
     date: '2026-10-01T11:55Z',
     location: 'Berlin, Germany',
+    region: 'Europe',
     flag: 'i-circle-flags-de',
     slides:
       'https://hosted-files.sched.co/aglammeu2026/03/Preparing%20Xen%20for%20Functional%20Safety%20-%20Lessons%20Learned.pdf',
@@ -17,6 +18,7 @@ const talks: Talk[] = [
     name: 'Xen 2026 Weather Report',
     date: '2026-09-15T07:00Z',
     location: 'Munich, Germany',
+    region: 'Europe',
     flag: 'i-circle-flags-de',
     video: 'https://www.youtube.com/watch?v=iFWWpQFdE5s',
     slides:
@@ -27,6 +29,7 @@ const talks: Talk[] = [
     name: 'Welcome + Xen Project Weather Report',
     date: '2026-04-02T07:00Z',
     location: 'Grenoble, France',
+    region: 'Europe',
     flag: 'i-circle-flags-fr',
     video: 'https://www.youtube.com/watch?v=_yCWatiejNA',
     slides:
@@ -37,6 +40,7 @@ const talks: Talk[] = [
     name: 'Dom0less and Deterministic',
     date: '2025-12-09T12:00Z',
     location: 'Tokyo, Japan',
+    region: 'Asia',
     flag: 'i-circle-flags-jp',
     video: 'https://youtu.be/ywOdPxVzMn8?si=KMyzhqwHmA4eDI-Q',
     slides:
@@ -46,7 +50,8 @@ const talks: Talk[] = [
     conference: 'FLOSS Weekly',
     name: "Episode 853: Hardware Addiction; Don't Send Help",
     date: '2025-10-29T12:00Z',
-    location: 'virtual',
+    location: 'Virtual',
+    region: 'Virtual',
     video: 'https://www.youtube.com/watch?v=z1bXf5mTzcY',
   },
   {
@@ -54,6 +59,7 @@ const talks: Talk[] = [
     name: 'Xen Project 2025 Weather Report',
     date: '2025-09-15T12:00Z',
     location: 'San Jose, California, USA',
+    region: 'USA',
     flag: 'i-circle-flags-us',
     video: 'https://youtu.be/-YxGsgTvebs?si=76SOZLX1GtUquS62',
     slides:
@@ -64,6 +70,7 @@ const talks: Talk[] = [
     name: 'Hypervisor Hierarchy: Why Architecture Matters for Performance, Security, and Flexibility',
     date: '2025-08-26T12:00Z',
     location: 'Amsterdam, Netherlands',
+    region: 'Europe',
     flag: 'i-circle-flags-nl',
     video: 'https://youtu.be/QRgVgk7_HG4?si=Sby8q_cI3BcLEXvD',
     slides:
@@ -74,6 +81,7 @@ const talks: Talk[] = [
     name: 'Time to Rise: Hacking Mornings with JavaScript, Raspberry Pi, and Creativity',
     date: '2024-11-29T12:00Z',
     location: 'Athens, Greece',
+    region: 'Europe',
     flag: 'i-circle-flags-gr',
     video:
       'https://www.youtube.com/live/_Z113lPt0iw?si=u7vqOVEfWcQf7JZL&t=1620',
@@ -85,6 +93,7 @@ const talks: Talk[] = [
     name: 'Design, Development, AI and Accessibility, Oh My',
     date: '2024-06-26T12:00Z',
     location: 'London, England',
+    region: 'Europe',
     flag: 'i-circle-flags-uk',
     video: 'https://youtu.be/HYOMmXyxmPs?si=h-d1eFEjbAWwVLrG',
     slides:
@@ -95,6 +104,7 @@ const talks: Talk[] = [
     name: 'Inclusive by Design: Revolutionizing Accessibility',
     date: '2024-02-07T12:00Z',
     location: 'London, England',
+    region: 'Europe',
     flag: 'i-circle-flags-uk',
     video: 'https://youtu.be/qeOxugYs4GQ?si=INsxxhAbouN2PqYS',
     slides:
@@ -105,6 +115,7 @@ const talks: Talk[] = [
     name: 'Modern Web APIs and Too Much of a Good Thing',
     date: '2023-12-07T12:00Z',
     location: 'Paris, France',
+    region: 'Europe',
     flag: 'i-circle-flags-fr',
     video: 'none',
     slides:
@@ -115,6 +126,7 @@ const talks: Talk[] = [
     name: 'Your First Node.js Contribution Workshop',
     date: '2023-11-07T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'none',
   },
@@ -123,6 +135,7 @@ const talks: Talk[] = [
     name: 'From Zero to React Native Workshop',
     date: '2023-11-06T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'none',
     slides: 'https://nearform.github.io/the-graphql-workshop',
@@ -133,6 +146,7 @@ const talks: Talk[] = [
     name: 'Inside Orama: Revolutionizing Search with the Founders - Vision, Roles, and Joining the Journey',
     date: '2023-11-06T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'https://youtu.be/XCixmxc_5ZA',
   },
@@ -141,6 +155,7 @@ const talks: Talk[] = [
     name: "Joining Forces with NearForm's DX Team: Your First Node.js Contribution and Community Engagement",
     date: '2023-11-06T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'https://youtu.be/SMq_1RTuaoU',
   },
@@ -149,6 +164,7 @@ const talks: Talk[] = [
     name: "Joining the Journey: Josh Goldberg's Open Source Path and Your Gateway to Contributing",
     date: '2023-11-06T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'https://youtu.be/FZQB_QNOv5A',
   },
@@ -157,6 +173,7 @@ const talks: Talk[] = [
     name: "Empowering AI: Patty O'Callaghan on Secure AI and Fostering Confidence in Women's Tech Expertise",
     date: '2023-11-06T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'https://youtu.be/W-j_V3vJLTw',
   },
@@ -165,6 +182,7 @@ const talks: Talk[] = [
     name: "From Rust to Parenthood: Yagiz Nizipli's Journey through Node.js, URL Parsing, and Personal Growth",
     date: '2023-11-06T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'https://youtu.be/1ex8dZ7i8_M',
   },
@@ -173,6 +191,7 @@ const talks: Talk[] = [
     name: 'ESModules Unveiled: A Fireside with Gil Tayar on ESM Loaders and Inspiring your First Tech Talk',
     date: '2023-11-06T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'https://youtu.be/xDsVRSwRssA',
   },
@@ -180,7 +199,8 @@ const talks: Talk[] = [
     conference: 'From React to React Native',
     name: 'Bridging the Gap with Cody Zuschlag & Tiago Borba',
     date: '2023-11-03T12:00Z',
-    location: 'virtual',
+    location: 'Virtual',
+    region: 'Virtual',
     video: 'https://youtu.be/ZtJCFPpl6yA',
   },
   {
@@ -188,6 +208,7 @@ const talks: Talk[] = [
     name: 'IPFS - The Practical Bits',
     date: '2023-10-27T12:00Z',
     location: 'Porto, Portugal',
+    region: 'Europe',
     flag: 'i-circle-flags-pt',
     video: 'https://youtu.be/ezGJn3RP2vA?si=LcS0iAYzZNjtZ536',
     slides:
@@ -197,7 +218,8 @@ const talks: Talk[] = [
     conference: 'Grace Hopper Day Open Source Day',
     name: 'Accessibility Theme Builder Community Embassador',
     date: '2023-09-22T12:00Z',
-    location: 'virtual',
+    location: 'Virtual',
+    region: 'Virtual',
     video: 'none',
   },
   {
@@ -205,6 +227,7 @@ const talks: Talk[] = [
     name: 'Decentralizing with QR Codes',
     date: '2023-09-15T12:00Z',
     location: 'Salt Lake City, Utah, USA',
+    region: 'USA',
     flag: 'i-circle-flags-us',
     video: 'https://youtu.be/r50w5Llmj0Y',
     slides:
@@ -214,14 +237,16 @@ const talks: Talk[] = [
     conference: 'Tech for Meaningful Social Connection',
     name: 'Fireside chat with Paula Paul and Cody Zuschlag',
     date: '2023-09-22T12:00Z',
-    location: 'virtual',
+    location: 'Virtual',
+    region: 'Virtual',
     video: 'https://youtu.be/VdBSVexSvbA',
   },
   {
     conference: 'Rethinking Accessibility',
     name: 'Fireside chat with Cody Zuschlag & Lise Noble',
     date: '2023-08-18T12:00Z',
-    location: 'virtual',
+    location: 'Virtual',
+    region: 'Virtual',
     video: 'https://youtu.be/JBTpPyW6Fo0',
   },
   {
@@ -229,6 +254,7 @@ const talks: Talk[] = [
     name: 'Zen and the Art of Open Source',
     date: '2023-07-18T12:00Z',
     location: 'Munich, Germany',
+    region: 'Europe',
     flag: 'i-circle-flags-de',
     video: undefined,
     slides:
@@ -239,6 +265,7 @@ const talks: Talk[] = [
     name: 'Decentralizing with QR Codes',
     date: '2023-07-04T12:00Z',
     location: 'Barcelona, Spain',
+    region: 'Europe',
     flag: 'i-circle-flags-es',
     video: undefined,
     slides:
@@ -249,6 +276,7 @@ const talks: Talk[] = [
     name: 'Full-Stack JS Today: Fastify, GraphQL, and React',
     date: '2023-05-26T12:00Z',
     location: 'Stockholm, Sweden',
+    region: 'Europe',
     flag: 'i-circle-flags-se',
     video: 'none',
     slides:
@@ -259,6 +287,7 @@ const talks: Talk[] = [
     name: 'Zen and the Art of Open Source',
     date: '2023-05-09T12:00Z',
     location: 'Virtual',
+    region: 'Virtual',
     video: 'https://youtu.be/eG_6DmhCmzw',
     slides:
       'https://docs.google.com/presentation/d/11pf28uBhezrfs7uagDbInNZXDnem-2qJAUlR3GHIweM/edit?usp=sharing',
@@ -268,6 +297,7 @@ const talks: Talk[] = [
     name: 'IPFS - The Practical Bits',
     date: '2023-04-14T12:00Z',
     location: 'Paris, France',
+    region: 'Europe',
     flag: 'i-circle-flags-fr',
     video: 'https://youtu.be/kQOkTet31gY',
     slides:
@@ -278,6 +308,7 @@ const talks: Talk[] = [
     name: 'Open Source Security Fireside chat with Tobie Langel and NearForm DX',
     date: '2023-03-02T12:00Z',
     location: 'Virtual',
+    region: 'Virtual',
     video: 'https://youtu.be/rGaOsPMc26Y',
   },
   {
@@ -285,6 +316,7 @@ const talks: Talk[] = [
     name: "Design Tokens, Systems, and a Component's Journey From Design to Deployment",
     date: '2023-02-21T12:00Z',
     location: 'Virtual',
+    region: 'Virtual',
     video: undefined,
     slides:
       'https://docs.google.com/presentation/d/1L0CxND0HnDgFiBTdzsc2hNhGtczhb8jKh1_LboYEhho/edit?usp=sharing',
@@ -294,6 +326,7 @@ const talks: Talk[] = [
     name: "Design Tokens, Systems, and a Component's Journey From Design to Deployment",
     date: '2023-02-15T12:00Z',
     location: 'Oakland, CA, USA',
+    region: 'USA',
     flag: 'i-circle-flags-us',
     video: 'none',
     slides:
@@ -304,6 +337,7 @@ const talks: Talk[] = [
     name: 'Zen and the Art of Organizational Open Source',
     date: '2023-01-14T12:00Z',
     location: 'Turin, Italy',
+    region: 'Europe',
     flag: 'i-circle-flags-it',
     video: 'none',
     slides:
@@ -314,6 +348,7 @@ const talks: Talk[] = [
     name: 'Inclusion and Diversity in Open Source | Fireside chat with Robin Ginn and NearForm DX team',
     date: '2023-01-10T12:00Z',
     location: 'Virtual',
+    region: 'Virtual',
     video: 'https://youtu.be/sa0GwlmIMJY',
   },
   {
@@ -321,6 +356,7 @@ const talks: Talk[] = [
     name: 'Lyra, hold my beer! Fireside chat with Michele Riva & Paolo Insogna',
     date: '2022-12-07T12:00Z',
     location: 'Virtual',
+    region: 'Virtual',
     video: 'https://youtu.be/gG2l9ZfgipU',
   },
   {
@@ -328,6 +364,7 @@ const talks: Talk[] = [
     name: 'Fireside chat with Paolo Insogna',
     date: '2022-10-28T12:00Z',
     location: 'Lisbon, Portugal',
+    region: 'Europe',
     flag: 'i-circle-flags-pt',
     video: 'https://youtu.be/P6NUoAvtOWg',
   },
@@ -336,6 +373,7 @@ const talks: Talk[] = [
     name: 'Fireside chat with Matteo Collina',
     date: '2022-10-04T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'https://youtu.be/69W5TLKK1Sk',
   },
@@ -344,6 +382,7 @@ const talks: Talk[] = [
     name: 'Fireside chat with James Snell',
     date: '2022-10-04T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'https://youtu.be/XktEZKOIaXY',
   },
@@ -352,6 +391,7 @@ const talks: Talk[] = [
     name: 'Fireside chat with Mikeal Rogers',
     date: '2022-10-04T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'https://youtu.be/pSM__WKciMg',
   },
@@ -360,6 +400,7 @@ const talks: Talk[] = [
     name: 'Fireside chat with Paolo Fragomeni',
     date: '2022-10-04T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'https://youtu.be/NYGZ7Vljuqo',
   },
@@ -368,6 +409,7 @@ const talks: Talk[] = [
     name: 'Full-stack JS today: Fastify, GraphQL and React',
     date: '2022-10-03T12:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'https://youtu.be/guAMBFqKSF4',
     slides:
@@ -379,6 +421,7 @@ const talks: Talk[] = [
     name: 'From zero to GraphQL Workshop',
     date: '2022-10-03T15:00Z',
     location: 'Kilkenny, Ireland',
+    region: 'Europe',
     flag: 'i-circle-flags-ie',
     video: 'none',
     slides: 'https://nearform.github.io/the-graphql-workshop',
@@ -389,6 +432,7 @@ const talks: Talk[] = [
     name: 'Full-stack JS today: Fastify, GraphQL and React',
     date: '2022-06-17T12:00Z',
     location: 'Amsterdam, Netherlands',
+    region: 'Europe',
     flag: 'i-circle-flags-nl',
     video:
       'https://portal.gitnation.org/contents/full-stack-js-today-fastify-graphql-and-react',

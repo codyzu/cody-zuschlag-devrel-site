@@ -4,6 +4,7 @@ import SectionTitle from '../SectionTitle.astro';
 import Link from '../Link.astro';
 import {formatDate} from '../format-date';
 import talks from './talks';
+import {normalizeSearch} from './filter-talks';
 ---
 
 <Section id="talks" labelledby="talks-heading">
@@ -12,9 +13,80 @@ import talks from './talks';
     title="Speaking engagements and videos"
     subtitle="All of my previous and planned future speaking experience"
   />
+  <form
+    id="talk-filters"
+    hidden
+    class="mb-8 flex flex-col gap-4"
+    role="search"
+    aria-label="Filter talks"
+  >
+    <label for="talk-query" class="text-primary">
+      Search talks
+    </label>
+    <input
+      id="talk-query"
+      type="search"
+      placeholder="Conference, title, location, or year"
+      class="w-full rounded-lg border border-secondary bg-background p-3 text-primary"
+    />
+    <div class="flex flex-wrap gap-6">
+      <fieldset>
+        <legend class="mb-2 text-secondary">Resources (all selected)</legend>
+        <div class="flex flex-wrap gap-2">
+          {['Video', 'Slides'].map((resource) => (
+            <button
+              type="button"
+              data-resource={resource.toLowerCase()}
+              aria-pressed="false"
+              class="filter-toggle rounded-full border border-secondary px-4 py-2"
+            >
+              {resource}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend class="mb-2 text-secondary">Locations (any selected)</legend>
+        <div class="flex flex-wrap gap-2">
+          {['Europe', 'USA', 'Asia', 'Virtual'].map((region) => (
+            <button
+              type="button"
+              data-region={region}
+              aria-pressed="false"
+              class="filter-toggle rounded-full border border-secondary px-4 py-2"
+            >
+              {region}
+            </button>
+          ))}
+        </div>
+      </fieldset>
+    </div>
+    <div class="flex flex-wrap items-center gap-4">
+      <p id="talk-count" role="status" aria-live="polite" aria-atomic="true">
+        {talks.length} talks
+      </p>
+      <button
+        type="reset"
+        class="rounded-full border border-secondary px-4 py-2"
+      >
+        Reset filters
+      </button>
+    </div>
+  </form>
+  <p id="talk-empty" hidden class="mb-8 text-secondary">
+    No talks match. Try another search or reset the filters.
+  </p>
   <ul role="list" class="talks">
     {talks.map((talk) => (
-      <li class="talk">
+      <li
+        class="talk"
+        data-search={normalizeSearch(
+          `${talk.conference} ${talk.name} ${talk.location} ${new Date(talk.date).getUTCFullYear()}`,
+        )}
+        data-region={talk.region}
+        data-video={Boolean(talk.video && talk.video !== 'none')}
+        data-slides={Boolean(talk.slides)}
+      >
         <h3 class="conference text-2xl text-primary">{talk.conference}</h3>
         <p class="name text-secondary">{talk.name}</p>
         <time class="date text-secondary" datetime={talk.date}>
@@ -53,7 +125,15 @@ import talks from './talks';
     ))}
   </ul>
 </Section>
+<script>
+  import './talk-search';
+</script>
 <style>
+  .filter-toggle[aria-pressed='true'] {
+    border-color: var(--colors-highlight);
+    background: var(--colors-highlight);
+    color: var(--colors-background);
+  }
   .talks {
     display: grid;
     grid-template-columns: 0.75rem minmax(0, 1fr);

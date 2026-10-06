@@ -59,30 +59,6 @@ const preview = new URL(cover.src, Astro.site);
       Skip to content
     </a>
     <slot />
-    <script>
-      // Preserve existing tracking during phase 1; phase 2 removes Insights entirely.
-      import {init, trackPages, track, parameters} from 'insights-js';
-      if (import.meta.env.PROD) {
-        init('KbjjkY98I3MxcBui');
-        trackPages({hash: true});
-        document.addEventListener('click', (event) => {
-          const link =
-            event.target instanceof Element
-              ? event.target.closest<HTMLAnchorElement>('[data-tracked-link]')
-              : null;
-          if (link)
-            track({
-              id: 'nav',
-              parameters: {
-                url: link.href,
-                screenType: parameters.screenType(),
-                referrer: parameters.referrer(),
-                locale: parameters.locale(),
-              },
-            });
-        });
-      }
-    </script>
   </body>
 </html>
 <style is:global>

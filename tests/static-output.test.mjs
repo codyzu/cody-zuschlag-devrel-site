@@ -107,3 +107,45 @@ test('dates use English UTC dates across midnight boundaries', () => {
   assert.equal(formatDate('2026-01-01T00:30:00+02:00'), '31 December 2025');
   assert.equal(formatDate('2026-10-01T11:55Z'), '1 October 2026');
 });
+
+test('filters enhance static rows and external services have no legacy runtime', () => {
+  const talkHtml = section('talks');
+  assert.match(talkHtml, /<form[^>]*id="talk-filters"[^>]*hidden/v);
+  const rows = talkHtml
+    .matchAll(/<li\b[^>]*>/gv)
+    .map((match) => match[0])
+    .toArray();
+  for (const [index, row] of rows.entries()) {
+    const talk = talks[index];
+    assert.ok(row.includes(`data-region="${talk.region}"`));
+    assert.ok(
+      row.includes(
+        `data-video="${Boolean(talk.video && talk.video !== 'none')}"`,
+      ),
+    );
+    assert.ok(row.includes(`data-slides="${Boolean(talk.slides)}"`));
+    assert.ok(row.includes('data-search='));
+    assert.doesNotMatch(row, /\bhidden\b/v);
+  }
+
+  assert.match(
+    section('location'),
+    /<iframe[^>]*loading="lazy"[^>]*height="315"/v,
+  );
+  assert.match(section('location'), /marker=45\.916%2C6\.133/v);
+  assert.match(section('location'), /OpenStreetMap contributors/v);
+  assert.equal(section('tweets'), '');
+  assert.match(section('socials'), /https:\/\/twitter.com\/codyzus/v);
+  assert.equal(
+    (html.match(/gtag\('config', 'G-DMTB5F3X2D'\)/gv) ?? []).length,
+    1,
+  );
+  assert.equal(
+    (html.match(/googletagmanager.com\/gtag\/js/gv) ?? []).length,
+    1,
+  );
+  assert.doesNotMatch(
+    html,
+    /data-tracked-link|platform\.twitter|maptiler|maplibre|insights-js/v,
+  );
+});
