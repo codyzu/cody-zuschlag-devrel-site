@@ -56,11 +56,13 @@ import talks from './talks';
 <style>
   .talks {
     display: grid;
+    grid-template-columns: 0.75rem minmax(0, 1fr);
     gap: 1rem;
   }
   .talk {
     display: grid;
-    grid-template-columns: 0.75rem 1fr;
+    grid-column: 1 / -1;
+    grid-template-columns: subgrid;
     gap: 0.25rem 1rem;
   }
   .conference {
@@ -79,8 +81,11 @@ import talks from './talks';
     gap: 0.25rem;
   }
   @media (min-width: 40rem) {
-    .talk {
-      grid-template-columns: 0.75rem 2fr 1fr 1fr;
+    .talks {
+      grid-template-columns: 0.75rem minmax(0, 2fr) minmax(0, 1fr) minmax(
+          0,
+          1fr
+        );
     }
     .name {
       grid-column: 2 / 4;
@@ -97,8 +102,8 @@ import talks from './talks';
     }
   }
   @media (min-width: 48rem) {
-    .talk {
-      grid-template-columns: 0.75rem 3fr auto 1fr auto;
+    .talks {
+      grid-template-columns: 0.75rem minmax(0, 3fr) auto minmax(0, 1fr) auto;
     }
     .name {
       grid-column: 2;

@@ -197,6 +197,11 @@ The README documents current development, content editing, and hosting. Migratio
 - Verified the exact `pnpm run dev` command in Chrome at 1440×900 via `http://localhost:4321/` and 390×844 via `http://100.116.77.100:4321/`. Both fresh loads and reloads passed with 44 talks, 12 articles, no error overlay, no horizontal overflow, zero browser/console errors, zero failed requests, and zero HTTP error responses. A reversible component edit and restoration verified hot updates. A cold request for the real `Map.astro` client script returned 200. Server logs showed successful homepage responses and no errors.
 - Browser evidence: `/private/tmp/devrel-dev-verification.json`, `/private/tmp/devrel-dev-after-desktop.png`, and `/private/tmp/devrel-dev-after-mobile.png`. Type checks, XO, production build, and four static tests passed. The existing production MapLibre size warning remains for Phase 2 cleanup.
 
+### Talk-column alignment follow-up
+
+- The original Astro conversion gave each talk an independent grid, so intrinsic date/resource widths varied between talks. The parent `.talks` list now defines responsive column tracks; each `.talk` spans them and uses `grid-template-columns: subgrid`. Semantic list-item wrappers remain intact for Phase 2 filtering. No React/Table dependency is required.
+- Chrome checks at 390, 640, 768, 1024, and 1440 pixels measured identical column starts across all visible talks, with no horizontal overflow. Repeated with half the talks hidden and only one talk visible; hidden wrappers occupied no space and alignment held. Evidence: `/private/tmp/devrel-talk-grid-verification.json` and `/private/tmp/devrel-talk-grid-*.png`. XO, production build, and four static tests passed.
+
 ### Intentional Phase 1 boundaries
 
 - Search/filter controls are absent while all talks remain visible. Phase 2 should enhance each existing `.talk` list item with generated attributes and implement the agreed grouped filtering; no content should move back into client rendering.
