@@ -1,0 +1,19 @@
+---
+import Article from './Article.astro';
+import articles from './articles';
+import Section from './Section.astro';
+import SectionTitle from './SectionTitle.astro';
+---
+
+<Section id="articles" labelledby="articles-heading">
+  <SectionTitle
+    id="articles-heading"
+    title="Articles and blog posts"
+    subtitle="A curated list of written content"
+  />
+  <ul role="list">
+    {articles.map((article) => (
+      <Article article={article} />
+    ))}
+  </ul>
+</Section>

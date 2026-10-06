@@ -1,0 +1,117 @@
+---
+import favicon from '../favicon.svg';
+import cover from '../images/reactsummit_closeup.jpeg';
+
+const title = 'Cody Zuschlag | Developer Relations';
+const description =
+  'Cody Zuschlag is an international speaker, Community Manager at the Xen Project, and university instructor based in Annecy, France.';
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const preview = new URL(cover.src, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href={favicon.src} />
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link
+      href="https://fonts.bunny.net/css?family=roboto:400,600,700&display=swap"
+      rel="stylesheet"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={preview} />
+    <meta
+      property="og:image:alt"
+      content="Cody Zuschlag speaking at React Summit"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={preview} />
+    {import.meta.env.PROD && (
+      <>
+        <script
+          is:inline
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-DMTB5F3X2D"
+        ></script>
+        <script is:inline>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(...args) {
+            dataLayer.push(args);
+          }
+          gtag('js', new Date());
+          gtag('config', 'G-DMTB5F3X2D');
+        </script>
+      </>
+    )}
+  </head>
+  <body class="bg-background font-sans text-primary break-words">
+    <a href="#main" class="skip-link">
+      Skip to content
+    </a>
+    <slot />
+    <script>
+      // Preserve existing tracking during phase 1; phase 2 removes Insights entirely.
+      import {init, trackPages, track, parameters} from 'insights-js';
+      if (import.meta.env.PROD) {
+        init('KbjjkY98I3MxcBui');
+        trackPages({hash: true});
+        document.addEventListener('click', (event) => {
+          const link =
+            event.target instanceof Element
+              ? event.target.closest<HTMLAnchorElement>('[data-tracked-link]')
+              : null;
+          if (link)
+            track({
+              id: 'nav',
+              parameters: {
+                url: link.href,
+                screenType: parameters.screenType(),
+                referrer: parameters.referrer(),
+                locale: parameters.locale(),
+              },
+            });
+        });
+      }
+    </script>
+  </body>
+</html>
+<style is:global>
+  :root {
+    color-scheme: dark;
+  }
+  :focus-visible {
+    outline: 3px solid var(--colors-highlight);
+    outline-offset: 4px;
+  }
+  [hidden] {
+    display: none !important;
+  }
+  .skip-link {
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    padding: 0.75rem 1rem;
+    z-index: 100;
+    background: black;
+    color: white;
+    transform: translateY(-200%);
+  }
+  .skip-link:focus {
+    transform: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+</style>

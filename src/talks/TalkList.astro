@@ -1,0 +1,117 @@
+---
+import Section from '../Section.astro';
+import SectionTitle from '../SectionTitle.astro';
+import Link from '../Link.astro';
+import {formatDate} from '../format-date';
+import talks from './talks';
+---
+
+<Section id="talks" labelledby="talks-heading">
+  <SectionTitle
+    id="talks-heading"
+    title="Speaking engagements and videos"
+    subtitle="All of my previous and planned future speaking experience"
+  />
+  <ul role="list" class="talks">
+    {talks.map((talk) => (
+      <li class="talk">
+        <h3 class="conference text-2xl text-primary">{talk.conference}</h3>
+        <p class="name text-secondary">{talk.name}</p>
+        <time class="date text-secondary" datetime={talk.date}>
+          {formatDate(talk.date)}
+        </time>
+        <p class="location text-secondary">
+          {talk.flag && <span class={talk.flag} aria-hidden="true" />}{' '}
+          {talk.location}
+        </p>
+        <div class="resources text-secondary">
+          {talk.video === 'none' ? (
+            <Link icon="i-lucide-video-off text-lg" active={false}>
+              Not recorded
+            </Link>
+          ) : talk.video === undefined ? (
+            <Link icon="i-lucide-timer text-lg" active={false}>
+              Coming soon
+            </Link>
+          ) : (
+            <Link icon="i-lucide-video text-lg" url={talk.video}>
+              Watch now
+            </Link>
+          )}
+          {talk.slides && (
+            <Link icon="i-lucide-monitor text-lg" url={talk.slides}>
+              Slides
+            </Link>
+          )}
+          {talk.repo && (
+            <Link icon="i-lucide-github text-lg" url={talk.repo}>
+              GitHub repo
+            </Link>
+          )}
+        </div>
+      </li>
+    ))}
+  </ul>
+</Section>
+<style>
+  .talks {
+    display: grid;
+    gap: 1rem;
+  }
+  .talk {
+    display: grid;
+    grid-template-columns: 0.75rem 1fr;
+    gap: 0.25rem 1rem;
+  }
+  .conference {
+    grid-column: 1 / -1;
+  }
+  .name,
+  .date,
+  .location,
+  .resources {
+    grid-column: 2;
+  }
+  .resources {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  @media (min-width: 40rem) {
+    .talk {
+      grid-template-columns: 0.75rem 2fr 1fr 1fr;
+    }
+    .name {
+      grid-column: 2 / 4;
+    }
+    .date {
+      grid-column: 4;
+    }
+    .location {
+      grid-column: 2 / 4;
+    }
+    .resources {
+      grid-column: 4;
+      grid-row: 3 / 5;
+    }
+  }
+  @media (min-width: 48rem) {
+    .talk {
+      grid-template-columns: 0.75rem 3fr auto 1fr auto;
+    }
+    .name {
+      grid-column: 2;
+    }
+    .date {
+      grid-column: 3;
+    }
+    .location {
+      grid-column: 4;
+    }
+    .resources {
+      grid-column: 5;
+      grid-row: 2 / 5;
+    }
+  }
+</style>

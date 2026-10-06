@@ -1,0 +1,20 @@
+---
+import Section from './Section.astro';
+import SectionTitle from './SectionTitle.astro';
+import Map from './Map.astro';
+---
+
+<Section id="location" labelledby="location-heading">
+  <div class="grid grid-cols-1 lg:grid-cols-2">
+    <div class="mb-8 lg:mb-0">
+      <Map />
+    </div>
+    <div class="lg:-order-1 flex flex-col">
+      <SectionTitle
+        id="location-heading"
+        title="Based from"
+        subtitle="Annecy, France"
+      />
+    </div>
+  </div>
+</Section>

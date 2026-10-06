@@ -1,4 +1,4 @@
-name: "CI/CD"
+name: 'CI/CD'
 on:
   push:
     branches:
@@ -20,13 +20,13 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 8
+          version: 10.23.0
 
       - name: Setup Node.js environment
         uses: actions/setup-node@v3.5.1
         with:
-          node-version: 18
-          cache: "pnpm"
+          node-version: 24
+          cache: 'pnpm'
 
       - name: Output debugging info
         run: node -v && pnpm -v
@@ -34,17 +34,12 @@ jobs:
       - name: Install and build
         # set the base path to where this will be deployed
         run: |
-          pnpm install
+          pnpm install --frozen-lockfile
+          pnpm run check
+          pnpm run lint
+          pnpm run format:check
           pnpm run build
-
-      # - name: Format and lint
-      #   run: npm run format:all && npm run lint:all
-
-      # - name: Test
-      #   run: npm run test
-
-      # - name: Build
-      #   run: npm run build
+          pnpm run test
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

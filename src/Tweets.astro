@@ -1,0 +1,25 @@
+---
+import Section from './Section.astro';
+import SectionTitle from './SectionTitle.astro';
+---
+
+<Section id="tweets" labelledby="tweets-heading">
+  <SectionTitle id="tweets-heading" title="Recent tweets" />
+  <div class="w-full">
+    <a
+      class="twitter-timeline"
+      data-theme="dark"
+      href="https://twitter.com/codyzus?ref_src=twsrc%5Etfw"
+    >
+      Tweets by codyzus
+    </a>
+  </div>
+</Section>
+<!-- Transitional widget; phase 2 removes the feed and retains the Socials profile link. -->
+{import.meta.env.PROD && (
+  <script
+    is:inline
+    src="https://platform.twitter.com/widgets.js"
+    async
+  ></script>
+)}

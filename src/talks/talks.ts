@@ -1,6 +1,6 @@
 // Ensure the flag icons are parsed by unocss
 // @unocss-include
-import {type Talk} from './talk-type';
+import type {Talk} from './talk-type.ts';
 
 const talks: Talk[] = [
   {

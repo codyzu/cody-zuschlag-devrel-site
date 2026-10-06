@@ -1,0 +1,94 @@
+---
+import image from './images/reactsummit_closeup.jpeg';
+---
+
+<header class="hero relative h-screen overflow-hidden text-center flex justify-center bg-black">
+  <img
+    src={image.src}
+    width={image.width}
+    height={image.height}
+    alt="Cody Zuschlag speaking on stage at React Summit"
+    loading="eager"
+    fetchpriority="high"
+    class="absolute inset-0 w-full h-full object-cover"
+  />
+  <div class="absolute inset-0 bg-black/40" aria-hidden="true"></div>
+  <h1 class="font-bold inline-flex flex-col items-center self-center text-5xl sm:text-7xl leading-tight">
+    <span>Cody</span> <span>Zuschlag</span>
+  </h1>
+</header>
+<style>
+  .hero {
+    --speed: 0.65s;
+  }
+  h1 span {
+    position: relative;
+    clip-path: inset(-20% 0);
+    color: transparent;
+    background: linear-gradient(
+      to bottom right,
+      var(--colors-primary),
+      var(--colors-primary),
+      var(--colors-hero)
+    );
+    background-clip: text;
+    animation:
+      text-reveal var(--speed) steps(1) both,
+      shimmy var(--speed) ease-out both;
+    animation-delay: calc((0.5 + var(--index)) * (var(--speed) / 3));
+  }
+  h1 span::after {
+    content: '';
+    position: absolute;
+    inset: -20% 0;
+    background: var(--colors-primary);
+    animation: block-reveal var(--speed) both;
+    animation-delay: calc((0.5 + var(--index)) * (var(--speed) / 3));
+  }
+  h1 span:first-child {
+    --index: 0;
+  }
+  h1 span:nth-child(2) {
+    --index: 1;
+  }
+  @keyframes shimmy {
+    from {
+      transform: translateX(-1ch);
+    }
+  }
+  @keyframes text-reveal {
+    0% {
+      background: transparent;
+    }
+    50%,
+    100% {
+      background: linear-gradient(
+        to bottom right,
+        var(--colors-primary),
+        var(--colors-primary),
+        var(--colors-hero)
+      );
+      background-clip: text;
+    }
+  }
+  @keyframes block-reveal {
+    0% {
+      transform: translateX(-110%);
+    }
+    45%,
+    55% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(110%);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    h1 span {
+      animation: none;
+    }
+    h1 span::after {
+      display: none;
+    }
+  }
+</style>

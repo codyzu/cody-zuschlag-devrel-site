@@ -1,0 +1,28 @@
+---
+interface Props {
+  icon?: string;
+  url?: string;
+  active?: boolean;
+}
+const {icon, url = '', active = true} = Astro.props;
+const Tag = active ? 'a' : 'span';
+---
+
+<Tag
+  href={active ? url : undefined}
+  data-tracked-link={active ? url : undefined}
+>
+  <span class="inline-flex flex-row gap-2 items-center rounded-full">
+    {icon && (
+      <span
+        aria-hidden="true"
+        class:list={[icon, active && 'text-highlight']}
+      />
+    )}
+    <span
+      class:list={[active && 'bg-gradient-link bg-clip-text text-transparent']}
+    >
+      <slot />
+    </span>
+  </span>
+</Tag>

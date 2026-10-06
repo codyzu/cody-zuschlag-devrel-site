@@ -1,0 +1,24 @@
+---
+import Document from '../layouts/Document.astro';
+import Hero from '../Hero.astro';
+import About from '../About.astro';
+import Socials from '../Socials.astro';
+import TalkList from '../talks/TalkList.astro';
+import ArticleList from '../ArticleList.astro';
+import Location from '../Location.astro';
+import Photos from '../Photos.astro';
+import Tweets from '../Tweets.astro';
+---
+
+<Document>
+  <Hero />
+  <main id="main" tabindex="-1" class="mt-12 max-w-[80rem] mx-auto">
+    <About />
+    <Socials />
+    <TalkList />
+    <ArticleList />
+    <Location />
+    <Photos />
+    <Tweets />
+  </main>
+</Document>

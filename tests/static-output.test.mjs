@@ -1,0 +1,109 @@
+import assert from 'node:assert/strict';
+import {readFileSync, readdirSync} from 'node:fs';
+import {test} from 'node:test';
+import talks from '../src/talks/talks.ts';
+import articles from '../src/articles.ts';
+import {formatDate} from '../src/format-date.ts';
+
+const html = readFileSync(
+  new URL('../dist/index.html', import.meta.url),
+  'utf8',
+);
+const escape = (value) =>
+  value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+const section = (id) =>
+  html.match(
+    new RegExp(
+      String.raw`<section\s[^>]*id="${id}"[^>]*>([\s\S]*?)</section>`,
+      'v',
+    ),
+  )?.[1] ?? '';
+
+test('every talk and article is prerendered in source order with its resources', () => {
+  const talkHtml = section('talks');
+  const articleHtml = section('articles');
+  assert.equal((talkHtml.match(/<li\b/gv) ?? []).length, talks.length);
+  assert.equal((articleHtml.match(/<li\b/gv) ?? []).length, articles.length);
+  let cursor = 0;
+  for (const talk of talks) {
+    const position = talkHtml.indexOf(escape(talk.conference), cursor);
+    assert.ok(position >= cursor, talk.conference);
+    cursor = position + escape(talk.conference).length;
+    assert.ok(talkHtml.includes(escape(talk.name)), talk.name);
+    assert.ok(talkHtml.includes(formatDate(talk.date)));
+    const resources = [talk.video, talk.slides, talk.repo].filter(
+      (url) => url && url !== 'none',
+    );
+    for (const url of resources) {
+      assert.ok(talkHtml.includes(escape(url)), url);
+    }
+  }
+
+  assert.equal(
+    (talkHtml.match(/Not recorded/gv) ?? []).length,
+    talks.filter((talk) => talk.video === 'none').length,
+  );
+  assert.equal(
+    (talkHtml.match(/Coming soon/gv) ?? []).length,
+    talks.filter((talk) => talk.video === undefined).length,
+  );
+  for (const article of articles) {
+    assert.ok(articleHtml.includes(escape(article.title)), article.title);
+    assert.ok(articleHtml.includes(escape(article.url)), article.url);
+    assert.ok(articleHtml.includes(formatDate(article.date)));
+  }
+});
+
+test('native anchors, metadata, gallery, and high-priority hero survive migration', () => {
+  for (const id of ['talks', 'articles', 'socials']) {
+    assert.ok(section(id));
+  }
+
+  assert.match(html, /<main\s[^>]*id="main"/v);
+  assert.match(html, /href="#main"/v);
+  assert.equal((html.match(/<h1\b/gv) ?? []).length, 1);
+  assert.equal((section('photos').match(/<img\b/gv) ?? []).length, 8);
+  assert.match(html, /fetchpriority="high"/v);
+  assert.match(html, /alt="Xen Project logo"/v);
+  assert.match(
+    html,
+    /rel="canonical" href="https:\/\/devrel\.codyfactory\.eu\/"/v,
+  );
+  assert.match(
+    html,
+    /property="og:image" content="https:\/\/devrel\.codyfactory\.eu\//v,
+  );
+  assert.doesNotMatch(html, /astro-island|id="root"/v);
+});
+
+test('content icons have production CSS, including flags from TypeScript', () => {
+  const assets = new URL('../dist/_astro/', import.meta.url);
+  const css = readdirSync(assets)
+    .filter((path) => path.endsWith('.css'))
+    .map((path) => readFileSync(new URL(path, assets), 'utf8'))
+    .join('\n');
+  for (const flag of new Set(talks.map((talk) => talk.flag).filter(Boolean))) {
+    assert.ok(css.includes(`.${flag}`), flag);
+  }
+
+  for (const icon of [
+    'i-lucide-video',
+    'i-lucide-video-off',
+    'i-lucide-timer',
+    'i-tabler-brand-x',
+  ]) {
+    assert.ok(css.includes(`.${icon}`), icon);
+  }
+
+  assert.match(css, /Roboto/v);
+});
+
+test('dates use English UTC dates across midnight boundaries', () => {
+  assert.equal(formatDate('2026-01-01T00:30:00+02:00'), '31 December 2025');
+  assert.equal(formatDate('2026-10-01T11:55Z'), '1 October 2026');
+});
