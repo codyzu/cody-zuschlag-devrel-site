@@ -1,10 +1,16 @@
 ---
+import {Picture} from 'astro:assets';
 import image from './images/reactsummit_closeup.jpeg';
 ---
 
 <header class="hero relative h-screen overflow-hidden text-center flex justify-center bg-black">
-  <img
-    src={image.src}
+  <Picture
+    src={image}
+    formats={['avif', 'webp']}
+    fallbackFormat="jpeg"
+    widths={[480, 768, 1024, 1440, 1600]}
+    sizes="(min-aspect-ratio: 1600/1067) 100vw, 150vh"
+    pictureAttributes={{class: 'absolute inset-0'}}
     width={image.width}
     height={image.height}
     alt="Cody Zuschlag speaking on stage at React Summit"

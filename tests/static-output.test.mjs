@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import {Buffer} from 'node:buffer';
 import {readFileSync, readdirSync} from 'node:fs';
 import {test} from 'node:test';
 import talks from '../src/talks/talks.ts';
@@ -148,4 +149,58 @@ test('filters enhance static rows and external services have no legacy runtime',
     html,
     /data-tracked-link|platform\.twitter|maptiler|maplibre|insights-js/v,
   );
+});
+
+test('responsive photographs have real optimized files and correct loading priorities', () => {
+  const pictures = html
+    .matchAll(/<picture\b[^>]*>(?<content>[\s\S]*?)<\/picture>/gv)
+    .toArray();
+  assert.equal(pictures.length, 9);
+  for (const [index, match] of pictures.entries()) {
+    const picture = match.groups.content;
+    assert.match(picture, /width="\d+" height="\d+"/v);
+    assert.match(picture, /sizes="[^"]+"/v);
+    assert.match(picture, index === 0 ? /loading="eager"/v : /loading="lazy"/v);
+    if (index === 0) {
+      assert.match(picture, /fetchpriority="high"/v);
+    }
+
+    for (const format of ['avif', 'webp', 'jpeg']) {
+      const tag =
+        format === 'jpeg'
+          ? picture.match(/<img\b[^>]*>/v)?.[0]
+          : picture.match(
+              new RegExp(`<source[^>]*type="image/${format}"[^>]*>`, 'v'),
+            )?.[0];
+      assert.ok(tag, format);
+      const srcset = tag.match(/srcset="(?<candidates>[^"]+)"/v)?.groups
+        .candidates;
+      assert.ok(srcset, format);
+      const candidates = srcset
+        .split(',')
+        .map((candidate) => candidate.trim().split(' '));
+      assert.ok(candidates.length >= 4);
+      for (const [path, width] of candidates) {
+        assert.match(width, /^\d+w$/v);
+        const bytes = readFileSync(new URL(`../dist${path}`, import.meta.url));
+        if (format === 'avif') {
+          assert.ok(bytes.subarray(0, 32).includes(Buffer.from('avif')));
+        } else if (format === 'webp') {
+          assert.equal(bytes.subarray(8, 12).toString(), 'WEBP');
+        } else {
+          assert.equal(bytes.readUInt16BE(0), 0xff_d8);
+        }
+      }
+    }
+  }
+
+  const css = readdirSync(new URL('../dist/_astro/', import.meta.url))
+    .filter((path) => path.endsWith('.css'))
+    .map((path) =>
+      readFileSync(new URL(`../dist/_astro/${path}`, import.meta.url), 'utf8'),
+    )
+    .join('\n');
+  assert.match(css, /@supports\s*\(display:\s*grid-lanes\)/v);
+  assert.match(css, /grid-row:\s*auto/v);
+  assert.match(css, /grid-(?:column:\s*span 2|area:\s*span 2\/span 2)/v);
 });
