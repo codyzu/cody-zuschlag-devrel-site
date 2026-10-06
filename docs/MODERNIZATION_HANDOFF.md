@@ -282,7 +282,7 @@ The README documents current development, content editing, and hosting. Migratio
 
 ## Content and presentation follow-up plan — 2026-10-06
 
-The user requested that the following recommendations become a plan to tackle one at a time. Item 1 is complete; items 2–9 remain pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
+The user requested that the following recommendations become a plan to tackle one at a time. Items 1–2 are complete; items 3–9 remain pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
 
 Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as priorities allow. Use the stable item numbers below when requesting work in another chat. Item 9 should follow the final bio positioning; item 5 should reuse that bio. A separate speaking page remains an option, not a settled architecture decision.
 
@@ -290,7 +290,7 @@ Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as pri
   - Update `src/About.astro` to lead with Xen Project community leadership, contributor engagement, and open-source virtualization. Present software engineering, developer relations, and teaching as supporting experience.
   - Confirm whether consulting and FINOS ambassador remain active roles before retaining them as current titles. Verify the teaching affiliations before publishing the draft below.
   - Done when the role headings and bio agree, current affiliations are accurate, and the copy explains what Cody does rather than only listing titles.
-- [ ] **2. Add a clear introduction and actions to the hero.**
+- [x] **2. Add a clear introduction and actions to the hero.**
   - Update `src/Hero.astro` with a concise role line, initially proposed as “Open-source community builder · Xen Project Community Manager · Speaker & educator.”
   - Add “Explore my talks” and “Get in touch” links using native anchors to `#talks` and `#socials` initially. Preserve high-priority image loading and reduced-motion behavior.
   - Done when the introduction and actions are readable and keyboard accessible on mobile and desktop, including without JavaScript.
@@ -347,13 +347,26 @@ Planning record: added all nine recommendations, suggested order, completion cri
 - Chrome **154.0.8037.98**, at **390×900** and **1440×900**, verified both development **4321** and production preview **4322** with JavaScript disabled. The bio renders as two readable paragraphs, the Xen logo decodes, there is no horizontal overflow, skip-link/main keyboard focus and the Xen link work, and `#talks`, `#articles`, and `#socials` resolve. No console/page errors were observed. Production screenshots were visually inspected; evidence is `/private/tmp/devrel-bio/results.json` and `about-*.png`. Firefox and Safari were not rechecked for this content change. Started the development server on 4321 because none was running and reused the existing preview server on 4322.
 - Updated this handoff to mark item 1 complete. No commit, push, merge, or deployment occurred. Next suggested content step: item 2, the hero introduction and native actions; item 9 remains a separate metadata/sharing task.
 
+### Item 2 implementation — 2026-10-06
+
+- Updated `src/Hero.astro` with the proposed role line: “Open-source community builder · Xen Project Community Manager · Speaker & educator.” Added “Explore my talks” and “Get in touch” through the shared `Link.astro` component, using native `#talks` and `#socials` anchors in a labelled navigation landmark. No JavaScript was added.
+- Kept the photograph, responsive image sources, eager/high-priority hero loading, name animation, and reduced-motion rules. Darkened the image overlay for text contrast and used a bounded, padded content group with balanced text wrapping and wrapping actions. A 32rem minimum hero height keeps the introduction and actions inside the photograph on short landscape screens.
+- Node **24.16.0**, pnpm **10.23.0**: `pnpm check` (zero diagnostics), `pnpm lint`, `pnpm format:check`, `pnpm build`, and all **13** tests passed. No new repository tests were added for this small presentation change.
+- Reused the healthy development **4321** and production preview **4322** servers. Chrome **154.0.8037.98** checked both at **390×900**, **1440×900**, **320×568**, and **844×390** with JavaScript disabled and reduced motion enabled. Verified readable hero content, decoded imagery, loading priority, visible keyboard focus, keyboard activation of both native actions, resolved section anchors, contained links, no horizontal overflow, and no console/page errors. Standard motion still uses the existing name animation. Production mobile/desktop screenshots were visually inspected. Firefox and Safari were not checked for this follow-up. Browser evidence is `/private/tmp/devrel-hero/results.json` and `hero-*.png`.
+- Marked item 2 complete. No commit, push, merge, or deployment occurred. Next suggested step: item 3, recent writing; item 7 remains the separate broader navigation/readability task.
+
+### Role wording refinement — 2026-10-06
+
+- At the user's request, made the spaces on both sides of `@` explicit in the About role line and replaced “Educator” with “University instructor.” Updated the first bio paragraph and hero introduction to use the same wording. No named teaching affiliations were added.
+- `pnpm check`, `pnpm lint`, `pnpm format:check`, `pnpm build`, and all **13** tests passed. Chrome **154.0.8037.98** checked development **4321** and production preview **4322**, without JavaScript, at **390×900**, **1440×900**, **320×568**, and **844×390**. Confirmed rendered role spacing and wording, hero containment, keyboard actions, reduced motion, no overflow, and no console/page errors. Firefox and Safari were not rechecked. Evidence remains under `/private/tmp/devrel-hero/`. No commit or deployment occurred; item 3 remains next.
+
 ## Next step and cross-chat workflow
 
 Phases 1–3 are implemented locally. Review the current diff and the Phase 3 validation limits below before production cutover. Filtering and external services are complete; do not recreate them. Preserve `.anima/` and high-priority hero loading. Deployment requires an explicit request; no push, merge, or deployment has occurred.
 
 At each phase boundary, update the progress record with what changed, commands run and their results, unresolved issues, intentional temporary behavior, and the exact next step. Include a commit identifier if one was created; do not imply a commit or deployment occurred when it did not. Later chats should inspect the actual repository and completed work rather than restarting the migration.
 
-Next content step: tackle follow-up item 2 (hero introduction and actions), or select another pending numbered item above. Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
+Next content step: tackle follow-up item 3 (recent writing), or select another pending numbered item above. Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
 
 ## References checked during planning
 

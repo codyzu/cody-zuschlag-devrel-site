@@ -1,9 +1,10 @@
 ---
 import {Picture} from 'astro:assets';
 import image from './images/reactsummit_closeup.jpeg';
+import Link from './Link.astro';
 ---
 
-<header class="hero relative h-screen overflow-hidden text-center flex justify-center bg-black">
+<header class="hero relative h-screen min-h-128 overflow-hidden text-center flex justify-center bg-black">
   <Picture
     src={image}
     formats={['avif', 'webp']}
@@ -18,10 +19,23 @@ import image from './images/reactsummit_closeup.jpeg';
     fetchpriority="high"
     class="absolute inset-0 w-full h-full object-cover"
   />
-  <div class="absolute inset-0 bg-black/40" aria-hidden="true"></div>
-  <h1 class="font-bold inline-flex flex-col items-center self-center text-5xl sm:text-7xl leading-tight">
-    <span>Cody</span> <span>Zuschlag</span>
-  </h1>
+  <div class="absolute inset-0 bg-black/60" aria-hidden="true"></div>
+  <div class="relative self-center flex flex-col items-center gap-6 max-w-3xl px-6 py-12">
+    <h1 class="font-bold inline-flex flex-col items-center text-5xl sm:text-7xl leading-tight">
+      <span>Cody</span> <span>Zuschlag</span>
+    </h1>
+    <p class="text-xl sm:text-2xl leading-relaxed text-primary text-balance">
+      Open-source community builder · Xen Project Community Manager · Speaker
+      &amp; university instructor
+    </p>
+    <nav
+      aria-label="Explore and contact"
+      class="flex flex-wrap justify-center gap-x-8 gap-y-4 text-lg sm:text-xl font-semibold"
+    >
+      <Link url="#talks">Explore my talks</Link>
+      <Link url="#socials">Get in touch</Link>
+    </nav>
+  </div>
 </header>
 <style>
   .hero {
