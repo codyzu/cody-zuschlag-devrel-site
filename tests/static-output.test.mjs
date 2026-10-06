@@ -5,6 +5,13 @@ import {test} from 'node:test';
 import talks from '../src/talks/talks.ts';
 import articles from '../src/articles.ts';
 import {formatDate} from '../src/format-date.ts';
+import {parseGalleryFilenames} from '../src/gallery/gallery-filenames.ts';
+
+const gallery = parseGalleryFilenames(
+  readdirSync(new URL('../src/gallery/', import.meta.url)).filter((path) =>
+    /\.(?:jpg|jpeg|png)$/v.test(path),
+  ),
+);
 
 const html = readFileSync(
   new URL('../dist/index.html', import.meta.url),
@@ -68,7 +75,18 @@ test('native anchors, metadata, gallery, and high-priority hero survive migratio
   assert.match(html, /<main\s[^>]*id="main"/v);
   assert.match(html, /href="#main"/v);
   assert.equal((html.match(/<h1\b/gv) ?? []).length, 1);
-  assert.equal((section('photos').match(/<img\b/gv) ?? []).length, 8);
+  assert.equal(
+    (section('photos').match(/<img\b/gv) ?? []).length,
+    gallery.length,
+  );
+  const alternatives = section('photos')
+    .matchAll(/alt="(?<alt>[^"]*)"/gv)
+    .map((match) => match.groups.alt)
+    .toArray();
+  assert.deepEqual(
+    alternatives,
+    gallery.map((photo) => escape(photo.alt)),
+  );
   assert.match(html, /fetchpriority="high"/v);
   assert.match(html, /alt="Xen Project logo"/v);
   assert.match(
@@ -155,7 +173,7 @@ test('responsive photographs have real optimized files and correct loading prior
   const pictures = html
     .matchAll(/<picture\b[^>]*>(?<content>[\s\S]*?)<\/picture>/gv)
     .toArray();
-  assert.equal(pictures.length, 9);
+  assert.equal(pictures.length, gallery.length + 1);
   for (const [index, match] of pictures.entries()) {
     const picture = match.groups.content;
     assert.match(picture, /width="\d+" height="\d+"/v);

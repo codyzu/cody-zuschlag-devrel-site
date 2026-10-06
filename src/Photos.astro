@@ -18,33 +18,31 @@ const featuredSizes =
     subtitle="Small collection of presentation highlights"
   />
   <div class="gallery grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-    {gallery
-      .toSorted((a, b) => a.order - b.order)
-      .map((photo) => (
-        <Picture
-          src={photo.image}
-          formats={['avif', 'webp']}
-          fallbackFormat="jpeg"
-          widths={
-            photo.featured
-              ? [320, 640, 960, 1280, 1600]
-              : [320, 480, 640, 960, 1280]
-          }
-          width={photo.featured ? 1600 : 1280}
-          height={
-            photo.aspectRatio === '3/4' ? 1707 : photo.featured ? 1200 : 960
-          }
-          fit="cover"
-          sizes={photo.featured ? featuredSizes : regularSizes}
-          alt={photo.alt}
-          loading="lazy"
-          decoding="async"
-          class="w-full h-full rounded-xl object-cover"
-          pictureAttributes={{
-            class: `block min-w-0 ${photo.aspectRatio === '3/4' ? 'portrait aspect-[3/4]' : 'aspect-[4/3]'}${photo.featured ? ' featured' : ''}`,
-          }}
-        />
-      ))}
+    {gallery.map((photo) => (
+      <Picture
+        src={photo.image}
+        formats={['avif', 'webp']}
+        fallbackFormat="jpeg"
+        widths={
+          photo.featured
+            ? [320, 640, 960, 1280, 1600]
+            : [320, 480, 640, 960, 1280]
+        }
+        width={photo.featured ? 1600 : 1280}
+        height={
+          photo.aspectRatio === '3/4' ? 1707 : photo.featured ? 1200 : 960
+        }
+        fit="cover"
+        sizes={photo.featured ? featuredSizes : regularSizes}
+        alt={photo.alt}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-full rounded-xl object-cover"
+        pictureAttributes={{
+          class: `block min-w-0 ${photo.aspectRatio === '3/4' ? 'portrait aspect-[3/4]' : 'aspect-[4/3]'}${photo.featured ? ' featured' : ''}`,
+        }}
+      />
+    ))}
   </div>
 </Section>
 <style>
