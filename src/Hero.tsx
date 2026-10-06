@@ -25,7 +25,6 @@ export default function Hero() {
         <img
           src={bgImageFallback as string}
           className="absolute inset-0 w-full h-full object-cover"
-          // @ts-expect-error react is not typed for this, there will be warning in the browser
           fetchPriority="high"
         />
       </picture>

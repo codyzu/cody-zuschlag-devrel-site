@@ -4,6 +4,35 @@ import {type Talk} from './talk-type';
 
 const talks: Talk[] = [
   {
+    conference: 'AGL All Member Meeting Europe 2026',
+    name: 'Preparing Xen for Functional Safety: Lessons From a Mature Open Source Project',
+    date: '2026-10-01T11:55Z',
+    location: 'Berlin, Germany',
+    flag: 'i-circle-flags-de',
+    slides:
+      'https://hosted-files.sched.co/aglammeu2026/03/Preparing%20Xen%20for%20Functional%20Safety%20-%20Lessons%20Learned.pdf',
+  },
+  {
+    conference: 'Xen Summit 2026',
+    name: 'Xen 2026 Weather Report',
+    date: '2026-09-15T07:00Z',
+    location: 'Munich, Germany',
+    flag: 'i-circle-flags-de',
+    video: 'https://www.youtube.com/watch?v=iFWWpQFdE5s',
+    slides:
+      'https://hosted-files.sched.co/xensummit2026/8d/2026%20Xen%20Weather%20Report.pdf',
+  },
+  {
+    conference: 'Xen Spring Meetup 2026',
+    name: 'Welcome + Xen Project Weather Report',
+    date: '2026-04-02T07:00Z',
+    location: 'Grenoble, France',
+    flag: 'i-circle-flags-fr',
+    video: 'https://www.youtube.com/watch?v=_yCWatiejNA',
+    slides:
+      'https://hosted-files.sched.co/xenspringmeetup2026/12/Y26Q1%20Xen%20Weather%20Report.pdf',
+  },
+  {
     conference: 'Open Source Summit Japan 2025',
     name: 'Dom0less and Deterministic',
     date: '2025-12-09T12:00Z',
@@ -12,6 +41,13 @@ const talks: Talk[] = [
     video: 'https://youtu.be/ywOdPxVzMn8?si=KMyzhqwHmA4eDI-Q',
     slides:
       'https://docs.google.com/presentation/d/1x6KL49AmGxZ8sDgA2M_Mxhaj6e_W_u-WQaUFfMLaf5o/edit?usp=sharing',
+  },
+  {
+    conference: 'FLOSS Weekly',
+    name: "Episode 853: Hardware Addiction; Don't Send Help",
+    date: '2025-10-29T12:00Z',
+    location: 'virtual',
+    video: 'https://www.youtube.com/watch?v=z1bXf5mTzcY',
   },
   {
     conference: 'Xen Summit 2025',
