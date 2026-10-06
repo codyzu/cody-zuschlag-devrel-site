@@ -46,13 +46,31 @@ const featuredSizes =
   </div>
 </Section>
 <style>
+  .gallery {
+    container-type: inline-size;
+    --gallery-gap: calc(var(--spacing) * 4);
+  }
   @media (min-width: 40rem) {
+    /* A 4:3 landscape slot is three quarters of one gallery column. */
+    .gallery > picture {
+      --landscape-height: calc((100cqw - var(--gallery-gap)) * 3 / 8);
+    }
+    .featured,
+    .portrait {
+      aspect-ratio: auto;
+      height: calc(var(--landscape-height) * 2 + var(--gallery-gap));
+    }
     .featured {
       grid-column: span 2;
       grid-row: span 2;
     }
     .portrait {
       grid-row: span 2;
+    }
+  }
+  @media (min-width: 64rem) {
+    .gallery > picture {
+      --landscape-height: calc((100cqw - var(--gallery-gap) * 3) * 3 / 16);
     }
   }
   @supports (display: grid-lanes) {
