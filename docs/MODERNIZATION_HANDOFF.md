@@ -280,13 +280,71 @@ The README documents current development, content editing, and hosting. Migratio
 - Introducing the collection into the already running development process initially returned an empty collection, including after a configuration-file refresh. Restarting this repository's development server on the prescribed **4321** resolved it. A temporary future-talk Markdown file then appeared automatically as the first of 45 entries through hot updates; removing it restored 44. The fixture was removed. The existing production preview on **4322** was reused. Browser evidence and scripts are under `/private/tmp/devrel-talk-collection/`; the original metadata snapshot is `/private/tmp/devrel-talks-before.json`.
 - No commit, push, merge, or deployment occurred in this follow-up. Production cutover remains a separate explicitly authorized step.
 
+## Content and presentation follow-up plan — 2026-10-06
+
+The user requested that the following recommendations become a plan to tackle one at a time. All nine items are pending; this planning update does not implement site changes. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
+
+Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as priorities allow. Use the stable item numbers below when requesting work in another chat. Item 9 should follow the final bio positioning; item 5 should reuse that bio. A separate speaking page remains an option, not a settled architecture decision.
+
+- [ ] **1. Refresh the bio around the current Xen role.**
+  - Update `src/About.astro` to lead with Xen Project community leadership, contributor engagement, and open-source virtualization. Present software engineering, developer relations, and teaching as supporting experience.
+  - Confirm whether consulting and FINOS ambassador remain active roles before retaining them as current titles. Verify the teaching affiliations before publishing the draft below.
+  - Done when the role headings and bio agree, current affiliations are accurate, and the copy explains what Cody does rather than only listing titles.
+- [ ] **2. Add a clear introduction and actions to the hero.**
+  - Update `src/Hero.astro` with a concise role line, initially proposed as “Open-source community builder · Xen Project Community Manager · Speaker & educator.”
+  - Add “Explore my talks” and “Get in touch” links using native anchors to `#talks` and `#socials` initially. Preserve high-priority image loading and reduced-motion behavior.
+  - Done when the introduction and actions are readable and keyboard accessible on mobile and desktop, including without JavaScript.
+- [ ] **3. Bring recent writing into the article list.**
+  - Review the [Xen Project author archive](https://xenproject.org/blog/author/cody/) for relevant newer articles, including release, FOSDEM, and automotive coverage. The current local list ends in October 2022.
+  - Verify each selected article's title, publication date, authorship, and canonical URL before adding it to `src/articles.ts`. Preserve existing entries and their relative source order; curate new entries explicitly rather than adding automatic sorting.
+  - Done when selected current writing is visible alongside the existing archive with verified links and UTC-formatted dates.
+- [ ] **4. Feature representative talks within the speaking section.**
+  - Select two or three highlights, with the Xen weather report, virtualization architecture, and functional safety as initial candidates. Add a short description explaining each talk's subject and available resources.
+  - Reuse the talk collection as the source of existing metadata. Keep the complete archive, its timestamp ordering, filters, and shared column layout intact.
+  - Done when visitors can quickly find representative work before browsing the full archive and highlights remain readable without JavaScript.
+- [ ] **5. Make speaking inquiries easier.**
+  - Provide a clear contact route and a compact speaker kit containing short and long bios, an approved downloadable headshot, speaking topics, and a representative recording.
+  - Choose an existing contact destination or obtain the user's preferred public contact details. Decide whether the kit fits the homepage or warrants an optional `/speaking` page using the shared document layout.
+  - Done when an organizer can find contact details and reusable speaker materials without assembling them from the talk archive.
+- [ ] **6. Refresh social destinations and labels.**
+  - In `src/Socials.astro`, relabel the existing generic “Blog” link as “Nearform articles” and add “Xen Project articles.” Review which other profiles Cody actively uses before changing their prominence or removing them.
+  - Done when labels accurately describe their destinations, the existing archive links are preserved, and the current writing destination is easy to find.
+- [ ] **7. Polish readability and section navigation.**
+  - Add simple native section navigation, left-align the currently justified bio, and tighten labels: “Based in” instead of “Based from” and “Talks & recordings” instead of “Speaking engagements and videos.”
+  - Preserve colors, photography, section order, semantic headings, skip-link behavior, and public anchors. Coordinate navigation with the hero actions from item 2.
+  - Done when mobile and desktop navigation works with keyboard and without JavaScript, with no overflow or obscured anchor targets.
+- [ ] **8. Make recording and upcoming status explicit.**
+  - Replace the blanket “Coming soon” label for missing video URLs with an explicit, validated recording status. Audit existing entries before promising future recordings; distinguish unavailable, not recorded, and expected recordings as appropriate.
+  - Update the talk schema, rendering, and meaningful tests together. Keep video-resource filters restricted to actual recordings. Use “Upcoming” only for future engagements; account for static build timing so date labels do not silently become stale.
+  - Done when historical talks no longer imply an unverified forthcoming recording, future-event labels are accurate, and filters and no-JavaScript reading still work.
+- [ ] **9. Align search and sharing presentation with the bio.**
+  - After item 1, update the title, description, and Open Graph/Twitter metadata in `src/layouts/Document.astro` to reflect the same positioning.
+  - Create a dedicated social-sharing image with Cody's name and current role, using approved imagery and readable typography. Preserve canonical URLs and meaningful image alternatives.
+  - Done when generated metadata and the sharing image consistently describe the current role and use valid absolute production URLs.
+
+### Working bio draft for item 1
+
+This is proposed first-person website copy, not yet applied. It retains the teaching affiliations from the existing site, subject to the verification above.
+
+> I’m Cody Zuschlag, Community Manager for the Xen Project, an international speaker, and a university instructor based in Annecy, France. I help developers, contributors, and organizations connect and collaborate around open-source virtualization.
+>
+> My background spans software engineering, developer relations, and teaching. Today, my work focuses on supporting the Xen community, welcoming contributors, and making complex technology approachable. I speak about open-source communities and virtualization, including Xen’s role in cloud, embedded, and automotive systems, and teach web development at IUT Annecy and Tetras.
+
+Role context was checked during planning against the [Xen author profile](https://xenproject.org/blog/author/cody/) and [community-manager introduction](https://xenproject.org/blog/lets-grow-xen-together/). Recheck current affiliations when implementing; these sources do not establish that consulting or FINOS roles have ended.
+
+### Follow-up validation and progress records
+
+For each implemented item, mark its checkbox complete and append an implementation record with changed files, decisions, validation results, remaining limitations, and the next item. Run `pnpm check`, `pnpm lint`, `pnpm format:check`, `pnpm build`, then `pnpm test` for application changes. For layout or interaction changes, verify mobile and desktop browser behavior, no-JavaScript reading, native anchors, keyboard access, and console errors as relevant; report the browsers actually checked. Documentation-only updates require formatting validation.
+
+Planning record: added all nine recommendations, suggested order, completion criteria, source references, and the working bio draft. No application code, content, or deployment state changed.
+
 ## Next step and cross-chat workflow
 
 Phases 1–3 are implemented locally. Review the current diff and the Phase 3 validation limits below before production cutover. Filtering and external services are complete; do not recreate them. Preserve `.anima/` and high-priority hero loading. Deployment requires an explicit request; no push, merge, or deployment has occurred.
 
 At each phase boundary, update the progress record with what changed, commands run and their results, unresolved issues, intentional temporary behavior, and the exact next step. Include a commit identifier if one was created; do not imply a commit or deployment occurred when it did not. Later chats should inspect the actual repository and completed work rather than restarting the migration.
 
-Next step: review the completed modernization and explicitly authorize the production cutover when ready. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
+Next content step: tackle follow-up item 1 (bio), or select another numbered item above. Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
 
 ## References checked during planning
 
