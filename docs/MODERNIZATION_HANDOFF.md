@@ -202,6 +202,8 @@ The README documents current development, content editing, and hosting. Migratio
 - The original Astro conversion gave each talk an independent grid, so intrinsic date/resource widths varied between talks. The parent `.talks` list now defines responsive column tracks; each `.talk` spans them and uses `grid-template-columns: subgrid`. Semantic list-item wrappers remain intact for Phase 2 filtering. No React/Table dependency is required.
 - Chrome checks at 390, 640, 768, 1024, and 1440 pixels measured identical column starts across all visible talks, with no horizontal overflow. Repeated with half the talks hidden and only one talk visible; hidden wrappers occupied no space and alignment held. Evidence: `/private/tmp/devrel-talk-grid-verification.json` and `/private/tmp/devrel-talk-grid-*.png`. XO, production build, and four static tests passed.
 
+- UnoCSS cleanup moved ordinary article layout, gallery columns/image sizing/rounding/aspect ratios, and talk resource flex styles into utilities. Scoped CSS retains the coordinated talk subgrid, gallery spans for future masonry enhancement, and hero animation. Browser geometry and computed styles matched the prior layout at 390, 640, 768, 1024, and 1440 pixels with no overflow; evidence is `/private/tmp/devrel-utilities-before.json` and `/private/tmp/devrel-utilities-after.json`. XO, formatting, build, and static tests passed.
+
 ### Intentional Phase 1 boundaries
 
 - Search/filter controls are absent while all talks remain visible. Phase 2 should enhance each existing `.talk` list item with generated attributes and implement the agreed grouped filtering; no content should move back into client rendering.

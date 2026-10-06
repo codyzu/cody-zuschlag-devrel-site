@@ -24,7 +24,7 @@ const descriptions: Record<string, string> = {
     title="Photo gallery"
     subtitle="Small collection of presentation highlights"
   />
-  <div class="gallery">
+  <div class="gallery grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
     {Object.entries(images)
       .toSorted(([a], [b]) => a.localeCompare(b))
       .map(([path, {default: image}]) => (
@@ -36,7 +36,8 @@ const descriptions: Record<string, string> = {
           loading="lazy"
           decoding="async"
           class:list={[
-            'photo',
+            'w-full h-full rounded-xl object-cover',
+            path.includes('_portrait') ? 'aspect-[3/4]' : 'aspect-[4/3]',
             {
               featured: path.includes('_big'),
               portrait: path.includes('_portrait'),
@@ -47,36 +48,13 @@ const descriptions: Record<string, string> = {
   </div>
 </Section>
 <style>
-  .gallery {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-  .photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    aspect-ratio: 4 / 3;
-    border-radius: 0.75rem;
-  }
-  .portrait {
-    aspect-ratio: 3 / 4;
-  }
   @media (min-width: 40rem) {
-    .gallery {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
     .featured {
       grid-column: span 2;
       grid-row: span 2;
     }
     .portrait {
       grid-row: span 2;
-    }
-  }
-  @media (min-width: 64rem) {
-    .gallery {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 </style>

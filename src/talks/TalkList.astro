@@ -24,7 +24,7 @@ import talks from './talks';
           {talk.flag && <span class={talk.flag} aria-hidden="true" />}{' '}
           {talk.location}
         </p>
-        <div class="resources text-secondary">
+        <div class="resources flex flex-col items-start gap-1 text-secondary">
           {talk.video === 'none' ? (
             <Link icon="i-lucide-video-off text-lg" active={false}>
               Not recorded
@@ -73,12 +73,6 @@ import talks from './talks';
   .location,
   .resources {
     grid-column: 2;
-  }
-  .resources {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.25rem;
   }
   @media (min-width: 40rem) {
     .talks {
