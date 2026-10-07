@@ -31,7 +31,7 @@ This document carries the agreed plan into separate implementation chats. Read i
 
 ## Final implementation plan
 
-The original plan below is retained for migration history. The user-approved talk collection follow-up recorded below supersedes the TypeScript talk-storage and source-order decisions; articles remain in their typed TypeScript module.
+The original plan below is retained for migration history. The user-approved talk and article collection follow-ups recorded below supersede the TypeScript content-storage decisions. Talks use timestamp ordering; articles retain explicit curated ordering.
 
 ### Phase 1 — Static Astro foundation
 
@@ -282,7 +282,7 @@ The README documents current development, content editing, and hosting. Migratio
 
 ## Content and presentation follow-up plan — 2026-10-06
 
-The user requested that the following recommendations become a plan to tackle one at a time. Items 1–2 are complete; items 3–9 remain pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
+The user requested that the following recommendations become a plan to tackle one at a time. Items 1–3 are complete; items 4–9 remain pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
 
 Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as priorities allow. Use the stable item numbers below when requesting work in another chat. Item 9 should follow the final bio positioning; item 5 should reuse that bio. A separate speaking page remains an option, not a settled architecture decision.
 
@@ -294,7 +294,7 @@ Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as pri
   - Update `src/Hero.astro` with a concise role line, initially proposed as “Open-source community builder · Xen Project Community Manager · Speaker & educator.”
   - Add “Explore my talks” and “Get in touch” links using native anchors to `#talks` and `#socials` initially. Preserve high-priority image loading and reduced-motion behavior.
   - Done when the introduction and actions are readable and keyboard accessible on mobile and desktop, including without JavaScript.
-- [ ] **3. Bring recent writing into the article list.**
+- [x] **3. Bring recent writing into the article list.**
   - Review the [Xen Project author archive](https://xenproject.org/blog/author/cody/) for relevant newer articles, including release, FOSDEM, and automotive coverage. The current local list ends in October 2022.
   - Verify each selected article's title, publication date, authorship, and canonical URL before adding it to `src/articles.ts`. Preserve existing entries and their relative source order; curate new entries explicitly rather than adding automatic sorting.
   - Done when selected current writing is visible alongside the existing archive with verified links and UTC-formatted dates.
@@ -360,13 +360,42 @@ Planning record: added all nine recommendations, suggested order, completion cri
 - At the user's request, made the spaces on both sides of `@` explicit in the About role line and replaced “Educator” with “University instructor.” Updated the first bio paragraph and hero introduction to use the same wording. No named teaching affiliations were added.
 - `pnpm check`, `pnpm lint`, `pnpm format:check`, `pnpm build`, and all **13** tests passed. Chrome **154.0.8037.98** checked development **4321** and production preview **4322**, without JavaScript, at **390×900**, **1440×900**, **320×568**, and **844×390**. Confirmed rendered role spacing and wording, hero containment, keyboard actions, reduced motion, no overflow, and no console/page errors. Firefox and Safari were not rechecked. Evidence remains under `/private/tmp/devrel-hero/`. No commit or deployment occurred; item 3 remains next.
 
+### Item 3 implementation — 2026-10-06
+
+- Prepended seven Xen Project posts to `src/articles.ts`, explicitly curated in newest-first order: Xen 4.22, FOSDEM 2026, OSS Japan 2025 automotive coverage, Open CI, Xen Summit 2025, the community-manager introduction, and Xen 4.20. All 12 existing entries, dates, URLs, and relative source order remain unchanged. The list now contains 19 articles; no automatic sorting, fetching, component changes, or additional runtime was introduced.
+- Checked the [Cody author archive](https://xenproject.org/blog/author/cody/) and each article page. Every destination returned HTTP 200, its canonical URL matched the selected URL, and its structured data identified Cody Zuschlag as author. Used visible article headings, preserving punctuation and the two existing tool emojis; the release pages have different SEO headlines. Stored exact `datePublished` UTC timestamps, rendered through the existing English/UTC `formatDate` helper.
+
+| Selected source                                                                                                                     | Published (UTC)  |
+| ----------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| [Xen 4.22](https://xenproject.org/blog/xen-4-22-release/)                                                                           | 5 August 2026    |
+| [FOSDEM](https://xenproject.org/blog/xen-at-fosdem-real-world-conversations-about-xen-and-kvm/)                                     | 4 February 2026  |
+| [OSS Japan automotive coverage](https://xenproject.org/blog/oss-japan-2025-a-breakthrough-year-for-open-automotive-innovation/)     | 16 December 2025 |
+| [Engineering Trust / Open CI](https://xenproject.org/blog/engineering-trust-how-xens-open-ci-powers-global-hardware-level-testing/) | 10 July 2025     |
+| [Xen Summit](https://xenproject.org/blog/xen-summit-2025-find-your-place-in-the-future-of-virtualization/)                          | 27 June 2025     |
+| [Let’s Grow Xen Together!](https://xenproject.org/blog/lets-grow-xen-together/)                                                     | 18 March 2025    |
+| [Xen 4.20](https://xenproject.org/blog/xen-project-4-20-oss-virtualization/)                                                        | 11 March 2025    |
+
+- Node **24.16.0**, pnpm **10.23.0**: `pnpm check` (zero diagnostics), `pnpm lint`, `pnpm format:check`, `pnpm build`, and all **13** existing tests passed. Existing generated-output coverage checks every article's title, URL, and formatted date; no new repository tests were needed for this content addition. `git diff --check` passed.
+- Reused healthy development **4321** and production preview **4322** servers. Chrome **154.0.8037.98** checked both at **390×900** and **1440×900** with JavaScript disabled: all 19 rows remain readable and in source order, exact links and UTC dates match, `#articles` resolves, keyboard Tab reaches article links with visible focus, no horizontal overflow, and no console/page errors. Production screenshots were visually inspected. Firefox and Safari were not rechecked for this content addition. Source metadata, browser results, scripts, and screenshots are under `/private/tmp/devrel-articles/`.
+- Marked item 3 complete. No commit, push, merge, or deployment occurred. Next suggested step: item 6, accurate social destination labels and the Xen writing link; item 4 remains available for representative talk highlights.
+
+### Article content collection follow-up — 2026-10-06
+
+- At the user's request, moved all 19 articles, including the seven item 3 additions, from `src/articles.ts` into individual Markdown entries in `src/content/articles/`. YAML frontmatter stores `title`, `url`, the original quoted `date`, and a positive integer `order`; bodies are empty and not rendered. Compared every title, URL, timestamp, and position against `/private/tmp/devrel-articles/before-collection.json`: all match exactly.
+- Registered the build-time `articles` collection with Astro's existing `glob()` loader. `src/articles/article-schema.ts` validates nonblank titles, HTTP(S) URLs, timestamps with explicit time zones (minute/second/fraction precision), and positive integer ordering, rejecting unknown fields. `src/articles/sort-articles.ts` orders by `order` ascending with entry ID ascending for ties, without mutating inputs or using publication date. Initial orders are 10–190 in increments of ten to allow insertions.
+- `ArticleList.astro` now reads the collection at build time and passes schema-derived metadata to the existing `Article.astro` component. Removed the obsolete article array and manual type. External destinations, English/UTC date formatting, semantic list markup, section anchor, presentation, and JavaScript-free reading remain unchanged. No article routes, runtime fetching, or dependencies were added.
+- Added schema and curated-order tests, adapted generated-output tests to validate Markdown metadata and article sequence, and updated README and AGENTS.md authoring guidance. This storage follow-up supersedes the historical instructions to edit `src/articles.ts`; item 3 remains complete.
+- Node **24.16.0**, pnpm **10.23.0**: `pnpm check` (zero diagnostics), `pnpm lint`, `pnpm format:check`, `pnpm build`, and all **15** tests passed. `git diff --check` passed.
+- Reused development **4321** and production preview **4322**. Chrome **154.0.8037.98** verified both at **390×900** and **1440×900** with JavaScript disabled: 19 readable articles in the preserved order, matching links and UTC dates, native `#articles`, visible keyboard focus, no overflow, and no console/page errors. Production screenshots were visually inspected. A temporary older article with `order: 5` appeared first via development hot updates; removing it restored 19 entries. The fixture was removed. Firefox and Safari were not rechecked. Browser evidence and migration snapshot are under `/private/tmp/devrel-articles/`.
+- No commit, push, merge, or deployment occurred. Next suggested content step remains item 6; item 4 is available for representative talk highlights.
+
 ## Next step and cross-chat workflow
 
 Phases 1–3 are implemented locally. Review the current diff and the Phase 3 validation limits below before production cutover. Filtering and external services are complete; do not recreate them. Preserve `.anima/` and high-priority hero loading. Deployment requires an explicit request; no push, merge, or deployment has occurred.
 
 At each phase boundary, update the progress record with what changed, commands run and their results, unresolved issues, intentional temporary behavior, and the exact next step. Include a commit identifier if one was created; do not imply a commit or deployment occurred when it did not. Later chats should inspect the actual repository and completed work rather than restarting the migration.
 
-Next content step: tackle follow-up item 3 (recent writing), or select another pending numbered item above. Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
+Next suggested content step: tackle follow-up item 6 (social destination labels), or select another pending numbered item above. Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
 
 ## References checked during planning
 

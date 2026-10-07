@@ -1,8 +1,11 @@
 ---
+import {getCollection} from 'astro:content';
 import Article from './Article.astro';
-import articles from './articles';
+import {sortArticles} from './articles/sort-articles';
 import Section from './Section.astro';
 import SectionTitle from './SectionTitle.astro';
+
+const articles = sortArticles(await getCollection('articles'));
 ---
 
 <Section id="articles" labelledby="articles-heading">
@@ -13,7 +16,7 @@ import SectionTitle from './SectionTitle.astro';
   />
   <ul role="list">
     {articles.map((article) => (
-      <Article article={article} />
+      <Article article={article.data} />
     ))}
   </ul>
 </Section>

@@ -2,9 +2,9 @@ import assert from 'node:assert/strict';
 import {Buffer} from 'node:buffer';
 import {readFileSync, readdirSync} from 'node:fs';
 import {test} from 'node:test';
-import articles from '../src/articles.ts';
 import {formatDate} from '../src/format-date.ts';
 import {parseGalleryFilenames} from '../src/gallery/gallery-filenames.ts';
+import articles from './read-articles.mjs';
 import talks from './read-talks.mjs';
 
 const gallery = parseGalleryFilenames(
@@ -60,9 +60,13 @@ test('every talk is prerendered in date order and articles retain their resource
     (talkHtml.match(/Coming soon/gv) ?? []).length,
     talks.filter((talk) => talk.video === undefined).length,
   );
+  let articleCursor = 0;
   for (const article of articles) {
-    assert.ok(articleHtml.includes(escape(article.title)), article.title);
+    const position = articleHtml.indexOf(escape(article.title), articleCursor);
+    assert.ok(position >= articleCursor, article.title);
+    articleCursor = position + escape(article.title).length;
     assert.ok(articleHtml.includes(escape(article.url)), article.url);
+    assert.ok(articleHtml.includes(`datetime="${article.date}"`));
     assert.ok(articleHtml.includes(formatDate(article.date)));
   }
 });

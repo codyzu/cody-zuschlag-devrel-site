@@ -1,10 +1,10 @@
 ---
-import type {Article} from './article-type';
+import type {CollectionEntry} from 'astro:content';
 import Link from './Link.astro';
 import {formatDate} from './format-date';
 
 interface Props {
-  article: Article;
+  article: CollectionEntry<'articles'>['data'];
 }
 const {article} = Astro.props;
 ---
