@@ -8,29 +8,54 @@ import SectionTitle from './SectionTitle.astro';
   <SectionTitle
     id="socials-heading"
     title="Socials"
-    subtitle="Reach out to me at these places"
+    subtitle="Find me online and explore my writing"
   />
-  <div class="flex flex-col sm:flex-row gap-x-8 flex-wrap font-medium text-3xl">
-    <Link
-      icon="i-lucide-linkedin"
-      url="https://www.linkedin.com/in/cody-zuschlag"
-    >
-      LinkedIn
-    </Link>
-    <Link icon="i-tabler-brand-x" url="https://twitter.com/codyzus">
-      @codyzus
-    </Link>
-    <Link icon="i-lucide-github" url="https://github.com/codyzu">
-      @codyzu
-    </Link>
-    <Link icon="i-mingcute-medium-line" url="https://medium.com/@codyzus">
-      Medium
-    </Link>
-    <Link
-      icon="i-lucide-newspaper"
-      url="https://www.nearform.com/author/cody-zuschlag/"
-    >
-      Blog
-    </Link>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-2">
+    <div>
+      <h3 class="text-secondary text-lg font-medium mb-4">Connect</h3>
+      <ul class="grid gap-5 font-medium text-2xl xl:text-3xl" role="list">
+        <li>
+          <Link
+            icon="i-lucide-linkedin"
+            url="https://www.linkedin.com/in/cody-zuschlag"
+          >
+            LinkedIn
+          </Link>
+        </li>
+        <li>
+          <Link icon="i-lucide-github" url="https://github.com/codyzu">
+            GitHub
+          </Link>
+        </li>
+        <li>
+          <Link icon="i-tabler-brand-x" url="https://twitter.com/codyzus">
+            X
+          </Link>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="text-secondary text-lg font-medium mb-4">Read my work</h3>
+      <ul class="grid gap-5 font-medium text-2xl xl:text-3xl" role="list">
+        <li>
+          <Link
+            icon="i-lucide-newspaper"
+            url="https://xenproject.org/blog/author/cody/"
+          >
+            Xen Project articles
+          </Link>
+        </li>
+        <li>
+          <Link icon="i-mingcute-medium-line" url="https://medium.com/@codyzus">
+            Medium
+          </Link>
+        </li>
+        <li>
+          <Link icon="i-lucide-newspaper" url="#articles">
+            Article archive
+          </Link>
+        </li>
+      </ul>
+    </div>
   </div>
 </Section>
