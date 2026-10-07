@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {Buffer} from 'node:buffer';
 import {readFileSync, readdirSync} from 'node:fs';
 import {test} from 'node:test';
+import sharp from 'sharp';
 import {formatDate} from '../src/format-date.ts';
 import {parseGalleryFilenames} from '../src/gallery/gallery-filenames.ts';
 import articles from './read-articles.mjs';
@@ -102,6 +103,57 @@ test('native anchors, metadata, gallery, and high-priority hero survive migratio
     /property="og:image" content="https:\/\/devrel\.codyfactory\.eu\//v,
   );
   assert.doesNotMatch(html, /astro-island|id="root"/v);
+});
+
+test('search and sharing metadata agree and reference a real production sharing image', async () => {
+  const metadata = (attribute, key) => {
+    const matches = html
+      .matchAll(
+        new RegExp(`<meta ${attribute}="${key}" content="([^"]*)"`, 'gv'),
+      )
+      .toArray();
+    assert.equal(matches.length, 1, key);
+    return matches[0][1];
+  };
+
+  const title = html.match(/<title>(?<title>[^<]*)<\/title>/v)?.groups.title;
+  assert.match(title, /Cody Zuschlag.*Xen Project Community Manager/v);
+  assert.equal(metadata('property', 'og:title'), title);
+  assert.equal(metadata('name', 'twitter:title'), title);
+  const description = metadata('name', 'description');
+  for (const phrase of [
+    'Xen Project Community Manager',
+    'international speaker',
+    'university instructor',
+    'open-source virtualization',
+  ]) {
+    assert.ok(description.includes(phrase), phrase);
+  }
+
+  assert.equal(metadata('property', 'og:description'), description);
+  assert.equal(metadata('name', 'twitter:description'), description);
+  assert.equal(
+    metadata('property', 'og:url'),
+    'https://devrel.codyfactory.eu/',
+  );
+  const image = new URL(metadata('property', 'og:image'));
+  assert.equal(image.origin, 'https://devrel.codyfactory.eu');
+  assert.equal(image.pathname, '/social-sharing.jpg');
+  assert.equal(metadata('name', 'twitter:image'), image.href);
+  assert.equal(metadata('name', 'twitter:card'), 'summary_large_image');
+  const alternative = metadata('property', 'og:image:alt');
+  assert.match(alternative, /Cody Zuschlag.*Xen Project Community Manager/v);
+  assert.equal(metadata('name', 'twitter:image:alt'), alternative);
+  const bytes = readFileSync(
+    new URL(`../dist${image.pathname}`, import.meta.url),
+  );
+  const {width, height, format} = await sharp(bytes).metadata();
+  assert.equal(format, 'jpeg');
+  assert.equal(metadata('property', 'og:image:type'), `image/${format}`);
+  assert.equal(width, 1200);
+  assert.equal(height, 630);
+  assert.equal(metadata('property', 'og:image:width'), String(width));
+  assert.equal(metadata('property', 'og:image:height'), String(height));
 });
 
 test('content icons have production CSS, including flags from Markdown', () => {

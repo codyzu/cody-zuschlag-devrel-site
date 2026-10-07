@@ -282,7 +282,7 @@ The README documents current development, content editing, and hosting. Migratio
 
 ## Content and presentation follow-up plan — 2026-10-06
 
-The user requested that the following recommendations become a plan to tackle one at a time. Items 1–3 are complete; items 4–9 remain pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
+The user requested that the following recommendations become a plan to tackle one at a time. Items 1–3, 6, and 9 are complete; items 4, 5, 7, and 8 remain pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
 
 Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as priorities allow. Use the stable item numbers below when requesting work in another chat. Item 9 should follow the final bio positioning; item 5 should reuse that bio. A separate speaking page remains an option, not a settled architecture decision.
 
@@ -317,7 +317,7 @@ Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as pri
   - Replace the blanket “Coming soon” label for missing video URLs with an explicit, validated recording status. Audit existing entries before promising future recordings; distinguish unavailable, not recorded, and expected recordings as appropriate.
   - Update the talk schema, rendering, and meaningful tests together. Keep video-resource filters restricted to actual recordings. Use “Upcoming” only for future engagements; account for static build timing so date labels do not silently become stale.
   - Done when historical talks no longer imply an unverified forthcoming recording, future-event labels are accurate, and filters and no-JavaScript reading still work.
-- [ ] **9. Align search and sharing presentation with the bio.**
+- [x] **9. Align search and sharing presentation with the bio.**
   - After item 1, update the title, description, and Open Graph/Twitter metadata in `src/layouts/Document.astro` to reflect the same positioning.
   - Create a dedicated social-sharing image with Cody's name and current role, using approved imagery and readable typography. Preserve canonical URLs and meaningful image alternatives.
   - Done when generated metadata and the sharing image consistently describe the current role and use valid absolute production URLs.
@@ -406,6 +406,15 @@ Planning record: added all nine recommendations, suggested order, completion cri
 - Chrome **154.0.8037.98** verified development **4321** and preview **4322** at **320**, **390**, **640**, **1024**, and **1440px** widths with JavaScript disabled: group alignment, labels and URLs, all keyboard focus stops, keyboard activation of `#articles`, native `#socials`, no overflow, and no console/page errors passed. Production mobile and desktop screenshots were visually inspected. Firefox and Safari were not checked. Evidence is under `/private/tmp/devrel-socials/`.
 - Groups sit side by side from 768px and stack on smaller screens. Each uses a semantic list with consistent spacing, existing shared links, colors, and icons. No client JavaScript or dependencies were added.
 - `pnpm check` (zero diagnostics), `pnpm lint`, `pnpm format:check`, `pnpm build`, and all **15** tests passed with Node **24.16.0** and pnpm **10.23.0**. No deployment or commit occurred.
+
+### Item 9 implementation — 2026-10-07
+
+- Updated `src/layouts/Document.astro` to lead the title with Cody's Xen Project Community Manager role. The shared search/Open Graph/Twitter description names the international speaker and university instructor roles and explains the open-source virtualization focus from the approved bio. Canonical and Open Graph page URLs remain `https://devrel.codyfactory.eu/`.
+- Created `public/social-sharing.jpg`, a dedicated **1200×630** JPEG (**57,379 bytes**) combining the existing approved React Summit hero photograph with Cody's name, current Xen role, community-building focus, supporting roles, and site address. White and green typography on black uses the site palette. Both sharing formats reference the absolute production image URL and describe the photograph and card text through meaningful image alternatives. Open Graph also includes MIME type and intrinsic dimensions.
+- Added `scripts/generate-social-image.mjs` and `pnpm generate:social-image` for future edits. Sharp composites the cropped existing photograph and SVG typography, taking colors from `uno.config.ts`; the committed JPEG is copied from `public/` during builds. README documents regeneration. No dependencies, browser runtime, or page layout changes were introduced.
+- Added generated-output coverage for matching titles/descriptions, role positioning, absolute canonical/image URLs, matching image alternatives, and the actual JPEG's format and dimensions. Node **24.16.0**, pnpm **10.23.0**: `pnpm check` (zero diagnostics), `pnpm lint`, `pnpm format:check`, `pnpm build`, and all **16** tests passed. `git diff --check` passed.
+- Reused healthy development **4321** and production preview **4322** servers. Chrome **154.0.8037.98** checked both at **390×900** and **1440×900** with JavaScript disabled: matching metadata, preserved canonical URLs, image HTTP 200 with JPEG MIME type and decoded 1200×630 dimensions, all 44 talks and 19 articles, hidden inactive filter controls, keyboard skip link, native section anchors, no horizontal overflow, and no homepage console/page errors. Visually inspected the full card and mobile browser preview. Evidence is `/private/tmp/devrel-sharing/results.json` and `card-*.png`. Direct image-document navigation causes Chrome to request the absent `/favicon.ico`; the site itself declares `/favicon.svg` and the HTML card preview uses it. Firefox and Safari were not checked. Live search indexing and social-platform previews await deployment and crawler refresh; localhost validation does not establish those results.
+- Marked item 9 complete. No commit, push, merge, or deployment occurred. Next suggested content step remains item 4, representative talk highlights; items 5, 7, and 8 also remain pending.
 
 ## Next step and cross-chat workflow
 

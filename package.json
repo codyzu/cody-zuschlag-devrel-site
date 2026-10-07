@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "astro dev --host",
     "build": "astro build",
+    "generate:social-image": "node scripts/generate-social-image.mjs",
     "preview": "astro preview --port 4322",
     "check": "astro check",
     "lint": "xo",
