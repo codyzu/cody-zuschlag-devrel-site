@@ -2,7 +2,7 @@ import {defineConfig, presetWind4, presetIcons} from 'unocss';
 
 export default defineConfig({
   content: {filesystem: ['src/**/*.{astro,ts,md}']},
-  safelist: ['bg-gradient-hero'],
+  safelist: ['bg-gradient-hero', 'i-lucide-house'],
   presets: [
     presetWind4({preflights: {reset: true}}),
     presetIcons({
@@ -16,6 +16,7 @@ export default defineConfig({
       primary: '#ffffff',
       hero: '#469537',
       background: '#000000',
+      mapSurface: '#282828',
     },
     font: {sans: 'Roboto, ui-sans-serif, system-ui, sans-serif'},
   },

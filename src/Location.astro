@@ -5,16 +5,10 @@ import Map from './Map.astro';
 ---
 
 <Section id="location" labelledby="location-heading">
-  <div class="grid grid-cols-1 lg:grid-cols-2">
-    <div class="mb-8 lg:mb-0">
-      <Map />
-    </div>
-    <div class="lg:-order-1 flex flex-col">
-      <SectionTitle
-        id="location-heading"
-        title="Based in"
-        subtitle="Annecy, France"
-      />
-    </div>
-  </div>
+  <SectionTitle
+    id="location-heading"
+    title="Speaking around the world"
+    subtitle="Based in Annecy, France · Speaking internationally"
+  />
+  <Map />
 </Section>

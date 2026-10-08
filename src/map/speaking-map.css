@@ -1,0 +1,130 @@
+#speaking-map {
+  background: var(--colors-mapSurface);
+  font-family: var(--font-sans);
+  color-scheme: dark;
+  container-type: inline-size;
+  border: 1px solid color-mix(in srgb, var(--colors-primary) 12%, transparent);
+}
+
+#speaking-map .leaflet-tile-pane {
+  filter: grayscale(1) invert(1) brightness(0.85) contrast(0.85);
+}
+
+#speaking-map .speaking-marker {
+  background: transparent;
+  border: 0;
+}
+
+#speaking-map .speaking-marker::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin: 7px;
+  background: var(--colors-highlight);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 4px color-mix(in srgb, var(--colors-highlight) 18%, transparent),
+    0 0 12px color-mix(in srgb, var(--colors-highlight) 35%, transparent);
+}
+
+#speaking-map .speaking-marker-home {
+  background: var(--colors-mapSurface);
+  border: 1px solid var(--colors-primary);
+  border-radius: 8px;
+  color: var(--colors-primary);
+  box-shadow: 0 0 0 4px
+    color-mix(in srgb, var(--colors-primary) 12%, transparent);
+}
+
+#speaking-map .speaking-marker-home::before {
+  display: none;
+}
+
+#speaking-map .speaking-marker-home span {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: 4px;
+}
+
+#speaking-map .leaflet-popup-content-wrapper,
+#speaking-map .leaflet-popup-tip {
+  background: var(--colors-mapSurface);
+  color: var(--colors-primary);
+}
+
+#speaking-map .leaflet-popup-content-wrapper {
+  border: 1px solid color-mix(in srgb, var(--colors-primary) 15%, transparent);
+  border-radius: 12px;
+  box-shadow: 0 8px 28px
+    color-mix(in srgb, var(--colors-background) 45%, transparent);
+}
+
+#speaking-map .leaflet-popup-content {
+  max-width: calc(100cqw - 64px);
+  margin: 16px 28px 16px 18px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+#speaking-map .map-popup-title {
+  display: block;
+  font-weight: 600;
+}
+
+#speaking-map .map-popup-detail {
+  margin: 4px 0 0;
+  font-size: 0.875rem;
+  color: var(--colors-secondary);
+}
+
+#speaking-map .leaflet-popup-close-button {
+  color: var(--colors-secondary);
+}
+
+#speaking-map .leaflet-bar {
+  border: 1px solid color-mix(in srgb, var(--colors-primary) 15%, transparent);
+  border-radius: 10px;
+  box-shadow: 0 4px 16px
+    color-mix(in srgb, var(--colors-background) 30%, transparent);
+}
+
+#speaking-map .leaflet-bar a {
+  background: var(--colors-mapSurface);
+  color: var(--colors-primary);
+  border-color: color-mix(in srgb, var(--colors-primary) 12%, transparent);
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+}
+
+#speaking-map .leaflet-bar a:first-child {
+  border-radius: 9px 9px 0 0;
+}
+
+#speaking-map .leaflet-bar a:last-child {
+  border-radius: 0 0 9px 9px;
+}
+
+#speaking-map .leaflet-bar a:hover {
+  color: var(--colors-highlight);
+}
+
+#speaking-map .leaflet-bar a.leaflet-disabled {
+  color: var(--colors-secondary);
+}
+
+#speaking-map .leaflet-control-attribution {
+  background: color-mix(in srgb, var(--colors-background) 85%, transparent);
+  color: var(--colors-secondary);
+}
+
+#speaking-map .leaflet-control-attribution a {
+  color: var(--colors-secondary);
+}
+
+#speaking-map :focus-visible {
+  outline: 3px solid var(--colors-highlight);
+  outline-offset: 3px;
+}

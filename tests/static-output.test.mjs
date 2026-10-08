@@ -217,6 +217,7 @@ test('content icons have production CSS, including flags from Markdown', () => {
   }
 
   for (const icon of [
+    'i-lucide-house',
     'i-lucide-video',
     'i-lucide-video-off',
     'i-lucide-timer',
@@ -253,12 +254,6 @@ test('filters enhance static rows and external services have no legacy runtime',
     assert.doesNotMatch(row, /\bhidden\b/v);
   }
 
-  assert.match(
-    section('location'),
-    /<iframe[^>]*loading="lazy"[^>]*height="315"/v,
-  );
-  assert.match(section('location'), /marker=45\.916%2C6\.133/v);
-  assert.match(section('location'), /OpenStreetMap contributors/v);
   assert.equal(section('tweets'), '');
   assert.match(section('socials'), /https:\/\/twitter.com\/codyzus/v);
   assert.equal(
@@ -330,4 +325,18 @@ test('responsive photographs have real optimized files and correct loading prior
   assert.match(css, /@supports\s*\(display:\s*grid-lanes\)/v);
   assert.match(css, /grid-row:\s*auto/v);
   assert.match(css, /grid-(?:column:\s*span 2|area:\s*span 2\/span 2)/v);
+});
+
+test('speaking map preserves a readable city summary without JavaScript', () => {
+  const mapHtml = section('location');
+  assert.match(mapHtml, /Speaking around the world/v);
+  assert.match(mapHtml, /34 in-person speaking engagements across 17 cities/v);
+  assert.match(mapHtml, /id="speaking-map"[^>]*hidden/v);
+  assert.match(mapHtml, /<details/v);
+  assert.equal((mapHtml.match(/data-map-city/gv) ?? []).length, 17);
+  assert.match(mapHtml, /Kilkenny, Ireland · 14 engagements/v);
+  assert.match(mapHtml, /Tokyo, Japan · 1 engagement/v);
+  assert.match(mapHtml, /View Annecy on OpenStreetMap/v);
+  assert.match(mapHtml, /OpenStreetMap contributors/v);
+  assert.doesNotMatch(mapHtml, /<iframe/v);
 });
