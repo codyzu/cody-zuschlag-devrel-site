@@ -282,7 +282,7 @@ The README documents current development, content editing, and hosting. Migratio
 
 ## Content and presentation follow-up plan — 2026-10-06
 
-The user requested that the following recommendations become a plan to tackle one at a time. Items 1–4, 6, and 9 are complete; items 5, 7, and 8 remain pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
+The user requested that the following recommendations become a plan to tackle one at a time. Items 1–4, 6, 7, and 9 are complete; items 5 and 8 remain pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
 
 Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as priorities allow. Use the stable item numbers below when requesting work in another chat. Item 9 should follow the final bio positioning; item 5 should reuse that bio. A separate speaking page remains an option, not a settled architecture decision.
 
@@ -310,7 +310,7 @@ Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as pri
 - [x] **6. Refresh social destinations and labels.**
   - In `src/Socials.astro`, relabel the existing generic “Blog” link as “Nearform articles” and add “Xen Project articles.” Review which other profiles Cody actively uses before changing their prominence or removing them.
   - Done when labels accurately describe their destinations, the existing archive links are preserved, and the current writing destination is easy to find.
-- [ ] **7. Polish readability and section navigation.**
+- [x] **7. Polish readability and section navigation.**
   - Add simple native section navigation, left-align the currently justified bio, and tighten labels: “Based in” instead of “Based from” and “Talks & recordings” instead of “Speaking engagements and videos.”
   - Preserve colors, photography, section order, semantic headings, skip-link behavior, and public anchors. Coordinate navigation with the hero actions from item 2.
   - Done when mobile and desktop navigation works with keyboard and without JavaScript, with no overflow or obscured anchor targets.
@@ -473,13 +473,21 @@ Planning record: added all nine recommendations, suggested order, completion cri
 - `pnpm check` (zero diagnostics), `pnpm lint`, `pnpm format:check`, `pnpm build`, and **19/19** tests passed with Node **24.16.0** and pnpm **10.23.0**. `git diff --check` passed. No new repository tests were needed for this spacing change.
 - Chrome **154.0.8037.98** checked development **4321** and production preview **4322** at **320**, **390**, **1024**, and **1440px** widths (900px height), with and without JavaScript. Measured image alignment to the inside of the 1px card border and retained 24px text padding. Verified image decoding/aspect ratio, stacked and equal-column layouts, native anchors, keyboard focus, unchanged archive count/alignment, filtering and reset, zero-height hidden rows, no overflow, and no console/page errors. Visually inspected production desktop/mobile screenshots. Development content hot updates and restoration passed. Evidence remains under `/private/tmp/devrel-highlights/`. Firefox and Safari were not checked. No commit or deployment occurred.
 
+### Item 7 implementation — 2026-10-08
+
+- Added `src/SectionNav.astro` at the start of the main content, below the hero. The labelled “Page sections” navigation uses a semantic list and shared links to the six existing section anchors in page order: About, Socials, Talks & recordings, Articles, Location, and Photos. UnoCSS utilities align it with section content and wrap links on narrow screens. Navigation remains in normal document flow so it cannot obscure anchor targets. The hero's existing “Explore my talks” and “Get in touch” actions remain.
+- Left-aligned the two existing bio paragraphs in `src/About.astro`. Changed the location heading to “Based in” and the talks heading to “Talks & recordings.” Preserved copy, colors, photography, section order, semantic headings, skip link, public anchors, reduced-motion support, and hero loading priority. No dependencies or browser JavaScript were added.
+- Node **24.16.0**, pnpm **10.23.0**: `pnpm check` (zero diagnostics), `pnpm lint`, `pnpm format:check`, `pnpm build`, and **19/19** tests passed. `git diff --check` passed. No new repository tests were needed for this small navigation and presentation change.
+- Reused healthy development **4321** and production preview **4322** servers. Chrome **154.0.8037.98** checked both at **320**, **390**, and **1440px** widths (900px height), with and without JavaScript. Verified all six native links by keyboard Enter, sequential Tab navigation and visible focus, skip-link focus transfer into main and then navigation, unobscured target headings, both existing hero actions, revised headings and computed bio alignment, 44 talks and 19 articles, progressively enhanced filter visibility, no horizontal overflow, and no console/page errors. Production mobile and desktop screenshots were visually inspected. A reversible navigation label edit and restoration passed development hot-update checks. Firefox and Safari were not checked. Browser evidence is under `/private/tmp/devrel-navigation/`.
+- Marked item 7 complete. No commit, push, merge, or deployment occurred. Items 5 and 8 remain pending; item 5 remains the next suggested step. Production cutover still requires a separate explicit request.
+
 ## Next step and cross-chat workflow
 
 Phases 1–3 are implemented locally. Review the current diff and the Phase 3 validation limits below before production cutover. Filtering and external services are complete; do not recreate them. Preserve `.anima/` and high-priority hero loading. Deployment requires an explicit request; no push, merge, or deployment has occurred.
 
 At each phase boundary, update the progress record with what changed, commands run and their results, unresolved issues, intentional temporary behavior, and the exact next step. Include a commit identifier if one was created; do not imply a commit or deployment occurred when it did not. Later chats should inspect the actual repository and completed work rather than restarting the migration.
 
-Next suggested content step: tackle follow-up item 5 (speaking inquiries and speaker materials), or select pending item 7 or 8 above. Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
+Next suggested content step: tackle follow-up item 5 (speaking inquiries and speaker materials), or select pending item 8 above. Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
 
 ## References checked during planning
 
