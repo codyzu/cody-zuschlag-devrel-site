@@ -1,6 +1,6 @@
 ---
 conference: 'Xen Spring Meetup 2026'
-name: 'Welcome + Xen Project Weather Report'
+name: 'Xen Project Weather Report'
 date: '2026-04-02T07:00Z'
 location: 'Grenoble, France'
 region: 'Europe'
