@@ -301,6 +301,7 @@ Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as pri
 - [ ] **4. Feature representative talks within the speaking section.**
   - Select two or three highlights, with the Xen weather report, virtualization architecture, and functional safety as initial candidates. Add a short description explaining each talk's subject and available resources.
   - Reuse the talk collection as the source of existing metadata. Keep the complete archive, its timestamp ordering, filters, and shared column layout intact.
+  - Follow the placement, presentation, and content model in “Item 4 preparation” below. This is a saved implementation plan; item 4 remains pending.
   - Done when visitors can quickly find representative work before browsing the full archive and highlights remain readable without JavaScript.
 - [ ] **5. Make speaking inquiries easier.**
   - Provide a clear contact route and a compact speaker kit containing short and long bios, an approved downloadable headshot, speaking topics, and a representative recording.
@@ -321,6 +322,38 @@ Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as pri
   - After item 1, update the title, description, and Open Graph/Twitter metadata in `src/layouts/Document.astro` to reflect the same positioning.
   - Create a dedicated social-sharing image with Cody's name and current role, using approved imagery and readable typography. Preserve canonical URLs and meaningful image alternatives.
   - Done when generated metadata and the sharing image consistently describe the current role and use valid absolute production URLs.
+
+### Item 4 preparation — 2026-10-08
+
+Saved for implementation in a later conversation. No application changes have been made for this item.
+
+#### Placement and presentation
+
+- Place three representative talk cards inside the existing `#talks` section in `src/talks/TalkList.astro`, immediately after its introduction and before the search and filters. Preserve the homepage section order and current section title; the broader heading rename belongs to item 7.
+- Introduce the cards with “Selected talks to start with.” Follow them with “All speaking engagements,” then the existing filters and complete chronological archive. Adjust the section subtitle so its description of the full archive appears with that archive rather than introducing only the highlights.
+- Use three equal-width cards on desktop and a single stacked column on mobile. Keep the existing black background, white titles, gray supporting text, and green links. Use a subtle border and comfortable padding, with no thumbnails initially. Reuse the shared section, heading, and link components where applicable, with semantic heading levels for the groups and talk titles.
+- Each card contains the full talk title as its main heading, conference and year as quieter context, a roughly 25–40-word description explaining the subject and what someone will learn, and links to available resources. Format dates through the existing English/UTC helper when displaying dates.
+- Highlights remain visible when visitors filter the archive. The selected entries also remain in the complete archive at their normal timestamp positions. Display descriptions only in the cards so the archive stays compact; preserve its semantic wrappers and shared column subgrid.
+- Render all highlight content at build time, readable without JavaScript. Use ordinary links to the existing resources and show only available resource links in the cards. Do not add a speculative recording promise for the functional-safety talk; the archive's broader recording-status audit remains item 8.
+
+#### Selected candidates and provisional copy
+
+The following descriptions were drafted from the existing titles, not verified against the presentations. Check the linked slides, recordings, or official abstracts before publishing, and revise the descriptions to match the actual content. Resource availability below reflects the local collection at preparation time; verify destinations during implementation.
+
+| Talk                                                                                                                       | Provisional description                                                                                                                                   | Existing resources   |
+| -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------- |
+| Xen 2026 Weather Report — Xen Summit 2026                                                                                  | An overview of the Xen Project’s direction, recent progress, and community priorities. A starting point for people who want the broader project picture.  | Recording and slides |
+| Hypervisor Hierarchy: Why Architecture Matters for Performance, Security, and Flexibility — Open Source Summit Europe 2025 | How hypervisor architecture shapes performance, security, and flexibility—and why those tradeoffs matter when choosing a virtualization approach.         | Recording and slides |
+| Preparing Xen for Functional Safety: Lessons From a Mature Open Source Project — AGL All Member Meeting Europe 2026        | Lessons from preparing an established open-source project for functional safety, connecting Xen’s development practices with safety-related requirements. | Slides               |
+
+#### Content model and implementation checks
+
+- Store the description and selection alongside each talk in its existing Markdown entry under `src/content/talks/`. Add optional `highlightOrder` and `description` frontmatter fields to `src/talks/talk-schema.ts`; require a nonblank description for highlighted entries and validate highlight order as a positive integer. Markdown bodies are not currently rendered and need not become the description source.
+- Curate highlight order independently of the archive: Weather Report, Hypervisor Hierarchy, then Functional Safety. Sort highlights by `highlightOrder` ascending with entry ID ascending for ties. Continue sorting the complete archive by full timestamp descending with entry ID ascending for ties.
+- Reuse each selected collection entry's existing title (`name`), conference, date, and resource URLs. Do not duplicate those values in a separate highlight dataset. A small Astro card component may be extracted from `TalkList.astro` if useful; no browser runtime or dependency is needed.
+- Update README authoring guidance and relevant schema/generated-output tests. Verify highlight selection and ordering, required descriptions, resource links, unchanged archive ordering/count, and filtering that affects only archive rows.
+- Run `pnpm check`, `pnpm lint`, `pnpm format:check`, `pnpm build`, then `pnpm test`. Check development and production previews at mobile and desktop widths, including no-JavaScript reading, native `#talks` navigation, keyboard focus, long-title wrapping, archive column alignment, hidden rows occupying no space, and console errors. Record which browsers were actually checked.
+- After implementation, add the implementation and verification record here and mark item 4 complete only when its acceptance criteria pass. This preparation does not authorize deployment or mark the feature implemented.
 
 ### Original working bio draft for item 1
 
