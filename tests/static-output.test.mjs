@@ -98,6 +98,10 @@ test('selected talks precede the intact archive with verified copy and available
     assert.ok(card.includes(escape(data.conference)));
     assert.ok(card.includes(formatDate(data.date)));
     assert.ok(card.includes(escape(data.description)));
+    assert.ok(card.includes(`alt="${escape(data.thumbnailAlt)}"`));
+    assert.match(card, /<picture\b/v);
+    assert.match(card, /loading="lazy"/v);
+    assert.match(card, /width="1200" height="675"/v);
     assert.ok(!talkArchive().includes(escape(data.description)));
     const resources = [data.video, data.slides, data.repo].filter(
       (url) => url && url !== 'none',
@@ -275,7 +279,10 @@ test('responsive photographs have real optimized files and correct loading prior
   const pictures = html
     .matchAll(/<picture\b[^>]*>(?<content>[\s\S]*?)<\/picture>/gv)
     .toArray();
-  assert.equal(pictures.length, gallery.length + 1);
+  assert.equal(
+    pictures.length,
+    gallery.length + 1 + sortTalkHighlights(talkEntries).length,
+  );
   for (const [index, match] of pictures.entries()) {
     const picture = match.groups.content;
     assert.match(picture, /width="\d+" height="\d+"/v);

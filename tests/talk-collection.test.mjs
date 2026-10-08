@@ -25,9 +25,21 @@ test('talk metadata validates dates, regions, URLs, and all recording states', (
     {slides: 'none'},
     {conference: ''},
     {slide: 'https://example.com/slides'},
+    {thumbnail: '../../images/talks/example.png'},
+    {thumbnail: '', thumbnailAlt: 'Title slide'},
+    {thumbnail: '../../images/talks/example.png', thumbnailAlt: '  '},
   ]) {
     assert.equal(talkSchema.safeParse({...talk, ...invalid}).success, false);
   }
+
+  assert.equal(
+    talkSchema.safeParse({
+      ...talk,
+      thumbnail: '../../images/talks/example.png',
+      thumbnailAlt: 'Title slide with the Xen mascot',
+    }).success,
+    true,
+  );
 });
 
 test('highlight selection requires a description and a positive integer order', () => {
