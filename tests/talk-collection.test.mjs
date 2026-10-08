@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import {test} from 'node:test';
 import {talkSchema} from '../src/talks/talk-schema.ts';
 import {sortTalks} from '../src/talks/sort-talks.ts';
+import {sortTalkHighlights} from '../src/talks/sort-talk-highlights.ts';
 
 const talk = {
   conference: 'Example conference',
@@ -27,6 +28,45 @@ test('talk metadata validates dates, regions, URLs, and all recording states', (
   ]) {
     assert.equal(talkSchema.safeParse({...talk, ...invalid}).success, false);
   }
+});
+
+test('highlight selection requires a description and a positive integer order', () => {
+  assert.equal(talkSchema.safeParse(talk).success, true);
+  assert.equal(
+    talkSchema.safeParse({
+      ...talk,
+      highlightOrder: 1,
+      description: 'A subject.',
+    }).success,
+    true,
+  );
+  for (const invalid of [
+    {highlightOrder: 1},
+    {highlightOrder: 1, description: ''},
+    {highlightOrder: 1, description: '  '},
+    {highlightOrder: 0, description: 'A subject.'},
+    {highlightOrder: -1, description: 'A subject.'},
+    {highlightOrder: 1.5, description: 'A subject.'},
+    {highlightOrder: '1', description: 'A subject.'},
+  ]) {
+    assert.equal(talkSchema.safeParse({...talk, ...invalid}).success, false);
+  }
+});
+
+test('highlights use curated order and ID ties without changing the archive', () => {
+  const entries = [
+    {id: 'unselected', data: {}},
+    {id: 'b', data: {highlightOrder: 20}},
+    {id: 'last', data: {highlightOrder: 30}},
+    {id: 'first', data: {highlightOrder: 10}},
+    {id: 'a', data: {highlightOrder: 20}},
+  ];
+  assert.deepEqual(
+    sortTalkHighlights(entries).map(({id}) => id),
+    ['first', 'a', 'b', 'last'],
+  );
+  assert.equal(entries.length, 5);
+  assert.equal(entries[0].id, 'unselected');
 });
 
 test('talks sort by timestamp, including future talks, with an ID tie-breaker', () => {

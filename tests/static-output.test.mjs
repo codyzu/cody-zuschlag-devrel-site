@@ -5,8 +5,9 @@ import {test} from 'node:test';
 import sharp from 'sharp';
 import {formatDate} from '../src/format-date.ts';
 import {parseGalleryFilenames} from '../src/gallery/gallery-filenames.ts';
+import {sortTalkHighlights} from '../src/talks/sort-talk-highlights.ts';
 import articles from './read-articles.mjs';
-import talks from './read-talks.mjs';
+import talks, {entries as talkEntries} from './read-talks.mjs';
 
 const gallery = parseGalleryFilenames(
   readdirSync(new URL('../src/gallery/', import.meta.url)).filter((path) =>
@@ -28,13 +29,17 @@ const escape = (value) =>
 const section = (id) =>
   html.match(
     new RegExp(
-      String.raw`<section\s[^>]*id="${id}"[^>]*>([\s\S]*?)</section>`,
+      String.raw`<section\s[^>]*id="${id}"[^>]*>(?<content>[\s\S]*?)</section>`,
       'v',
     ),
-  )?.[1] ?? '';
+  )?.groups.content ?? '';
+const talkArchive = () =>
+  section('talks').match(
+    /<ul\b[^>]+class="talks"[^>]*>(?<content>[\s\S]*?)<\/ul>/v,
+  )?.groups.content ?? '';
 
 test('every talk is prerendered in date order and articles retain their resources', () => {
-  const talkHtml = section('talks');
+  const talkHtml = talkArchive();
   const articleHtml = section('articles');
   assert.equal((talkHtml.match(/<li\b/gv) ?? []).length, talks.length);
   assert.equal((articleHtml.match(/<li\b/gv) ?? []).length, articles.length);
@@ -70,6 +75,47 @@ test('every talk is prerendered in date order and articles retain their resource
     assert.ok(articleHtml.includes(`datetime="${article.date}"`));
     assert.ok(articleHtml.includes(formatDate(article.date)));
   }
+});
+
+test('selected talks precede the intact archive with verified copy and available resources', () => {
+  const talkHtml = section('talks');
+  const highlights = talkHtml.match(
+    /<ul\b[^>]+class="talk-highlights[^"]*"[^>]*>(?<content>[\s\S]*?)<\/ul>/v,
+  )?.groups.content;
+  assert.ok(highlights);
+  const cards = highlights
+    .matchAll(/<li\b[^>]*>(?<content>[\s\S]*?)<\/li>/gv)
+    .toArray();
+  const selected = sortTalkHighlights(talkEntries);
+  assert.equal(cards.length, 3);
+  assert.deepEqual(
+    selected.map(({data}) => data.highlightOrder),
+    [10, 20, 30],
+  );
+  for (const [index, {data}] of selected.entries()) {
+    const card = cards[index].groups.content;
+    assert.ok(card.includes(escape(data.name)));
+    assert.ok(card.includes(escape(data.conference)));
+    assert.ok(card.includes(formatDate(data.date)));
+    assert.ok(card.includes(escape(data.description)));
+    assert.ok(!talkArchive().includes(escape(data.description)));
+    const resources = [data.video, data.slides, data.repo].filter(
+      (url) => url && url !== 'none',
+    );
+    assert.equal((card.match(/<a\b/gv) ?? []).length, resources.length);
+    for (const url of resources) {
+      assert.ok(card.includes(escape(url)));
+    }
+
+    assert.doesNotMatch(card, /Coming soon|Not recorded|data-search=/v);
+  }
+
+  assert.ok(
+    talkHtml.indexOf(highlights) < talkHtml.indexOf('id="talk-filters"'),
+  );
+  assert.match(talkHtml, /Selected talks to start with/v);
+  assert.match(talkHtml, /All speaking engagements/v);
+  assert.equal((talkArchive().match(/<li\b/gv) ?? []).length, 44);
 });
 
 test('native anchors, metadata, gallery, and high-priority hero survive migration', () => {
@@ -186,7 +232,7 @@ test('dates use English UTC dates across midnight boundaries', () => {
 test('filters enhance static rows and external services have no legacy runtime', () => {
   const talkHtml = section('talks');
   assert.match(talkHtml, /<form[^>]*id="talk-filters"[^>]*hidden/v);
-  const rows = talkHtml
+  const rows = talkArchive()
     .matchAll(/<li\b[^>]*>/gv)
     .map((match) => match[0])
     .toArray();

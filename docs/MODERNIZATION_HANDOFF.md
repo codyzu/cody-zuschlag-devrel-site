@@ -282,7 +282,7 @@ The README documents current development, content editing, and hosting. Migratio
 
 ## Content and presentation follow-up plan — 2026-10-06
 
-The user requested that the following recommendations become a plan to tackle one at a time. Items 1–3, 6, and 9 are complete; items 4, 5, 7, and 8 remain pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
+The user requested that the following recommendations become a plan to tackle one at a time. Items 1–4, 6, and 9 are complete; items 5, 7, and 8 remain pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
 
 Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as priorities allow. Use the stable item numbers below when requesting work in another chat. Item 9 should follow the final bio positioning; item 5 should reuse that bio. A separate speaking page remains an option, not a settled architecture decision.
 
@@ -298,10 +298,10 @@ Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as pri
   - Review the [Xen Project author archive](https://xenproject.org/blog/author/cody/) for relevant newer articles, including release, FOSDEM, and automotive coverage. The current local list ends in October 2022.
   - Verify each selected article's title, publication date, authorship, and canonical URL before adding it to `src/articles.ts`. Preserve existing entries and their relative source order; curate new entries explicitly rather than adding automatic sorting.
   - Done when selected current writing is visible alongside the existing archive with verified links and UTC-formatted dates.
-- [ ] **4. Feature representative talks within the speaking section.**
+- [x] **4. Feature representative talks within the speaking section.**
   - Select two or three highlights, with the Xen weather report, virtualization architecture, and functional safety as initial candidates. Add a short description explaining each talk's subject and available resources.
   - Reuse the talk collection as the source of existing metadata. Keep the complete archive, its timestamp ordering, filters, and shared column layout intact.
-  - Follow the placement, presentation, and content model in “Item 4 preparation” below. This is a saved implementation plan; item 4 remains pending.
+  - Follow the placement, presentation, and content model in “Item 4 preparation” below. Item 4 is implemented; see its implementation record below.
   - Done when visitors can quickly find representative work before browsing the full archive and highlights remain readable without JavaScript.
 - [ ] **5. Make speaking inquiries easier.**
   - Provide a clear contact route and a compact speaker kit containing short and long bios, an approved downloadable headshot, speaking topics, and a representative recording.
@@ -325,7 +325,7 @@ Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as pri
 
 ### Item 4 preparation — 2026-10-08
 
-Saved for implementation in a later conversation. No application changes have been made for this item.
+Preparation saved before implementation. The implementation and verification record below now completes this item.
 
 #### Placement and presentation
 
@@ -449,13 +449,23 @@ Planning record: added all nine recommendations, suggested order, completion cri
 - Reused healthy development **4321** and production preview **4322** servers. Chrome **154.0.8037.98** checked both at **390×900** and **1440×900** with JavaScript disabled: matching metadata, preserved canonical URLs, image HTTP 200 with JPEG MIME type and decoded 1200×630 dimensions, all 44 talks and 19 articles, hidden inactive filter controls, keyboard skip link, native section anchors, no horizontal overflow, and no homepage console/page errors. Visually inspected the full card and mobile browser preview. Evidence is `/private/tmp/devrel-sharing/results.json` and `card-*.png`. Direct image-document navigation causes Chrome to request the absent `/favicon.ico`; the site itself declares `/favicon.svg` and the HTML card preview uses it. Firefox and Safari were not checked. Live search indexing and social-platform previews await deployment and crawler refresh; localhost validation does not establish those results.
 - Marked item 9 complete. No commit, push, merge, or deployment occurred. Next suggested content step remains item 4, representative talk highlights; items 5, 7, and 8 also remain pending.
 
+### Item 4 implementation — 2026-10-08
+
+- Added three static cards in `src/talks/TalkList.astro`, before the existing filters and complete archive: Weather Report, Hypervisor Hierarchy, then Functional Safety. The cards use `TalkHighlight.astro`, shared links, white headings, gray supporting copy, green resources, subtle borders, and UnoCSS utilities. They form three equal columns from 1024px and stack below that width. Preserved the section title, `#talks`, homepage section order, archive subgrid, and all 44 entries in their timestamp order. Group headings introduce “Selected talks to start with” and “All speaking engagements”; the archive subtitle now accompanies the archive.
+- Stored `highlightOrder` and `description` in the three existing Markdown entries. The schema requires positive integer highlight order and a nonblank description for selected entries. `sort-talk-highlights.ts` selects and sorts by curated order with entry ID ties, independently of archive chronology. Titles, conferences, dates, and resource URLs come from those same collection entries. Descriptions appear only in the cards; the existing archive script continues filtering only `.talk` rows. No browser runtime or dependencies were added.
+- Read all three linked slide decks before replacing the provisional descriptions. The [Weather Report slides](https://hosted-files.sched.co/xensummit2026/8d/2026%20Xen%20Weather%20Report.pdf) support the release/support-policy, safety, automotive, onboarding, and documentation summary. The [Hypervisor Hierarchy slides](https://docs.google.com/presentation/d/1TRZcdrXjNVTtSf5tDoNeyLhcnnHH__GcVoHLljY-So0/edit?usp=sharing) support the traffic analogy, architecture tradeoffs, and dom0/dom0less workload summary. The [Functional Safety slides](https://hosted-files.sched.co/aglammeu2026/03/Preparing%20Xen%20for%20Functional%20Safety%20-%20Lessons%20Learned.pdf) support the requirements, architecture, tests, maintained evidence, and shared upstream work summary. All slide downloads succeeded; both existing recording destinations returned matching talk titles. Cards link only to available resources, with no recording promise for Functional Safety. The archive recording-status audit remains item 8.
+- Updated README authoring guidance and schema/generated-output tests for selection, description requirements, independent ordering, resource links, descriptions confined to cards, and the unchanged archive count/order. Node **24.16.0**, pnpm **10.23.0**: `pnpm check` (zero diagnostics), `pnpm lint`, `pnpm format:check`, `pnpm build`, and all **19** tests passed. `git diff --check` passed.
+- Chrome **154.0.8037.98** checked development **4321** and production preview **4322** at **390×900** and **1440×900**, with and without JavaScript. Verified three cards, stacked/equal-column layouts, long-title wrapping, available links, visible keyboard focus and sequential Tab navigation, native `#talks`, all 44 archive rows, desktop archive column alignment, no overflow, and no console/page errors. No-result and combined resource filters leave all cards visible and give hidden archive rows zero height; reset restores the archive. Production mobile and desktop screenshots were visually inspected. Firefox and Safari were not checked. Browser results, screenshots, source decks, and verification scripts are under `/private/tmp/devrel-highlights/`.
+- Reused production preview. The existing development process served updated component markup but cached collection entries without the new schema fields; touching the entries did not refresh them. Restarted this repository’s development server on **4321** using `pnpm dev`, which restored the three cards. A reversible description edit and restoration then passed hot-update checks in Chrome; the fixture text was removed.
+- Marked item 4 complete. No commit, push, merge, or deployment occurred. Items 5, 7, and 8 remain pending; the next suggested step is item 5, speaking inquiries and speaker materials. Production cutover remains separately authorized.
+
 ## Next step and cross-chat workflow
 
 Phases 1–3 are implemented locally. Review the current diff and the Phase 3 validation limits below before production cutover. Filtering and external services are complete; do not recreate them. Preserve `.anima/` and high-priority hero loading. Deployment requires an explicit request; no push, merge, or deployment has occurred.
 
 At each phase boundary, update the progress record with what changed, commands run and their results, unresolved issues, intentional temporary behavior, and the exact next step. Include a commit identifier if one was created; do not imply a commit or deployment occurred when it did not. Later chats should inspect the actual repository and completed work rather than restarting the migration.
 
-Next suggested content step: tackle follow-up item 4 (representative talk highlights), or select another pending numbered item above. Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
+Next suggested content step: tackle follow-up item 5 (speaking inquiries and speaker materials), or select pending item 7 or 8 above. Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
 
 ## References checked during planning
 

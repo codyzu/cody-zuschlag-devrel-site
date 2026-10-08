@@ -5,17 +5,37 @@ import SectionTitle from '../SectionTitle.astro';
 import Link from '../Link.astro';
 import {formatDate} from '../format-date';
 import {sortTalks} from './sort-talks';
+import {sortTalkHighlights} from './sort-talk-highlights';
+import TalkHighlight from './TalkHighlight.astro';
 import {normalizeSearch} from './filter-talks';
 
-const talks = sortTalks(await getCollection('talks')).map(({data}) => data);
+const entries = await getCollection('talks');
+const talks = sortTalks(entries).map(({data}) => data);
+const highlights = sortTalkHighlights(entries);
 ---
 
 <Section id="talks" labelledby="talks-heading">
-  <SectionTitle
-    id="talks-heading"
-    title="Speaking engagements and videos"
-    subtitle="All of my previous and planned future speaking experience"
-  />
+  <SectionTitle id="talks-heading" title="Speaking engagements and videos" />
+  <h3 id="talk-highlights-heading" class="text-2xl font-bold text-primary">
+    Selected talks to start with
+  </h3>
+  <ul
+    role="list"
+    aria-labelledby="talk-highlights-heading"
+    class="talk-highlights mb-8 grid grid-cols-1 lg:grid-cols-3 gap-6"
+  >
+    {highlights.map(({data}) => (
+      <TalkHighlight talk={data} />
+    ))}
+  </ul>
+  <div class="flex flex-col gap-2">
+    <h3 id="talk-archive-heading" class="text-2xl font-bold text-primary">
+      All speaking engagements
+    </h3>
+    <p class="text-secondary text-xl">
+      All of my previous and planned future speaking experience
+    </p>
+  </div>
   <form
     id="talk-filters"
     hidden
@@ -79,7 +99,7 @@ const talks = sortTalks(await getCollection('talks')).map(({data}) => data);
   <p id="talk-empty" hidden class="mb-8 text-secondary">
     No talks match. Try another search or reset the filters.
   </p>
-  <ul role="list" class="talks">
+  <ul role="list" aria-labelledby="talk-archive-heading" class="talks">
     {talks.map((talk) => (
       <li
         class="talk"
@@ -90,7 +110,7 @@ const talks = sortTalks(await getCollection('talks')).map(({data}) => data);
         data-video={Boolean(talk.video && talk.video !== 'none')}
         data-slides={Boolean(talk.slides)}
       >
-        <h3 class="conference text-2xl text-primary">{talk.conference}</h3>
+        <h4 class="conference text-2xl text-primary">{talk.conference}</h4>
         <p class="name text-secondary">{talk.name}</p>
         <time class="date text-secondary" datetime={talk.date}>
           {formatDate(talk.date)}

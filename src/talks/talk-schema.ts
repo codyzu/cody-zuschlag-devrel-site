@@ -13,9 +13,16 @@ export const talkSchema = z
     video: z.union([z.url(), z.literal('none')]).optional(),
     slides: z.url().optional(),
     repo: z.url().optional(),
+    highlightOrder: z.number().int().positive().optional(),
+    description: z.string().trim().min(1).optional(),
     flag: z
       .string()
       .regex(/^i-circle-flags-[a-z]{2}$/v)
       .optional(),
   })
-  .strict();
+  .strict()
+  .refine(
+    (talk) =>
+      talk.highlightOrder === undefined || talk.description !== undefined,
+    {message: 'Highlighted talks require a description', path: ['description']},
+  );
