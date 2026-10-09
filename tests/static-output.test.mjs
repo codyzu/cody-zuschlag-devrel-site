@@ -322,9 +322,16 @@ test('responsive photographs have real optimized files and correct loading prior
       readFileSync(new URL(`../dist/_astro/${path}`, import.meta.url), 'utf8'),
     )
     .join('\n');
-  assert.match(css, /@supports\s*\(display:\s*grid-lanes\)/v);
-  assert.match(css, /grid-row:\s*auto/v);
-  assert.match(css, /grid-(?:column:\s*span 2|area:\s*span 2\/span 2)/v);
+  // Astro may inline small page-specific styles when shared CSS is split.
+  const pageCss = html
+    .matchAll(/<style[^>]*>(?<css>[\s\S]*?)<\/style>/gv)
+    .map((match) => match.groups.css)
+    .toArray()
+    .join('\n');
+  const galleryCss = `${css}\n${pageCss}`;
+  assert.match(galleryCss, /@supports\s*\(display:\s*grid-lanes\)/v);
+  assert.match(galleryCss, /grid-row:\s*auto/v);
+  assert.match(galleryCss, /grid-(?:column:\s*span 2|area:\s*span 2\/span 2)/v);
 });
 
 test('speaking map preserves a readable city summary without JavaScript', () => {

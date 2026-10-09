@@ -4,6 +4,7 @@ import Section from '../Section.astro';
 import SectionTitle from '../SectionTitle.astro';
 import Link from '../Link.astro';
 import {formatDate} from '../format-date';
+import SpeakingInvitation from '../speaking/SpeakingInvitation.astro';
 import {sortTalks} from './sort-talks';
 import {sortTalkHighlights} from './sort-talk-highlights';
 import TalkHighlight from './TalkHighlight.astro';
@@ -28,6 +29,7 @@ const highlights = sortTalkHighlights(entries);
       <TalkHighlight talk={data} />
     ))}
   </ul>
+  <SpeakingInvitation />
   <div class="flex flex-col gap-2">
     <h3 id="talk-archive-heading" class="text-2xl font-bold text-primary">
       All speaking engagements

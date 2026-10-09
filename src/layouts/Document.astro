@@ -1,7 +1,12 @@
 ---
-const title = 'Cody Zuschlag | Xen Project Community Manager';
-const description =
-  'Cody Zuschlag, Xen Project Community Manager, international speaker, and university instructor, brings people together around open-source virtualization.';
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'Cody Zuschlag | Xen Project Community Manager',
+  description = 'Cody Zuschlag, Xen Project Community Manager, international speaker, and university instructor, brings people together around open-source virtualization.',
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const preview = new URL('/social-sharing.jpg', Astro.site);
 const previewAlt =

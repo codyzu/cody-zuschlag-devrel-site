@@ -282,7 +282,7 @@ The README documents current development, content editing, and hosting. Migratio
 
 ## Content and presentation follow-up plan — 2026-10-06
 
-The user requested that the following recommendations become a plan to tackle one at a time. Items 1–4, 6, 7, and 9 are complete; items 5 and 8 remain pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
+The user requested that the following recommendations become a plan to tackle one at a time. Items 1–7 and 9 are complete; item 8 remains pending. These follow-ups build on the completed Astro migration and preserve the existing visual identity, section order, static rendering, accessibility, and public anchors. They do not reopen Phases 1–3 or authorize production deployment.
 
 Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as priorities allow. Use the stable item numbers below when requesting work in another chat. Item 9 should follow the final bio positioning; item 5 should reuse that bio. A separate speaking page remains an option, not a settled architecture decision.
 
@@ -303,7 +303,7 @@ Suggested starting order: **1, 2, 3, 6**, followed by the remaining items as pri
   - Reuse the talk collection as the source of existing metadata. Keep the complete archive, its timestamp ordering, filters, and shared column layout intact.
   - Follow the placement, presentation, and content model in “Item 4 preparation” below. Item 4 is implemented; see its implementation record below.
   - Done when visitors can quickly find representative work before browsing the full archive and highlights remain readable without JavaScript.
-- [ ] **5. Make speaking inquiries easier.**
+- [x] **5. Make speaking inquiries easier.**
   - Provide a clear contact route and a compact speaker kit containing short and long bios, an approved downloadable headshot, speaking topics, and a representative recording.
   - Choose an existing contact destination or obtain the user's preferred public contact details. Decide whether the kit fits the homepage or warrants an optional `/speaking` page using the shared document layout.
   - Done when an organizer can find contact details and reusable speaker materials without assembling them from the talk archive.
@@ -498,13 +498,34 @@ Planning record: added all nine recommendations, suggested order, completion cri
 - Reused development **4321** and preview **4322**. The Codex in-app Chromium browser checked development at **1440px** and **390px**, and production at **1440px**, **390px**, and **320px**. Visually inspected the dark map, icon rendering, marker halos, controls, and popups. Verified all 18 labelled markers, keyboard popup activation, home and city text, popup wrapping/containment and close control at 320px, zoom, native navigation, no horizontal overflow, and no console warnings/errors. Production no-JavaScript checks at 320px and 1440px confirmed the native city list and external link remain available. Development updates were observed while refining the styles. Firefox and Safari were not checked. Preview evidence is under `/private/tmp/devrel-speaking-map/`.
 - No commit, push, merge, or deployment occurred; existing staged work was preserved.
 
+### Item 5 implementation — 2026-10-08
+
+- Added a compact invitation after the homepage’s selected talks, before the archive. Added `/speaking` using the shared document, section, heading, and link components, with broad speaking topics, short and long third-person bios, the supplied speaker photo, a full-resolution download, and the existing Hypervisor Hierarchy recording sourced from the talk collection. All content is prerendered with no new client script or dependency. Existing homepage sections, anchors, and filtering remain intact.
+- User selected broader speaking opportunities and explicitly requested that budget discussions happen later. No fees, funding requirements, or availability promises appear publicly. Shared contact configuration uses the user-supplied `cody@codyfactory.eu` with a “Speaking invitation” email subject. Email delivery was not tested and no email was sent.
+- Adapted bios and topic descriptions from the current About text and the user’s [Sessionize profile](https://sessionize.com/codyzu/), read on 2026-10-08. The profile supports Node.js, web development, open source, virtualization, embedded Linux, and software-defined vehicles. Preserved the supplied PNG unchanged at `public/speaker/cody-zuschlag.png` (4030×3675); Astro generates responsive AVIF/WebP/PNG previews preserving transparency. Download verification matched the original bytes. No photo credit was supplied or invented.
+- Added optional title/description properties to the document layout for speaking-page metadata, preserving homepage defaults. Updated README authoring guidance. Astro now inlines some small page-specific CSS; updated the existing gallery-output test to inspect inline styles as well as stylesheet files.
+- Node **24.16.0**, pnpm **10.23.0**: type checking passed with zero diagnostics; lint, formatting, production build, and **22/22** tests passed. Chrome checked development **4321** and preview **4322** at **320**, **390**, and **1440px**, with and without JavaScript (12 scenarios). Verified photo decoding, page metadata, readable bios, no horizontal overflow, native navigation between the homepage and speaking page, skip link and visible keyboard focus, mailto and download attributes, 44 archive rows, filter isolation, and zero console/page errors. Desktop/mobile screenshots were visually inspected. A reversible heading edit and restoration passed development hot-update checks. Firefox and Safari were not checked. Evidence is under `/private/tmp/devrel-speaker/`.
+- Item 5 is complete locally. No commit, push, merge, or deployment occurred. Item 8 remains pending; production cutover still requires a separate request.
+
+### Smaller speaker-photo downloads — 2026-10-09
+
+- Added two PNG downloads for CFP upload limits: **512×467, 167,222 bytes** and **1024×934, 584,423 bytes**, generated from the original with Sharp at PNG compression level 9. Preserved transparency and proportions, with no cropping; the original remains unchanged. The speaker page lists all three sizes with descriptive download links, dimensions, and approximate file sizes. README records how to regenerate the smaller files.
+- Node **24.16.0**, pnpm **10.23.0**: `pnpm check` (zero diagnostics), `pnpm lint`, `pnpm format:check`, `pnpm build`, and **22/22** tests passed. Chrome **154.0.8037.98** checked development **4321** and preview **4322** at **320** and **1440px**, with and without JavaScript. All three downloads activated by keyboard and matched their source files byte for byte. Verified visible focus, no horizontal overflow, no console/page errors, and inspected mobile/desktop screenshots. Development served the updated content without restart. Firefox and Safari were not checked. Evidence: `/private/tmp/devrel-speaker/photo-downloads.cjs` and `downloads-*.png`.
+- No new dependencies, tests, commit, or deployment. Item 8 remains the next follow-up.
+
+### Square CFP photos — 2026-10-09
+
+- At the user’s request, regenerated the small and medium downloads as **512×512 (167,553 bytes)** and **1024×1024 (585,186 bytes)** PNGs. Centered the complete photo using Sharp’s contain fit and transparent padding above and below; no portrait or green-circle pixels were cropped. Preserved the original source. Updated dimensions, rounded file sizes, and README regeneration instructions.
+- Type checking (zero diagnostics), lint, formatting, production build, and **22/22** tests passed. Verified square dimensions, RGBA channels, and fully transparent top/bottom rows; visually inspected the 512px image. Chrome **154.0.8037.98** verified all downloads against source bytes, keyboard focus, no overflow, and no console/page errors at 320/1440px on development and production, with and without JavaScript. Firefox and Safari were not checked.
+- No commit or deployment occurred.
+
 ## Next step and cross-chat workflow
 
 Phases 1–3 are implemented locally. Review the current diff and the Phase 3 validation limits below before production cutover. Filtering and external services are complete; do not recreate them. Preserve `.anima/` and high-priority hero loading. Deployment requires an explicit request; no push, merge, or deployment has occurred.
 
 At each phase boundary, update the progress record with what changed, commands run and their results, unresolved issues, intentional temporary behavior, and the exact next step. Include a commit identifier if one was created; do not imply a commit or deployment occurred when it did not. Later chats should inspect the actual repository and completed work rather than restarting the migration.
 
-Next suggested content step: tackle follow-up item 5 (speaking inquiries and speaker materials), or select pending item 8 above. Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
+Next suggested content step: tackle follow-up item 8 (recording and upcoming status). Production cutover remains a separate decision: review the completed modernization and explicitly authorize it when ready. The follow-up backlog does not itself add a new cutover gate. After deployment, record live smoke checks and analytics delivery; localhost checks do not establish analytics ingestion.
 
 ## References checked during planning
 

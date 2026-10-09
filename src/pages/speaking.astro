@@ -1,0 +1,189 @@
+---
+import {Picture} from 'astro:assets';
+import {getEntry} from 'astro:content';
+import Document from '../layouts/Document.astro';
+import Section from '../Section.astro';
+import SectionTitle from '../SectionTitle.astro';
+import Link from '../Link.astro';
+import portrait from '../../public/speaker/cody-zuschlag.png';
+import {speakerEmail, speakingInquiryUrl} from '../speaking/contact';
+
+const recording = await getEntry(
+  'talks',
+  '2025-08-26-open-source-summit-europe-hypervisor-hierarchy-why-architecture-matters-for-performance-security-and-flexibility',
+);
+if (!recording?.data.video || recording.data.video === 'none') {
+  throw new Error('The speaker page needs its representative recording.');
+}
+---
+
+<Document
+  title="Speaking & speaker materials | Cody Zuschlag"
+  description="Invite Cody Zuschlag to speak about open source, JavaScript, web development, or virtualization. Find speaker bios, a downloadable photo, and a talk recording."
+>
+  <main id="main" tabindex="-1" class="mt-8 max-w-[80rem] mx-auto">
+    <nav aria-label="Back to homepage" class="px-7 sm:px-15 mb-8">
+      <Link url="/#talks">← Talks &amp; recordings</Link>
+    </nav>
+    <header class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center px-7 sm:px-15 py-8 mb-8">
+      <div class="flex flex-col gap-5">
+        <p class="text-highlight font-semibold">
+          Cody Zuschlag · Speaker &amp; university instructor
+        </p>
+        <h1 class="text-4xl sm:text-6xl font-bold leading-tight">
+          Have an event in mind?
+        </h1>
+        <p class="text-secondary text-xl">
+          From JavaScript and web development to open-source communities and
+          virtualization, I enjoy making complex technical topics practical and
+          accessible. Let’s explore what would work for your audience.
+        </p>
+        <p class="text-xl font-semibold">
+          <Link url={speakingInquiryUrl}>Invite me to speak</Link>
+        </p>
+        <p class="text-secondary">
+          Email <Link url={speakingInquiryUrl}>{speakerEmail}</Link> with your
+          event, dates, location or online format, and a little about your
+          audience.
+        </p>
+      </div>
+      <Picture
+        src={portrait}
+        formats={['avif', 'webp']}
+        fallbackFormat="png"
+        widths={[320, 480, 640, 960]}
+        sizes="(min-width: 1280px) 560px, (min-width: 768px) 45vw, 90vw"
+        alt="Cody Zuschlag wearing a jacket and white shirt, framed by a green circle"
+        loading="eager"
+        fetchpriority="high"
+        class="w-full h-auto max-w-xl mx-auto"
+      />
+    </header>
+    <Section id="topics" labelledby="topics-heading">
+      <SectionTitle id="topics-heading" title="Topics we could explore" />
+      <ul role="list" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <li>
+          <h3 class="text-xl font-semibold mb-2">
+            Open source &amp; community
+          </h3>
+          <p class="text-secondary">
+            Getting involved, connecting contributors, and helping organizations
+            collaborate through open source.
+          </p>
+        </li>
+        <li>
+          <h3 class="text-xl font-semibold mb-2">JavaScript &amp; the web</h3>
+          <p class="text-secondary">
+            Node.js, testing, modern browser capabilities, and practical
+            projects that connect technology with people.
+          </p>
+        </li>
+        <li>
+          <h3 class="text-xl font-semibold mb-2">Xen &amp; virtualization</h3>
+          <p class="text-secondary">
+            Hypervisor architecture, embedded systems, and open-source
+            collaboration around software-defined vehicles.
+          </p>
+        </li>
+      </ul>
+      <p class="text-secondary">
+        Have another angle in mind? I’m happy to discuss it.
+      </p>
+      <p>
+        <Link url="https://sessionize.com/codyzu/">
+          Explore my Sessionize sessions
+        </Link>
+      </p>
+    </Section>
+    <Section id="speaker-materials" labelledby="materials-heading">
+      <SectionTitle
+        id="materials-heading"
+        title="For organizers"
+        subtitle="Speaker bios and a photo for your event materials"
+      />
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="flex flex-col gap-3">
+          <h3 class="text-2xl font-semibold">Short bio</h3>
+          <p class="text-secondary">
+            Cody Zuschlag is Community Manager for the Xen Project, an
+            international speaker, and a university instructor based in Annecy,
+            France. With a background in software engineering and developer
+            relations, he helps people learn and collaborate around open source,
+            web development, and virtualization.
+          </p>
+          <h3 class="text-2xl font-semibold mt-4">Speaker photo</h3>
+          <p class="text-secondary">
+            Choose a size for your event or CFP upload. All versions are PNGs
+            with a transparent background.
+          </p>
+          <ul role="list" class="flex flex-col gap-4">
+            <li>
+              <a
+                href="/speaker/cody-zuschlag-512.png"
+                download="cody-zuschlag-speaker-512.png"
+                class="link"
+              >
+                Download small photo
+              </a>
+              <p class="text-secondary">512 × 512 pixels · 168 KB</p>
+            </li>
+            <li>
+              <a
+                href="/speaker/cody-zuschlag-1024.png"
+                download="cody-zuschlag-speaker-1024.png"
+                class="link"
+              >
+                Download medium photo
+              </a>
+              <p class="text-secondary">1024 × 1024 pixels · 585 KB</p>
+            </li>
+            <li>
+              <a
+                href="/speaker/cody-zuschlag.png"
+                download="cody-zuschlag-speaker.png"
+                class="link"
+              >
+                Download original photo
+              </a>
+              <p class="text-secondary">
+                4030 × 3675 pixels · approximately 4.9 MB
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="flex flex-col gap-3">
+          <h3 class="text-2xl font-semibold">Long bio</h3>
+          <p class="text-secondary">
+            Cody Zuschlag is Community Manager for the Xen Project, an
+            international speaker, and a university instructor based in Annecy,
+            France. His experience spans software engineering, developer
+            relations, advocacy, and teaching, with open source connecting each
+            part of his work.
+          </p>
+          <p class="text-secondary">
+            His talks and workshops explore subjects across Node.js, web
+            development, virtualization, embedded Linux, and software-defined
+            vehicles. He enjoys turning technical ideas into approachable
+            explanations and practical learning experiences.
+          </p>
+          <p class="text-secondary">
+            At Xen, Cody brings developers, maintainers, and industry partners
+            together, organizes events such as Xen Summit, and supports
+            collaboration around open-source virtualization. Whether on stage,
+            in a classroom, or working with contributors, he aims to help people
+            understand technology and participate in the communities behind it.
+          </p>
+        </div>
+      </div>
+    </Section>
+    <Section id="watch" labelledby="watch-heading">
+      <SectionTitle id="watch-heading" title="See a talk" />
+      <h3 class="text-2xl font-semibold">{recording.data.name}</h3>
+      <p class="text-secondary max-w-3xl">{recording.data.description}</p>
+      <div class="flex flex-wrap gap-x-8 gap-y-4">
+        <Link url={recording.data.video}>Watch recording</Link>
+        <Link url="/#talks">Browse all talks &amp; recordings</Link>
+      </div>
+    </Section>
+  </main>
+</Document>

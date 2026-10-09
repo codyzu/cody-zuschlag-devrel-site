@@ -1,0 +1,22 @@
+---
+import Link from '../Link.astro';
+import {speakingInquiryUrl} from './contact';
+---
+
+<aside
+  aria-labelledby="speaking-invitation-heading"
+  class="mb-8 border-y border-secondary/30 py-6 flex flex-col gap-3"
+>
+  <h3 id="speaking-invitation-heading" class="text-2xl font-bold">
+    Have an event in mind?
+  </h3>
+  <p class="text-secondary max-w-3xl">
+    I speak about open-source communities, JavaScript and web development, and
+    virtualization. Tell me about your audience and what you’d like to explore
+    together.
+  </p>
+  <div class="flex flex-wrap gap-x-8 gap-y-4 font-semibold">
+    <Link url={speakingInquiryUrl}>Invite me to speak</Link>
+    <Link url="/speaking">Speaker bio &amp; photo</Link>
+  </div>
+</aside>
