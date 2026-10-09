@@ -6,5 +6,5 @@ location: 'Oakland, CA, USA'
 region: 'USA'
 flag: 'i-circle-flags-us'
 recordingStatus: 'not-recorded'
-slides: 'https://docs.google.com/presentation/d/1L0CxND0HnDgFiBTdzsc2hNhGtczhb8jKh1_LboYEhho/edit?usp=sharing'
+slides: 'https://docs.google.com/presentation/d/1iz8fHE4QFSejaEQUS3NyU362XT7GmKlTiu_L_eX4vDA/edit?usp=sharing'
 ---

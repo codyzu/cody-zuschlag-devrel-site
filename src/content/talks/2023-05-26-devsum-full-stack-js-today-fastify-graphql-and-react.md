@@ -6,5 +6,5 @@ location: 'Stockholm, Sweden'
 region: 'Europe'
 flag: 'i-circle-flags-se'
 recordingStatus: 'not-recorded'
-slides: 'https://docs.google.com/presentation/d/1XCYKK-pMAyeJPiN-LvOPFqZNnkKITzUxEJ0GeYnZJiQ/edit?usp=sharing'
+slides: 'https://docs.google.com/presentation/d/1jozM6-j3fdXBkBDYdkyhb_Khs39fjxPymOlvoOHyy_4/edit?usp=sharing'
 ---

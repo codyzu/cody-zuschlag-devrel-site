@@ -7,5 +7,5 @@ region: 'Europe'
 flag: 'i-circle-flags-fr'
 recordingStatus: 'available'
 video: 'https://youtu.be/kQOkTet31gY'
-slides: 'https://docs.google.com/presentation/d/181kDUwgV9nhtp0FbUYqlZ3xB_LHgs75kbNxu0MVnKKY/edit?usp=sharing'
+slides: 'https://docs.google.com/presentation/d/1wd22Z6zPGzD8m2Dn4_c2NUA8VsCX07EF5-AiFSt3dT0/edit?usp=sharing'
 ---

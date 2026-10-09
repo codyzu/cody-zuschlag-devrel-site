@@ -6,6 +6,6 @@ location: 'Kilkenny, Ireland'
 region: 'Europe'
 flag: 'i-circle-flags-ie'
 recordingStatus: 'not-recorded'
-slides: 'https://nearform.github.io/the-graphql-workshop'
-repo: 'https://github.com/nearform/the-graphql-workshop'
+slides: 'https://nearform.github.io/react-native-workshop/'
+repo: 'https://github.com/nearform/react-native-workshop'
 ---

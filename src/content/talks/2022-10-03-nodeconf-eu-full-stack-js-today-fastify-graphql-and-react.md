@@ -7,6 +7,6 @@ region: 'Europe'
 flag: 'i-circle-flags-ie'
 recordingStatus: 'available'
 video: 'https://youtu.be/guAMBFqKSF4'
-slides: 'https://docs.google.com/presentation/d/1vHYSlgV8pSI3kobGQlYxfssvaeZrGA4BqDn0qLGDmYg/edit?usp=sharing'
+slides: 'https://docs.google.com/presentation/d/1So2wvMpT7BAGWH1jz_BvBDGO0q2Gcu4V7msjkMghVEU/edit?usp=sharing'
 repo: 'https://github.com/codyzu/mfs-js'
 ---

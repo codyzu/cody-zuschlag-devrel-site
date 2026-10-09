@@ -7,6 +7,6 @@ region: 'Europe'
 flag: 'i-circle-flags-nl'
 recordingStatus: 'available'
 video: 'https://portal.gitnation.org/contents/full-stack-js-today-fastify-graphql-and-react'
-slides: 'https://docs.google.com/presentation/d/16OHcPhk1GKjprCFymcK_PAiPbvM7tGG0mCudFzVvHaU/edit?usp=sharing'
+slides: 'https://docs.google.com/presentation/d/1HTUvIIPsGLwDJZY1JISff8yt4DSfezd6TdQNjCxyz2c/edit?usp=sharing'
 repo: 'https://github.com/codyzu/mfs-js'
 ---
