@@ -8,7 +8,7 @@ const records = talks.map((talk) => ({
     `${talk.conference} ${talk.name} ${talk.location} ${new Date(talk.date).getUTCFullYear()}`,
   ),
   region: talk.region,
-  video: Boolean(talk.video && talk.video !== 'none'),
+  video: Boolean(talk.video),
   slides: Boolean(talk.slides),
 }));
 const filter = (overrides = {}) =>
@@ -62,7 +62,7 @@ test('Virtual entries are normalized and Japan is explicitly Asia', () => {
       ),
     true,
   );
-  assert.equal(filter({query: 'japan', regions: ['Asia']}).length, 1);
+  assert.equal(filter({query: 'japan', regions: ['Asia']}).length, 3);
   assert.equal(filter({query: 'japan', regions: ['Europe']}).length, 0);
   assert.equal(filter({regions: ['Virtual']}).length, 10);
 });

@@ -1,0 +1,25 @@
+---
+import type {CollectionEntry} from 'astro:content';
+import Link from '../Link.astro';
+
+interface Props {
+  talk: CollectionEntry<'talks'>['data'];
+}
+const {talk} = Astro.props;
+---
+
+{talk.recordingStatus === 'available' ? (
+  <Link icon="i-lucide-video text-lg" url={talk.video}>
+    Watch now
+  </Link>
+) : talk.recordingStatus === 'unpublished' ? (
+  <Link icon="i-lucide-timer text-lg" active={false}>
+    Recording not yet published
+  </Link>
+) : (
+  <Link icon="i-lucide-video-off text-lg" active={false}>
+    {talk.recordingStatus === 'not-recorded'
+      ? 'Not recorded'
+      : 'Recording unavailable'}
+  </Link>
+)}

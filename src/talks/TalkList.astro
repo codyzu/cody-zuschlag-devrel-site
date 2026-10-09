@@ -3,13 +3,15 @@ import {getCollection} from 'astro:content';
 import Section from '../Section.astro';
 import SectionTitle from '../SectionTitle.astro';
 import Link from '../Link.astro';
-import {formatDate} from '../format-date';
 import SpeakingInvitation from '../speaking/SpeakingInvitation.astro';
+import {formatTalkDate} from './format-talk-date';
+import TalkRecording from './TalkRecording.astro';
 import {sortTalks} from './sort-talks';
 import {sortTalkHighlights} from './sort-talk-highlights';
 import TalkHighlight from './TalkHighlight.astro';
 import {normalizeSearch} from './filter-talks';
 
+const now = Date.now();
 const entries = await getCollection('talks');
 const talks = sortTalks(entries).map(({data}) => data);
 const highlights = sortTalkHighlights(entries);
@@ -26,7 +28,7 @@ const highlights = sortTalkHighlights(entries);
     class="talk-highlights mb-8 grid grid-cols-1 lg:grid-cols-3 gap-6"
   >
     {highlights.map(({data}) => (
-      <TalkHighlight talk={data} />
+      <TalkHighlight talk={data} now={now} />
     ))}
   </ul>
   <SpeakingInvitation />
@@ -109,32 +111,20 @@ const highlights = sortTalkHighlights(entries);
           `${talk.conference} ${talk.name} ${talk.location} ${new Date(talk.date).getUTCFullYear()}`,
         )}
         data-region={talk.region}
-        data-video={Boolean(talk.video && talk.video !== 'none')}
+        data-video={Boolean(talk.video)}
         data-slides={Boolean(talk.slides)}
       >
         <h4 class="conference text-2xl text-primary">{talk.conference}</h4>
         <p class="name text-secondary">{talk.name}</p>
         <time class="date text-secondary" datetime={talk.date}>
-          {formatDate(talk.date)}
+          {formatTalkDate(talk.date, now)}
         </time>
         <p class="location text-secondary">
           {talk.flag && <span class={talk.flag} aria-hidden="true" />}{' '}
           {talk.location}
         </p>
         <div class="resources flex flex-col items-start gap-1 text-secondary">
-          {talk.video === 'none' ? (
-            <Link icon="i-lucide-video-off text-lg" active={false}>
-              Not recorded
-            </Link>
-          ) : talk.video === undefined ? (
-            <Link icon="i-lucide-timer text-lg" active={false}>
-              Coming soon
-            </Link>
-          ) : (
-            <Link icon="i-lucide-video text-lg" url={talk.video}>
-              Watch now
-            </Link>
-          )}
+          <TalkRecording talk={talk} />
           {talk.slides && (
             <Link icon="i-lucide-monitor text-lg" url={talk.slides}>
               Slides

@@ -5,6 +5,7 @@ date: '2024-02-07T12:00Z'
 location: 'London, England'
 region: 'Europe'
 flag: 'i-circle-flags-uk'
+recordingStatus: 'available'
 video: 'https://youtu.be/qeOxugYs4GQ?si=INsxxhAbouN2PqYS'
 slides: 'https://docs.google.com/presentation/d/1iuf8eH_Xv766z1wke4jI5qnrKuQaD7FHwYWcp4pYRmA/edit?usp=sharing'
 ---

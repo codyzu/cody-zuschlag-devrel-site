@@ -2,12 +2,14 @@
 import type {CollectionEntry} from 'astro:content';
 import {Picture} from 'astro:assets';
 import Link from '../Link.astro';
-import {formatDate} from '../format-date';
+import {formatTalkDate} from './format-talk-date';
+import TalkRecording from './TalkRecording.astro';
 
 interface Props {
   talk: CollectionEntry<'talks'>['data'];
+  now: number;
 }
-const {talk} = Astro.props;
+const {talk, now} = Astro.props;
 ---
 
 <li class="flex min-w-0 flex-col rounded-lg border border-secondary/40">
@@ -32,15 +34,11 @@ const {talk} = Astro.props;
     <h4 class="text-2xl font-bold text-primary leading-tight">{talk.name}</h4>
     <p class="text-secondary">
       {talk.conference} ·{' '}
-      <time datetime={talk.date}>{formatDate(talk.date)}</time>
+      <time datetime={talk.date}>{formatTalkDate(talk.date, now)}</time>
     </p>
     <p class="text-secondary">{talk.description}</p>
     <div class="mt-auto flex flex-wrap gap-x-6 gap-y-2">
-      {talk.video && talk.video !== 'none' && (
-        <Link icon="i-lucide-video text-lg" url={talk.video}>
-          Watch now
-        </Link>
-      )}
+      <TalkRecording talk={talk} />
       {talk.slides && (
         <Link icon="i-lucide-monitor text-lg" url={talk.slides}>
           Slides

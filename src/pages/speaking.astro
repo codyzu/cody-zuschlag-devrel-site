@@ -12,7 +12,7 @@ const recording = await getEntry(
   'talks',
   '2025-08-26-open-source-summit-europe-hypervisor-hierarchy-why-architecture-matters-for-performance-security-and-flexibility',
 );
-if (!recording?.data.video || recording.data.video === 'none') {
+if (!recording?.data.video) {
   throw new Error('The speaker page needs its representative recording.');
 }
 ---

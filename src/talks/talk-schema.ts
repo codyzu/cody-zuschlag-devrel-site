@@ -11,7 +11,13 @@ export function createTalkSchema<T extends z.ZodType>(thumbnailSchema: T) {
       ]),
       location: z.string().min(1),
       region: z.enum(['USA', 'Europe', 'Asia', 'Virtual']),
-      video: z.union([z.url(), z.literal('none')]).optional(),
+      recordingStatus: z.enum([
+        'available',
+        'unpublished',
+        'unavailable',
+        'not-recorded',
+      ]),
+      video: z.url().optional(),
       slides: z.url().optional(),
       repo: z.url().optional(),
       highlightOrder: z.number().int().positive().optional(),
@@ -24,6 +30,14 @@ export function createTalkSchema<T extends z.ZodType>(thumbnailSchema: T) {
         .optional(),
     })
     .strict()
+    .refine(
+      (talk) =>
+        (talk.recordingStatus === 'available') === (talk.video !== undefined),
+      {
+        message: 'Only available recordings require and accept a video URL',
+        path: ['video'],
+      },
+    )
     .refine(
       (talk) =>
         talk.highlightOrder === undefined || talk.description !== undefined,

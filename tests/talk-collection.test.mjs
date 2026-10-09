@@ -3,6 +3,7 @@ import {test} from 'node:test';
 import {talkSchema} from '../src/talks/talk-schema.ts';
 import {sortTalks} from '../src/talks/sort-talks.ts';
 import {sortTalkHighlights} from '../src/talks/sort-talk-highlights.ts';
+import {formatTalkDate} from '../src/talks/format-talk-date.ts';
 
 const talk = {
   conference: 'Example conference',
@@ -10,18 +11,71 @@ const talk = {
   date: '2026-10-01T11:55Z',
   location: 'Virtual',
   region: 'Virtual',
+  recordingStatus: 'unavailable',
 };
 
+test('scheduled dates use the event timestamp and UTC without promising a recording', () => {
+  const date = '2026-12-08T09:00:00+09:00';
+  const event = Date.parse(date);
+  assert.equal(
+    formatTalkDate(date, event - 1),
+    'Scheduled for 8 December 2026',
+  );
+  assert.equal(formatTalkDate(date, event), '8 December 2026');
+  assert.equal(formatTalkDate(date, event + 1), '8 December 2026');
+  assert.equal(
+    formatTalkDate('2026-01-01T00:30:00+02:00', 0),
+    'Scheduled for 31 December 2025',
+  );
+});
+
 test('talk metadata validates dates, regions, URLs, and all recording states', () => {
-  for (const video of [undefined, 'none', 'https://example.com/video']) {
-    assert.equal(talkSchema.parse({...talk, video}).video, video);
+  for (const recordingStatus of [
+    'unpublished',
+    'unavailable',
+    'not-recorded',
+  ]) {
+    assert.equal(
+      talkSchema.parse({...talk, recordingStatus}).recordingStatus,
+      recordingStatus,
+    );
+    assert.equal(
+      talkSchema.safeParse({
+        ...talk,
+        recordingStatus,
+        video: 'https://example.com/video',
+      }).success,
+      false,
+    );
   }
+
+  assert.equal(
+    talkSchema.safeParse({...talk, recordingStatus: 'available'}).success,
+    false,
+  );
+  assert.equal(
+    talkSchema.safeParse({...talk, recordingStatus: undefined}).success,
+    false,
+  );
+  assert.equal(
+    talkSchema.safeParse({...talk, recordingStatus: 'expected'}).success,
+    false,
+  );
+  assert.equal(
+    talkSchema.parse({
+      ...talk,
+      recordingStatus: 'available',
+      video: 'https://example.com/video',
+    }).video,
+    'https://example.com/video',
+  );
 
   for (const invalid of [
     {date: '2026-02-30T11:55Z'},
     {date: '2026-10-01T11:55'},
     {region: 'Antarctica'},
     {video: 'not-a-url'},
+    {video: 'none'},
     {slides: 'none'},
     {conference: ''},
     {slide: 'https://example.com/slides'},

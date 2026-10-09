@@ -50,9 +50,7 @@ test('every talk is prerendered in date order and articles retain their resource
     cursor = position + escape(talk.conference).length;
     assert.ok(talkHtml.includes(escape(talk.name)), talk.name);
     assert.ok(talkHtml.includes(formatDate(talk.date)));
-    const resources = [talk.video, talk.slides, talk.repo].filter(
-      (url) => url && url !== 'none',
-    );
+    const resources = [talk.video, talk.slides, talk.repo].filter(Boolean);
     for (const url of resources) {
       assert.ok(talkHtml.includes(escape(url)), url);
     }
@@ -60,11 +58,16 @@ test('every talk is prerendered in date order and articles retain their resource
 
   assert.equal(
     (talkHtml.match(/Not recorded/gv) ?? []).length,
-    talks.filter((talk) => talk.video === 'none').length,
+    talks.filter((talk) => talk.recordingStatus === 'not-recorded').length,
   );
   assert.equal(
-    (talkHtml.match(/Coming soon/gv) ?? []).length,
-    talks.filter((talk) => talk.video === undefined).length,
+    (talkHtml.match(/Recording unavailable/gv) ?? []).length,
+    talks.filter((talk) => talk.recordingStatus === 'unavailable').length,
+  );
+  assert.doesNotMatch(talkHtml, /Coming soon|Upcoming/v);
+  assert.equal(
+    (talkHtml.match(/Recording not yet published/gv) ?? []).length,
+    talks.filter((talk) => talk.recordingStatus === 'unpublished').length,
   );
   let articleCursor = 0;
   for (const article of articles) {
@@ -103,15 +106,13 @@ test('selected talks precede the intact archive with verified copy and available
     assert.match(card, /loading="lazy"/v);
     assert.match(card, /width="1200" height="675"/v);
     assert.ok(!talkArchive().includes(escape(data.description)));
-    const resources = [data.video, data.slides, data.repo].filter(
-      (url) => url && url !== 'none',
-    );
+    const resources = [data.video, data.slides, data.repo].filter(Boolean);
     assert.equal((card.match(/<a\b/gv) ?? []).length, resources.length);
     for (const url of resources) {
       assert.ok(card.includes(escape(url)));
     }
 
-    assert.doesNotMatch(card, /Coming soon|Not recorded|data-search=/v);
+    assert.doesNotMatch(card, /Coming soon|data-search=/v);
   }
 
   assert.ok(
@@ -119,7 +120,7 @@ test('selected talks precede the intact archive with verified copy and available
   );
   assert.match(talkHtml, /Selected talks to start with/v);
   assert.match(talkHtml, /All speaking engagements/v);
-  assert.equal((talkArchive().match(/<li\b/gv) ?? []).length, 44);
+  assert.equal((talkArchive().match(/<li\b/gv) ?? []).length, talks.length);
 });
 
 test('native anchors, metadata, gallery, and high-priority hero survive migration', () => {
@@ -244,11 +245,7 @@ test('filters enhance static rows and external services have no legacy runtime',
   for (const [index, row] of rows.entries()) {
     const talk = talks[index];
     assert.ok(row.includes(`data-region="${talk.region}"`));
-    assert.ok(
-      row.includes(
-        `data-video="${Boolean(talk.video && talk.video !== 'none')}"`,
-      ),
-    );
+    assert.ok(row.includes(`data-video="${Boolean(talk.video)}"`));
     assert.ok(row.includes(`data-slides="${Boolean(talk.slides)}"`));
     assert.ok(row.includes('data-search='));
     assert.doesNotMatch(row, /\bhidden\b/v);

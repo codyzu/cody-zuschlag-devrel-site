@@ -4,5 +4,6 @@ name: 'Inclusion and Diversity in Open Source | Fireside chat with Robin Ginn an
 date: '2023-01-10T12:00Z'
 location: 'Virtual'
 region: 'Virtual'
+recordingStatus: 'available'
 video: 'https://youtu.be/sa0GwlmIMJY'
 ---
