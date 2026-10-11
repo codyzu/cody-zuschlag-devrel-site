@@ -25,3 +25,7 @@ dist-ssr
 
 # Astro generated types and cache
 .astro/
+
+# Browser test artifacts
+playwright-report/
+test-results/

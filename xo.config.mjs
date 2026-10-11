@@ -4,7 +4,16 @@ import astro from 'eslint-plugin-astro';
 @type {import('xo').FlatXoConfig}
 */
 const config = [
-  {ignores: ['dist/**', '.astro/**', '.anima/**', 'node_modules/**']},
+  {
+    ignores: [
+      'dist/**',
+      '.astro/**',
+      '.anima/**',
+      'node_modules/**',
+      'playwright-report/**',
+      'test-results/**',
+    ],
+  },
   {
     // Prettier owns formatting; disable conflicting XO style rules.
     prettier: 'compat',
@@ -39,6 +48,11 @@ const config = [
     files: ['package.json'],
     // Toolchain versions are deliberately pinned; pnpm records exact resolutions.
     rules: {'package-json/dependency-version-range': 'off'},
+  },
+  {
+    files: ['tests/browser/**/*.mjs'],
+    // Browser actions must run in order within each user journey.
+    rules: {'no-await-in-loop': 'off'},
   },
   {
     files: ['tests/**/*.test.mjs'],

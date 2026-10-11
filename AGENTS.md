@@ -19,7 +19,7 @@
 ## Working and validating
 
 - Inspect the current diff before editing and preserve unrelated work, including `.anima/`. Edit source files; `dist/` and `.astro/` are generated output.
-- For application changes, run `pnpm check`, `pnpm lint`, `pnpm format:check`, `pnpm build`, then `pnpm test`. Tests inspect generated HTML/CSS, so build first. Documentation-only changes need formatting validation.
+- For application changes, run `pnpm check`, `pnpm lint`, `pnpm format:check`, `pnpm build`, then `pnpm test` and `pnpm test:browser`. Tests inspect the production build, so build first. Install Chromium with `pnpm exec playwright install chromium` initially and after Playwright updates. The browser suite runs on preview port 4322 at desktop/mobile widths and isolates external services; keep manual checks for live fonts, tiles, and analytics. Documentation-only changes need formatting validation.
 - Verify layout and interaction changes in the browser at mobile and desktop widths. Check no-JavaScript reading, native anchors, keyboard behavior, and console errors when relevant. For talk layout/filter changes, verify column alignment and that hidden rows occupy no space. Report which browsers were actually checked.
 - Use `pnpm dev` for development on port 4321; `pnpm preview` serves production output on port 4322. Reuse a healthy existing server. Do not silently change ports or stop unrelated servers. A successful production build alone does not verify development or hot updates.
 

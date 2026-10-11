@@ -2,8 +2,6 @@ name: 'CI/CD'
 on:
   pull_request:
   push:
-    branches:
-      - main
 
 # Cancel any previous CI runs for this branch or PR
 concurrency:
@@ -44,6 +42,23 @@ jobs:
           pnpm run format:check
           pnpm run build
           pnpm run test
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Browser and accessibility tests
+        run: pnpm test:browser
+
+      - name: Save browser failure diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-test-diagnostics
+          path: |
+            playwright-report
+            test-results
+          retention-days: 7
+          if-no-files-found: ignore
 
       - name: Save build
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
