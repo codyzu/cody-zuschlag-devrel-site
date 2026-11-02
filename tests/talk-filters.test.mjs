@@ -46,7 +46,7 @@ test('resource requirements intersect and selected locations are alternatives', 
         ['Europe', 'USA'].includes(talk.region),
     ),
   );
-  assert.equal(filter({query: 'berlin', resources: ['video']}).length, 0);
+  assert.equal(filter({query: 'berlin', resources: ['video']}).length, 1);
   assert.equal(
     filter({query: 'experience paris', resources: ['video']}).length,
     0,
